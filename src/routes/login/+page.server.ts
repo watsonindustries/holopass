@@ -7,23 +7,17 @@ export const actions: Actions = {
 		const provider = url.searchParams.get('provider') as Provider;
 		const { supabase } = locals;
 
-		console.log('got login request with provider:', provider);
-
 		if (provider) {
 			const { data, error } = await supabase.auth.signInWithOAuth({
 				provider,
 				options: {
-					redirectTo: `http://localhost:5173/auth/callback`
+					redirectTo: `http://localhost:5173/mypass` // where the user goes after logging in
 				}
 			});
-
-			throw redirect(303, data.url);
-
-			console.log(data);
-
 			if (error) {
 				fail(500);
 			}
+			throw redirect(303, data.url);
 		}
 	}
 };

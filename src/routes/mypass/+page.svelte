@@ -3,66 +3,81 @@
 
 	import Badge from '$lib/components/Badge.svelte';
 	import { onMount } from 'svelte';
+	import Avatar from '$lib/components/Avatar.svelte';
 
 	export let data: PageData;
 
 	$: ({ supabase } = data);
 
-	let nickname = 'danirukun';
-	let avatarURL = 'https://github.com/danirukun.png';
+	let nickname = 'unknown';
+	let avatarURL = '';
 	let location = 'Vienna, Austria';
 	let oshis = ['🔎', '🐔', '👁️‍🗨️'];
 	let bio = `👋 Hi, I'm DaniruKun. I'm a software engineer and I love to build things. I'm also a big fan of Hololive and I love to watch anime. Also enjoy photography and going to cons around the world.`;
-	let badges = ['Connect the World', 'Holofes 2024'];
+	let badges = [
+		'Connect the World 2023',
+		'stage1 2024',
+		'stage2 2024',
+		'stage3 2024',
+		'honeyworks 2024'
+	];
 
 	onMount(async () => {
+		// TODO: move this into the page.ts
 		const { data: sbData, error } = await supabase.auth.getUser();
-		console.log(sbData.user, error);
+		if (error) {
+			console.error('Error fetching user data:', error);
+			return;
+		}
+
+		const { user } = sbData;
+		console.log(user);
+		// hydrate the user info in the pass
+		nickname = user?.user_metadata.full_name;
+		avatarURL = user?.user_metadata.avatar_url;
 	});
 </script>
 
-<div class="card m-4 bg-slate-50 p-6 shadow-lg">
-	<section id="my-info" class="h-screen/2 flex">
-		<section class="w-1/3 flex-1" id="profile-pic">
-			<div class="avatar m-4">
-				<div class="w-full rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
-					<img src={avatarURL} alt="My avatar" />
+<div id="my-pass-container" class="pb-36">
+	<div class="card m-4 bg-slate-50 p-6 shadow-lg">
+		<section id="my-info" class="flex">
+			<section class="w-1/3 flex-1" id="profile-pic">
+				<Avatar {avatarURL} />
+				<p class="mb-4 text-center align-middle">holopass</p>
+			</section>
+
+			<section class="flex-2 w-2/3 space-y-4 p-4">
+				<div id="nickname">
+					<p class="text-sm uppercase">Nickname</p>
+					<p class="text-2xl">{nickname}</p>
 				</div>
-			</div>
-			<p class="mb-4 text-center align-middle">holopass</p>
+
+				<div id="location">
+					<p class="text-sm uppercase">Location</p>
+					<p class="text-2xl">{location}</p>
+				</div>
+
+				<div id="oshi">
+					<p class="text-sm uppercase">Oshi</p>
+					<p class="text-2xl">{oshis.join(' ')}</p>
+				</div>
+			</section>
 		</section>
 
-		<section class="flex-2 w-2/3 space-y-4 p-4">
-			<div id="nickname">
-				<p class="text-sm uppercase">Nickname</p>
-				<p class="text-2xl">{nickname}</p>
-			</div>
+		<section id="bio" class="space-y-4 bg-slate-50 p-4">
+			<p class="text-sm uppercase">Bio</p>
+			<p class="text-xl">
+				{bio}
+			</p>
+		</section>
 
-			<div id="location">
-				<p class="text-sm uppercase">Location</p>
-				<p class="text-2xl">{location}</p>
-			</div>
-
-			<div id="oshi">
-				<p class="text-sm uppercase">Oshi</p>
-				<p class="text-2xl">{oshis.join(' ')}</p>
+		<section id="badges" class="space-y-4 p-4">
+			<p class="text-sm uppercase">badges</p>
+			<div class="space-y-8">
+				{#each badges as badge}
+					<Badge name={badge} />
+				{/each}
 			</div>
 		</section>
-	</section>
-
-	<section id="bio" class="space-y-4 bg-slate-50 p-4">
-		<p class="text-sm uppercase">Bio</p>
-		<p class="text-xl">
-			{bio}
-		</p>
-	</section>
-
-	<section id="badges" class="space-y-4 p-4">
-		<p class="text-sm uppercase">badges</p>
-		<div class="space-y-8">
-			{#each badges as badge}
-				<Badge name={badge} />
-			{/each}
-		</div>
-	</section>
+	</div>
 </div>

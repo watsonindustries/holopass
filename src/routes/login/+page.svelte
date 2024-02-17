@@ -10,7 +10,7 @@
 		<div class="card-actions justify-end">
 			<form class="" id="social-login" method="post">
 				<button formaction="?/login&provider=discord" class="btn btn-primary rounded-full"
-					>Discord</button
+					>Login with Discord</button
 				>
 			</form>
 		</div>
