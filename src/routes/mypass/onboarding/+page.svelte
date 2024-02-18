@@ -4,17 +4,16 @@
 
 	export let data: PageData;
 
-	const { badges: availableBadges } = data;
+	const { badges, talents, userData } = data;
 
 	let user = {
-		nickname: data.userData.user?.user_metadata.full_name,
-		avatarURL: data.userData.user?.user_metadata.avatar_url,
-		bio: data.userData.user?.user_metadata.bio,
-		location: data.userData.user?.user_metadata.location,
-		badgeIds: data.userData.user?.user_metadata.badgeIds
+		nickname: userData.user?.user_metadata.full_name,
+		avatarURL: userData.user?.user_metadata.avatar_url,
+		bio: userData.user?.user_metadata.bio,
+		location: userData.user?.user_metadata.location,
+		badgeIds: userData.user?.user_metadata.badgeIds,
+		oshiIds: userData.user?.user_metadata.oshiIds
 	};
-
-	$: console.log(user);
 </script>
 
 <section id="basic-info" class="space-y-4 p-6 pb-36">
@@ -27,7 +26,7 @@
 
 	<section id="profile-details">
 		<h3 class="text-2xl">Basic Info</h3>
-		<form method="post">
+		<form method="post" class="space-y-4">
 			<label class="form-control w-full max-w-xs">
 				<div class="label">
 					<span class="label-text">What is your nickname?</span>
@@ -43,7 +42,7 @@
 					<span class="label-text-alt">*Required</span>
 				</div>
 			</label>
-			<br />
+
 			<label class="form-control w-full max-w-xs">
 				<div class="label">
 					<span class="label-text">Where are you from?</span>
@@ -59,11 +58,6 @@
 					<span class="label-text-alt">Optional</span>
 				</div>
 			</label>
-			<br />
-
-			<!-- <label for="oshi">Oshi</label>
-            <input type="text" id="oshi" name="oshi" />
-            <br /> -->
 
 			<label class="form-control">
 				<div class="label">
@@ -81,21 +75,41 @@
 				</div>
 			</label>
 
-			<h3 class="text-2xl">Badges</h3>
-			<div class="form-control">
-				{#each availableBadges as badge}
-					<label class="label cursor-pointer">
-						<span class="label-text">{badge.name}</span>
-						<input
-							type="checkbox"
-							class="checkbox-accent checkbox"
-							checked={user.badgeIds.includes(badge.id)}
-							id={badge.id}
-							name="badge-{badge.id}"
-						/>
-					</label>
-				{/each}
-			</div>
+			<section id="badges">
+				<h3 class="text-2xl">Badges</h3>
+				<div class="form-control">
+					{#each badges as badge}
+						<label class="label cursor-pointer">
+							<span class="label-text">{badge.name}</span>
+							<input
+								type="checkbox"
+								class="checkbox-accent checkbox"
+								checked={user.badgeIds.includes(badge.id)}
+								id={badge.id}
+								name="badge-{badge.id}"
+							/>
+						</label>
+					{/each}
+				</div>
+			</section>
+
+			<section id="talents">
+				<h3 class="text-2xl">Oshi</h3>
+				<div class="form-control">
+					{#each talents as talent}
+						<label class="label cursor-pointer">
+							<span class="label-text">{talent.fanmark} {talent.name_en}</span>
+							<input
+								type="checkbox"
+								class="checkbox-accent checkbox"
+								checked={user.oshiIds?.includes(talent.id)}
+								id={talent.id}
+								name="talent-{talent.id}"
+							/>
+						</label>
+					{/each}
+				</div>
+			</section>
 
 			<button type="submit" class="btn btn-primary my-2 w-full rounded-full text-xl">Save</button>
 		</form>

@@ -7,8 +7,6 @@
 
 	export let data: PageData;
 
-	$: ({ supabase } = data);
-
 	let nickname = 'unknown';
 	let avatarURL = '';
 	let location = 'Vienna, Austria';
@@ -23,18 +21,12 @@
 	];
 
 	onMount(async () => {
-		// TODO: move this into the page.ts
-		const { data: sbData, error } = await supabase.auth.getUser();
-		if (error) {
-			console.error('Error fetching user data:', error);
-			return;
-		}
-
-		const { user } = sbData;
+		const { user } = data.session || {};
 		console.log(user);
 		// hydrate the user info in the pass
 		nickname = user?.user_metadata.full_name;
 		avatarURL = user?.user_metadata.avatar_url;
+		bio = user?.user_metadata.bio;
 	});
 </script>
 
