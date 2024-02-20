@@ -7,12 +7,12 @@
 	const { badges, talents, user: userData } = data;
 
 	let user = {
-		nickname: userData.user?.user_metadata.full_name,
-		avatarURL: userData.user?.user_metadata.avatar_url,
-		bio: userData.user?.user_metadata.bio,
-		location: userData.user?.user_metadata.location,
-		badgeIds: userData.user?.user_metadata.badgeIds,
-		oshiIds: userData.user?.user_metadata.oshiIds
+		nickname: userData.user_metadata.full_name,
+		avatarURL: userData.user_metadata.avatar_url,
+		bio: userData.user_metadata.bio,
+		location: userData.user_metadata.location,
+		badgeIds: userData.user_metadata.badgeIds || [],
+		oshiIds: userData.user_metadata.oshiIds || []
 	};
 </script>
 
@@ -84,7 +84,7 @@
 							<input
 								type="checkbox"
 								class="checkbox-accent checkbox"
-								checked={user.badgeIds.includes(badge.id)}
+								checked={user.badgeIds?.includes(badge.id)}
 								id={badge.id}
 								name="badge-{badge.id}"
 							/>
