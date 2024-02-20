@@ -48,7 +48,15 @@
 
 				<div id="oshi">
 					<p class="text-sm uppercase">Oshi</p>
-					<p class="text-2xl">{oshi.map((oshi) => oshi.fanmark).join(' ')}</p>
+					{#if oshi.length === 0}
+						<p class="text-2xl">None</p>
+					{:else}
+						{#if oshi.length > 1}
+							<p class="text-2xl">{oshi.map((oshi) => oshi.fanmark).join(' ')}</p>
+						{:else}
+							<p class="text-2xl">{oshi[0].fanmark}</p>
+						{/if}
+					{/if}
 				</div>
 			</section>
 		</section>
