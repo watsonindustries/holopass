@@ -7,7 +7,7 @@
 	const { badges, talents, user: userData } = data;
 
 	let user = {
-		nickname: userData.user_metadata.full_name,
+		nickname: userData.user_metadata.nickname,
 		avatarURL: userData.user_metadata.avatar_url,
 		bio: userData.user_metadata.bio,
 		location: userData.user_metadata.location,

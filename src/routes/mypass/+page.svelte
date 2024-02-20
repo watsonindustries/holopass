@@ -17,7 +17,7 @@
 		const { user } = data.session || {};
 		console.log(user);
 		// hydrate the user info in the pass
-		nickname = user?.user_metadata.full_name;
+		nickname = user?.user_metadata.nickname;
 		avatarURL = user?.user_metadata.avatar_url;
 		bio = user?.user_metadata.bio;
 		location = user?.user_metadata.location;
