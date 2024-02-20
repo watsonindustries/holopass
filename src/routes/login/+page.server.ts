@@ -11,7 +11,7 @@ export const actions: Actions = {
 			const { data, error } = await supabase.auth.signInWithOAuth({
 				provider,
 				options: {
-					redirectTo: `http://localhost:5173/mypass` // where the user goes after logging in
+					redirectTo: `http://localhost:5173/` // where the user goes after logging in
 				}
 			});
 			if (error) {

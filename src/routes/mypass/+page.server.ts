@@ -1,20 +1,15 @@
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
-	const { supabase, getSession } = event.locals;
+	const { supabase } = event.locals;
 
-	const session = await getSession();
+	const { data: { user } } = await supabase.auth.getUser()
 
-	if (!session) {
-		return {
-			status: 302,
-			headers: {
-				location: '/login'
-			}
-		};
+	if (!user) {
+		console.log('No session');
+		redirect(303, '/login');
 	}
-
-	const { user } = session;
 
 	const { data: badges, error } = await supabase
 		.from('badges')

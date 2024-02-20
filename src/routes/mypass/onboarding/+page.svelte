@@ -4,7 +4,7 @@
 
 	export let data: PageData;
 
-	const { badges, talents, userData } = data;
+	const { badges, talents, user: userData } = data;
 
 	let user = {
 		nickname: userData.user?.user_metadata.full_name,
