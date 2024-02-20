@@ -1,24 +1,17 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-
+	import Avatar from '$lib/components/Avatar.svelte';
 	import Badge from '$lib/components/Badge.svelte';
 	import { onMount } from 'svelte';
-	import Avatar from '$lib/components/Avatar.svelte';
 
 	export let data: PageData;
 
 	let nickname = 'unknown';
 	let avatarURL = '';
-	let location = 'Vienna, Austria';
-	let oshis = ['🔎', '🐔', '👁️‍🗨️'];
-	let bio = `👋 Hi, I'm DaniruKun. I'm a software engineer and I love to build things. I'm also a big fan of Hololive and I love to watch anime. Also enjoy photography and going to cons around the world.`;
-	let badges = [
-		'Connect the World 2023',
-		'stage1 2024',
-		'stage2 2024',
-		'stage3 2024',
-		'honeyworks 2024'
-	];
+	let location = 'none';
+	let bio = '';
+	let oshi = [] as { fanmark: string }[];
+	let badges = [] as { name: string }[];
 
 	onMount(async () => {
 		const { user } = data.session || {};
@@ -27,6 +20,10 @@
 		nickname = user?.user_metadata.full_name;
 		avatarURL = user?.user_metadata.avatar_url;
 		bio = user?.user_metadata.bio;
+		location = user?.user_metadata.location;
+
+		badges = data.badges;
+		oshi = data.oshi;
 	});
 </script>
 
@@ -51,7 +48,7 @@
 
 				<div id="oshi">
 					<p class="text-sm uppercase">Oshi</p>
-					<p class="text-2xl">{oshis.join(' ')}</p>
+					<p class="text-2xl">{oshi.map((oshi) => oshi.fanmark).join(' ')}</p>
 				</div>
 			</section>
 		</section>
@@ -66,8 +63,8 @@
 		<section id="badges" class="space-y-4 p-4">
 			<p class="text-sm uppercase">badges</p>
 			<div class="space-y-8">
-				{#each badges as badge}
-					<Badge name={badge} />
+				{#each badges as { name }}
+					<Badge {name} />
 				{/each}
 			</div>
 		</section>
