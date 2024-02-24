@@ -66,5 +66,5 @@
 		</section>
 	</div>
 
-	<a href="/mypass/edit" class="btn btn-secondary w-full rounded-full text-xl">Edit</a>
+	<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-xl">Edit</a>
 </div>

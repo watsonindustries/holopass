@@ -59,7 +59,6 @@
 	transition:fade={{ delay: 150, duration: 200 }}
 >
 	<section id="header" class="space-y-2">
-		<h2 class="text-center text-4xl font-semibold tracking-tight">Setup your Pass</h2>
 		<div class="mx-auto max-w-40">
 			<Avatar {avatarURL} />
 		</div>
@@ -70,7 +69,7 @@
 		<form method="post" class="space-y-4" bind:this={profileForm}>
 			<label class="form-control w-full max-w-xs">
 				<div class="label">
-					<span class="label-text">What is your nickname?</span>
+					<span class="label-text">Nickname</span>
 				</div>
 				<input
 					type="text"

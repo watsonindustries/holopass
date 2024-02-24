@@ -5,8 +5,8 @@ export default {
 		themes: [
 			{
 				holographic: {
-					primary: '#27CDF2',
-					secondary: '#F26BB5',
+					primary: '#F26BB5',
+					secondary: '#27CDF2',
 					accent: '#389BF2',
 					neutral: '#062233',
 					'base-100': '#efefef',
