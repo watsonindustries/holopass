@@ -55,13 +55,14 @@ export const actions: Actions = {
 			badge_ids: badgeIds,
 			talent_ids: talentIds
 		});
+
 		if (error) {
 			return fail(500, { nickname, location, bio, badgeIds, talentIds });
 		}
 
-		return { nickname, location, bio, badgeIds, talentIds };
+		return { nickname, location, bio, badgeIds, talentIds, success: true };
 	}
-};
+} satisfies Actions;
 
 // Takes an iterable of FormDataEntryValue as input and returns an array of ids to be used as foreign keys
 // The key name is expected to be in the format of `<entityName>-<id>`

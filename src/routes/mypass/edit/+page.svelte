@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import { fly, fade } from 'svelte/transition';
 
 	import Avatar from '$lib/components/Avatar.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
 	export let form;
+	export let data: PageData;
 
 	let { session, supabase, profile, badges, talents } = data;
 	$: ({ session, supabase, profile, badges, talents } = data);
 
-	$: console.log(profile);
+	$: console.log(profile, form);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -24,21 +24,40 @@
 
 	const handleSubmit: SubmitFunction = () => {
 		loading = true;
+
 		return async () => {
 			loading = false;
 		};
 	};
-
-	const handleSignOut: SubmitFunction = () => {
-		loading = true;
-		return async ({ update }) => {
-			loading = false;
-			update();
-		};
-	};
 </script>
 
-<section id="basic-info" class="space-y-4 p-6 pb-36">
+{#if form?.success}
+	<div
+		role="alert"
+		class="alert alert-info m-4 flex w-auto flex-row justify-center justify-items-center gap-2"
+		transition:fly={{ duration: 300, y: -100 }}
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-6 w-6 shrink-0 stroke-current"
+			fill="none"
+			viewBox="0 0 24 24"
+			><path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+			/></svg
+		>
+		<span>Pass updated!</span>
+	</div>
+{/if}
+
+<section
+	id="basic-info"
+	class="space-y-4 p-6 pb-36"
+	transition:fade={{ delay: 150, duration: 200 }}
+>
 	<section id="header" class="space-y-2">
 		<h2 class="text-center text-4xl font-semibold tracking-tight">Setup your Pass</h2>
 		<div class="mx-auto max-w-40">
@@ -48,7 +67,7 @@
 
 	<section id="profile-details">
 		<h3 class="text-2xl">Basic Info</h3>
-		<form method="post" class="space-y-4" use:enhance={handleSubmit} bind:this={profileForm}>
+		<form method="post" class="space-y-4" bind:this={profileForm}>
 			<label class="form-control w-full max-w-xs">
 				<div class="label">
 					<span class="label-text">What is your nickname?</span>

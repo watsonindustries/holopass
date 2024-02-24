@@ -17,8 +17,8 @@
 	let oshis: { fanmark: string }[] = oshi ?? [];
 </script>
 
-<div id="my-pass-container" class="pb-36" transition:fade={{ delay: 150, duration: 200 }}>
-	<div class="card m-4 bg-slate-50 p-6 shadow-lg">
+<div id="my-pass-container" class="pb-36 mx-4 mt-4 space-y-6" transition:fade={{ delay: 150, duration: 200 }}>
+	<div class="card bg-slate-50 p-6 shadow-lg" id="pass-card">
 		<section id="my-info" class="flex">
 			<section class="w-1/3 flex-1" id="profile-pic">
 				<Avatar {avatarURL} />
@@ -65,4 +65,6 @@
 			</div>
 		</section>
 	</div>
+
+	<a href="/mypass/edit" class="btn btn-secondary w-full rounded-full text-xl">Edit</a>
 </div>
