@@ -3,6 +3,8 @@
 	import Avatar from '$lib/components/Avatar.svelte';
 	import Badge from '$lib/components/Badge.svelte';
 
+	import { fade } from 'svelte/transition';
+
 	export let data: PageData;
 
 	let { session, supabase, profile, badges, oshi } = data;
@@ -15,7 +17,7 @@
 	let oshis: { fanmark: string }[] = oshi ?? [];
 </script>
 
-<div id="my-pass-container" class="pb-36">
+<div id="my-pass-container" class="pb-36" transition:fade={{ delay: 150, duration: 200 }}>
 	<div class="card m-4 bg-slate-50 p-6 shadow-lg">
 		<section id="my-info" class="flex">
 			<section class="w-1/3 flex-1" id="profile-pic">

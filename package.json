@@ -40,6 +40,7 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/ssr": "^0.1.0",
-		"@supabase/supabase-js": "^2.39.4"
+		"@supabase/supabase-js": "^2.39.4",
+		"svelte-awesome": "^3.3.1"
 	}
 }

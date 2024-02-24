@@ -13,8 +13,6 @@ export const load = (async (event) => {
 
 	const { user } = session;
 
-	console.log(user);
-
 	const { data: profile } = await supabase
 		.from('profiles')
 		.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids')
