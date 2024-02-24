@@ -6,7 +6,7 @@
 	export let pathname = '/';
 </script>
 
-<div class="btm-nav text-info">
+<div class="btm-nav text-info xl:mx-auto xl:max-w-xl">
 	<a class:active={pathname === '/'} href="/">
 		<Icon data={home} scale={1.5} />
 		<span class="btm-nav-label">Home</span>

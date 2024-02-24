@@ -21,6 +21,7 @@
 	});
 </script>
 
-<slot />
-
-<BottomNav {pathname} />
+<div class="xl:mx-auto xl:max-w-xl">
+	<slot />
+	<BottomNav {pathname} />
+</div>
