@@ -16,9 +16,9 @@
 	}
 </script>
 
-<h1 class="text-4xl font-bold tracking-tight mb-4">Welcome to holopass</h1>
+<h1 class="mb-4 text-4xl font-bold tracking-tight">Welcome to holopass</h1>
 
 <a href="/mypass" class="btn btn-primary rounded-full">My Pass</a>
-<a href="/mypass/onboarding" class="btn btn-primary rounded-full">Onboarding</a>
+<a href="/mypass/edit" class="btn btn-primary rounded-full">Edit profile</a>
 <a href="/login" class="btn btn-primary rounded-full">Login</a>
 <button class="btn btn-primary rounded-full" on:click={handleLogout}>Logout</button>

@@ -2,29 +2,17 @@
 	import type { PageData } from './$types';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import Badge from '$lib/components/Badge.svelte';
-	import { onMount } from 'svelte';
 
 	export let data: PageData;
 
-	let nickname = 'unknown';
-	let avatarURL = '';
-	let location = 'none';
-	let bio = '';
-	let oshi = [] as { fanmark: string }[];
-	let badges = [] as { name: string }[];
+	let { session, supabase, profile, badges, oshi } = data;
+	$: ({ session, supabase, profile, badges, oshi } = data);
 
-	onMount(async () => {
-		const { user } = data.session || {};
-		console.log(user);
-		// hydrate the user info in the pass
-		nickname = user?.user_metadata.nickname;
-		avatarURL = user?.user_metadata.avatar_url;
-		bio = user?.user_metadata.bio;
-		location = user?.user_metadata.location;
-
-		badges = data.badges;
-		oshi = data.oshi;
-	});
+	let nickname: string = profile?.nickname ?? '';
+	let avatarURL: string = profile?.avatar_url ?? '';
+	let location: string = profile?.location ?? '';
+	let bio: string = profile?.bio ?? '';
+	let oshis: { fanmark: string }[] = oshi ?? [];
 </script>
 
 <div id="my-pass-container" class="pb-36">
@@ -32,7 +20,7 @@
 		<section id="my-info" class="flex">
 			<section class="w-1/3 flex-1" id="profile-pic">
 				<Avatar {avatarURL} />
-				<p class="mb-4 text-center align-middle">holopass</p>
+				<p class="mb-4 text-center align-middle text-slate-600">holopass</p>
 			</section>
 
 			<section class="flex-2 w-2/3 space-y-4 p-4">
@@ -48,14 +36,12 @@
 
 				<div id="oshi">
 					<p class="text-sm uppercase">Oshi</p>
-					{#if oshi.length === 0}
+					{#if oshis.length === 0}
 						<p class="text-2xl">None</p>
+					{:else if oshis.length > 1}
+						<p class="text-2xl">{oshis.map((oshi) => oshi.fanmark).join(' ')}</p>
 					{:else}
-						{#if oshi.length > 1}
-							<p class="text-2xl">{oshi.map((oshi) => oshi.fanmark).join(' ')}</p>
-						{:else}
-							<p class="text-2xl">{oshi[0].fanmark}</p>
-						{/if}
+						<p class="text-2xl">{oshi[0].fanmark}</p>
 					{/if}
 				</div>
 			</section>

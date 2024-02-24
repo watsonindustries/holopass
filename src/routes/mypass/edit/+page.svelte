@@ -1,18 +1,40 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
+
 	import Avatar from '$lib/components/Avatar.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	export let form;
 
-	const { badges, talents, user: userData } = data;
+	let { session, supabase, profile, badges, talents } = data;
+	$: ({ session, supabase, profile, badges, talents } = data);
 
-	let user = {
-		nickname: userData.user_metadata.nickname || userData.user_metadata.full_name,
-		avatarURL: userData.user_metadata.avatar_url,
-		bio: userData.user_metadata.bio,
-		location: userData.user_metadata.location,
-		badgeIds: userData.user_metadata.badgeIds || [],
-		oshiIds: userData.user_metadata.oshiIds || []
+	$: console.log(profile);
+
+	let profileForm: HTMLFormElement;
+	let loading = false;
+	let nickname: string = profile?.nickname ?? '';
+	let avatarURL: string = profile?.avatar_url ?? '';
+	let location: string = profile?.location ?? '';
+	let bio: string = profile?.bio ?? '';
+	let badgeIds: string[] = profile?.badge_ids ?? [];
+	let oshiIds: string[] = profile?.talent_ids ?? [];
+
+	const handleSubmit: SubmitFunction = () => {
+		loading = true;
+		return async () => {
+			loading = false;
+		};
+	};
+
+	const handleSignOut: SubmitFunction = () => {
+		loading = true;
+		return async ({ update }) => {
+			loading = false;
+			update();
+		};
 	};
 </script>
 
@@ -20,13 +42,13 @@
 	<section id="header" class="space-y-2">
 		<h2 class="text-center text-4xl font-semibold tracking-tight">Setup your Pass</h2>
 		<div class="mx-auto max-w-40">
-			<Avatar avatarURL={user.avatarURL} />
+			<Avatar {avatarURL} />
 		</div>
 	</section>
 
 	<section id="profile-details">
 		<h3 class="text-2xl">Basic Info</h3>
-		<form method="post" class="space-y-4">
+		<form method="post" class="space-y-4" use:enhance={handleSubmit} bind:this={profileForm}>
 			<label class="form-control w-full max-w-xs">
 				<div class="label">
 					<span class="label-text">What is your nickname?</span>
@@ -35,8 +57,8 @@
 					type="text"
 					name="nickname"
 					id="nickname"
-					bind:value={user.nickname}
 					class="input input-bordered input-primary w-full max-w-xs"
+					value={form?.nickname ?? nickname}
 				/>
 				<div class="label">
 					<span class="label-text-alt">*Required</span>
@@ -51,8 +73,8 @@
 					type="text"
 					name="location"
 					id="location"
-					bind:value={user.location}
 					class="input input-bordered input-secondary w-full max-w-xs"
+					value={form?.location ?? location}
 				/>
 				<div class="label">
 					<span class="label-text-alt">Optional</span>
@@ -68,7 +90,7 @@
 					id="bio"
 					class="textarea textarea-bordered textarea-secondary h-24"
 					placeholder="Bio"
-					bind:value={user.bio}
+					value={form?.bio ?? bio}
 				></textarea>
 				<div class="label">
 					<span class="label-text-alt">Optional</span>
@@ -84,7 +106,7 @@
 							<input
 								type="checkbox"
 								class="checkbox-accent checkbox"
-								checked={user.badgeIds?.includes(badge.id)}
+								checked={badgeIds?.includes(badge.id)}
 								id={badge.id}
 								name="badge-{badge.id}"
 							/>
@@ -102,7 +124,7 @@
 							<input
 								type="checkbox"
 								class="checkbox-accent checkbox"
-								checked={user.oshiIds?.includes(talent.id)}
+								checked={oshiIds?.includes(talent.id)}
 								id={talent.id}
 								name="talent-{talent.id}"
 							/>
@@ -111,7 +133,9 @@
 				</div>
 			</section>
 
-			<button type="submit" class="btn btn-primary my-2 w-full rounded-full text-xl">Save</button>
+			<button type="submit" class="btn btn-primary my-2 w-full rounded-full text-xl"
+				>{loading ? 'Saving...' : 'Save'}</button
+			>
 		</form>
 	</section>
 </section>

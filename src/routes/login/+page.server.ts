@@ -1,7 +1,7 @@
+import { dev } from '$app/environment';
 import { type Provider } from '@supabase/supabase-js';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { dev } from '$app/environment';
 
 export const actions: Actions = {
 	login: async ({ locals, url }) => {

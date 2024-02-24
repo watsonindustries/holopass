@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
-	
+
 	export let data: LayoutData;
 
 	let { supabase, session } = data;
