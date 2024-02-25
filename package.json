@@ -39,6 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fortawesome/free-brands-svg-icons": "^6.5.1",
 		"@supabase/ssr": "^0.1.0",
 		"@supabase/supabase-js": "^2.39.4",
 		"svelte-awesome": "^3.3.1",
