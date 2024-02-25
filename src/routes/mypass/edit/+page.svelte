@@ -4,6 +4,7 @@
 
 	import Avatar from '$lib/components/Avatar.svelte';
 	import type { PageData } from './$types';
+	import type { Talent } from '../../../custom';
 
 	export let form;
 	export let data: PageData;
@@ -11,7 +12,16 @@
 	let { session, supabase, profile, badges, talents } = data;
 	$: ({ session, supabase, profile, badges, talents } = data);
 
-	$: console.log(profile, form);
+	// group talents by generation
+	const generations = (talents as Talent[]).reduce((acc: any, talent: Talent) => {
+		if (!acc[talent.gen]) {
+			acc[talent.gen] = [];
+		}
+		acc[talent.gen].push(talent);
+		return acc;
+	}, {}) as { [key: string]: Talent[] };
+
+	console.log('generations:', generations);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -19,8 +29,8 @@
 	let avatarURL: string = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
-	let badgeIds: string[] = profile?.badge_ids ?? [];
-	let oshiIds: string[] = profile?.talent_ids ?? [];
+	let badgeIds: number[] = profile?.badge_ids ?? [];
+	let oshiIds: number[] = profile?.talent_ids ?? [];
 
 	const handleSubmit: SubmitFunction = () => {
 		loading = true;
@@ -115,7 +125,7 @@
 				</div>
 			</label>
 
-			<section id="badges">
+			<section id="badges" class="space-y-2">
 				<h3 class="text-2xl">Badges</h3>
 				<div class="form-control">
 					{#each badges as badge}
@@ -133,26 +143,36 @@
 				</div>
 			</section>
 
-			<section id="talents">
+			<section id="talents" class="space-y-2">
 				<h3 class="text-2xl">Oshi</h3>
-				<div class="form-control">
-					{#each talents as talent}
-						<label class="label cursor-pointer">
-							<span class="label-text">{talent.fanmark} {talent.name_en}</span>
-							<input
-								type="checkbox"
-								class="checkbox-accent checkbox"
-								checked={oshiIds?.includes(talent.id)}
-								id={talent.id}
-								name="talent-{talent.id}"
-							/>
-						</label>
+				<div class="form-control gap-4">
+					{#each Object.entries(generations) as [gen, ts]}
+						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+						<div tabindex="0" class="collapse collapse-arrow border border-accent bg-base-100">
+							<div class="collapse-title text-xl font-medium">
+								<h4 class="text-xl">{gen}</h4>
+							</div>
+							<div class="collapse-content">
+								{#each ts as talent}
+									<label class="label cursor-pointer">
+										<span class="label-text">{talent.fanmark} {talent.name_en}</span>
+										<input
+											type="checkbox"
+											class="checkbox-accent checkbox"
+											checked={oshiIds?.includes(talent.id)}
+											id={talent.id.toString()}
+											name="talent-{talent.id}"
+										/>
+									</label>
+								{/each}
+							</div>
+						</div>
 					{/each}
 				</div>
 			</section>
 
 			<button type="submit" class="btn btn-primary my-2 w-full rounded-full text-xl"
-				>{loading ? 'Saving...' : 'Save'}</button
+				>{@html loading ? '<span class="loading loading-spinner"></span> Saving...' : 'Save'}</button
 			>
 		</form>
 	</section>
