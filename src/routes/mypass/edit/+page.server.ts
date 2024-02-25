@@ -1,6 +1,34 @@
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
+import { z } from 'zod';
+
+const profileSchema = z.object({
+	nickname: z
+		.string()
+		.min(3)
+		.max(30)
+		.trim(),
+	location: z
+		.string()
+		.max(30)
+		.optional(),
+	bio: z
+		.string()
+		.min(0)
+		.max(250, { message: 'Bio must be less than 250 characters' })
+		.trim()
+		.optional(),
+	badge_ids: z
+		.array(z.number())
+		.max(100)
+		.optional(),
+	talent_ids: z
+		.array(z.number())
+		.max(100)
+		.optional()
+});
+
 export const load = (async ({ locals }) => {
 	const { supabase } = locals;
 
@@ -39,6 +67,7 @@ export const load = (async ({ locals }) => {
 export const actions: Actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
 		const formData = await request.formData();
+
 		const nickname = formData.get('nickname') as string;
 		const location = formData.get('location') as string;
 		const bio = formData.get('bio') as string;
@@ -46,6 +75,19 @@ export const actions: Actions = {
 		const talentIds = mapToEntityIds(formData.entries(), 'talent') as number[];
 
 		const session = await getSession();
+
+		try {
+			profileSchema.parse({
+				nickname,
+				location,
+				bio,
+				badge_ids: badgeIds,
+				talent_ids: talentIds
+			});
+		} catch (error) {
+			const { fieldErrors: errors } = (error as z.ZodError).flatten();
+			return { errors, nickname, location, bio, badgeIds, talentIds, success: false };
+		}
 
 		const { error } = await supabase.from('profiles').upsert({
 			id: session?.user.id,

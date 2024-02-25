@@ -21,7 +21,7 @@
 		return acc;
 	}, {}) as { [key: string]: Talent[] };
 
-	console.log('generations:', generations);
+	$: console.log('errors', form?.errors);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -88,6 +88,9 @@
 					class="input input-bordered input-primary w-full max-w-xs"
 					value={form?.nickname ?? nickname}
 				/>
+				{#if form?.errors?.nickname}
+					<span class="px-1 py-2 text-error">{form?.errors?.nickname[0]}</span>
+				{/if}
 				<div class="label">
 					<span class="label-text-alt">*Required</span>
 				</div>
@@ -104,6 +107,9 @@
 					class="input input-bordered input-secondary w-full max-w-xs"
 					value={form?.location ?? location}
 				/>
+				{#if form?.errors?.location}
+					<span class="px-1 py-2 text-error">{form?.errors?.location[0]}</span>
+				{/if}
 				<div class="label">
 					<span class="label-text-alt">Optional</span>
 				</div>
@@ -120,6 +126,9 @@
 					placeholder="Bio"
 					value={form?.bio ?? bio}
 				></textarea>
+				{#if form?.errors?.bio}
+					<span class="px-1 py-2 text-error">{form?.errors?.bio[0]}</span>
+				{/if}
 				<div class="label">
 					<span class="label-text-alt">Optional</span>
 				</div>
@@ -172,7 +181,9 @@
 			</section>
 
 			<button type="submit" class="btn btn-primary my-2 w-full rounded-full text-xl"
-				>{@html loading ? '<span class="loading loading-spinner"></span> Saving...' : 'Save'}</button
+				>{@html loading
+					? '<span class="loading loading-spinner"></span> Saving...'
+					: 'Save'}</button
 			>
 		</form>
 	</section>
