@@ -4,6 +4,7 @@ import type { TypedSupabaseClient } from '@supabase/ssr/dist/typeTypedSupabaseCl
 // for information about these interfaces
 declare global {
 	namespace App {
+		declare module 'svelte-qrcode';
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}

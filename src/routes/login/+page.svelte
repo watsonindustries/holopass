@@ -21,7 +21,10 @@
 			<h2 class="card-title text-4xl font-bold tracking-tight text-secondary">Sign In</h2>
 			<div class="card-actions justify-end">
 				<form class="" id="social-login" method="post">
-					<button formaction="?/login&provider=discord" class="btn rounded-full bg-[#5865F2] text-white">
+					<button
+						formaction="?/login&provider=discord"
+						class="btn rounded-full bg-[#5865F2] text-white"
+					>
 						<Icon data={faDiscord} scale={1.2} />
 						Login with Discord
 					</button>

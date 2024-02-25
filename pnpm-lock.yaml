@@ -14,6 +14,9 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.39.4
     version: 2.39.4
+  '@svelte-put/qr':
+    specifier: ^1.0.3
+    version: 1.0.3
   svelte-awesome:
     specifier: ^3.3.1
     version: 3.3.1(svelte@4.2.10)
@@ -634,6 +637,12 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: false
+
+  /@svelte-put/qr@1.0.3:
+    resolution: {integrity: sha512-KaqcWqVLBGWMDCmxX7pWYX75iVzyUE2rJoO+ne3gu4P0nJXb0ETvBw6lj4Lu6xfGp5M40iiOTYjcCEQ2JPJUag==}
+    dependencies:
+      qrcode-generator: 1.4.4
     dev: false
 
   /@sveltejs/adapter-auto@3.1.1(@sveltejs/kit@2.5.0):
@@ -2303,6 +2312,10 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
     dev: true
+
+  /qrcode-generator@1.4.4:
+    resolution: {integrity: sha512-HM7yY8O2ilqhmULxGMpcHSF1EhJJ9yBj8gvDEuZ6M+KGJ0YY2hKpnXvRD+hZPLrDVck3ExIGhmPtSdcjC+guuw==}
+    dev: false
 
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}

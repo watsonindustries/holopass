@@ -4,29 +4,16 @@ import type { PageServerLoad } from './$types';
 import { z } from 'zod';
 
 const profileSchema = z.object({
-	nickname: z
-		.string()
-		.min(3)
-		.max(30)
-		.trim(),
-	location: z
-		.string()
-		.max(30)
-		.optional(),
+	nickname: z.string().min(3).max(30).trim(),
+	location: z.string().max(30).optional(),
 	bio: z
 		.string()
 		.min(0)
 		.max(250, { message: 'Bio must be less than 250 characters' })
 		.trim()
 		.optional(),
-	badge_ids: z
-		.array(z.number())
-		.max(100)
-		.optional(),
-	talent_ids: z
-		.array(z.number())
-		.max(100)
-		.optional()
+	badge_ids: z.array(z.number()).max(100).optional(),
+	talent_ids: z.array(z.number()).max(100).optional()
 });
 
 export const load = (async ({ locals }) => {
