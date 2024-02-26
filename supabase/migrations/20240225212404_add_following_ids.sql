@@ -1,0 +1,2 @@
+ALTER TABLE profiles
+ADD COLUMN following_ids INTEGER[] DEFAULT ARRAY[]::INTEGER[];
