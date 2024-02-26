@@ -7,6 +7,7 @@
 
 	import { fade } from 'svelte/transition';
 	import PassCard from '$lib/components/PassCard.svelte';
+	import { PROD_DOMAIN } from '../../const';
 
 	export let data: PageData;
 
@@ -14,7 +15,7 @@
 	$: ({ session, supabase, profile, badges, oshi } = data);
 
 	function handleCopyLink() {
-		const link = `https://holopass.pages.dev/pass/${profile.id}`;
+		const link = `${PROD_DOMAIN}/pass/${profile.id}`;
 		navigator.clipboard.writeText(link);
 		alert('Pass link copied to clipboard!');
 	}

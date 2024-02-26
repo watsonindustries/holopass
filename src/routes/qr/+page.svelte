@@ -3,12 +3,13 @@
 	import { fade } from 'svelte/transition';
 
   import QR from '@svelte-put/qr/svg/QR.svelte';
+	import { PROD_DOMAIN } from '../../const';
 
 	export let data: PageData;
 
 	$: ({ profile } = data);
 
-	$: qrCodeUrl = `https://holopass.pages.dev/pass/${profile.id}`;
+	$: qrCodeUrl = `${PROD_DOMAIN}/pass/${profile.id}`;
 
 	function copyCode() {
 		navigator.clipboard.writeText(qrCodeUrl);
