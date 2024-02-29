@@ -12,10 +12,11 @@
 	export let data: PageData;
 
 	let { profile, badges, oshi } = data;
+
 	$: ({ session, supabase, profile, badges, oshi } = data);
 
 	function handleCopyLink() {
-		const link = `${PROD_DOMAIN}/pass/${profile.id}`;
+		const link = `${PROD_DOMAIN}/pass/${profile?.id}`;
 		navigator.clipboard.writeText(link);
 		alert('Pass link copied to clipboard!');
 	}

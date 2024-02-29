@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { loadBadges, loadOshi, loadProfile } from '../../supabase';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
@@ -13,35 +14,11 @@ export const load = (async (event) => {
 
 	const { user } = session;
 
-	const { data: profile } = await supabase
-		.from('profiles')
-		.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids')
-		.eq('id', user.id)
-		.single();
+	const profile = await loadProfile(supabase)(user);
 
-	const { data: badges, error } = await supabase
-		.from('badges')
-		.select('id, name, image, type')
-		.in('id', profile.badge_ids);
-
-	if (error) {
-		return {
-			status: 500,
-			body: error
-		};
-	}
-
-	const { data: oshi, error: error2 } = await supabase
-		.from('talents')
-		.select('id, name_en, fanmark')
-		.in('id', profile.talent_ids);
-
-	if (error2) {
-		return {
-			status: 500,
-			body: error2
-		};
-	}
-
-	return { badges, oshi, profile };
+	return {
+		badges: loadBadges(profile?.badge_ids, supabase),
+		oshi: loadOshi(profile?.talent_ids, supabase),
+		profile
+	};
 }) satisfies PageServerLoad;

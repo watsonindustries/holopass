@@ -1,17 +1,17 @@
 <script lang="ts">
 	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
-	import type { Oshi } from '../../custom';
+	import * as custom from '../../custom';
+	import { fade } from 'svelte/transition';
 
 	export let profile;
-	export let oshi: Oshi[];
-	export let badges: Badge[] = [];
+	export let oshi: Promise<{ data: custom.Oshi[] }> | any;
+	export let badges: Promise<{ data: custom.Badge[] }> | any;
 
 	let nickname: string = profile?.nickname ?? '';
 	let avatarURL: string = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
-	let oshis: { fanmark: string }[] = oshi ?? [];
 </script>
 
 <div class="card bg-slate-50 p-6 shadow-lg" id="pass-card">
@@ -34,13 +34,18 @@
 
 			<div id="oshi">
 				<p class="text-sm uppercase">Oshi</p>
-				{#if oshis.length === 0}
-					<p class="text-2xl">None</p>
-				{:else if oshis.length > 1}
-					<p class="text-2xl">{oshis.map((oshi) => oshi.fanmark).join(' ')}</p>
-				{:else}
-					<p class="text-2xl">{oshi[0].fanmark}</p>
-				{/if}
+
+				{#await oshi}
+					<p class="animate-pulse">Loading...</p>
+				{:then oshi}
+					{#if oshi.data?.length === 0}
+						<p class="text-2xl">None</p>
+					{:else if oshi.data?.length > 1}
+						<p class="text-2xl">{oshi.data?.map((val) => val.fanmark).join(' ')}</p>
+					{:else}
+						<p class="text-2xl">{oshi.data[0].fanmark}</p>
+					{/if}
+				{/await}
 			</div>
 		</section>
 	</section>
@@ -55,9 +60,13 @@
 	<section id="badges" class="space-y-4 p-4">
 		<p class="text-sm uppercase">badges</p>
 		<div class="space-y-8">
-			{#each badges as { name }}
-				<Badge {name} />
-			{/each}
+			{#await badges}
+				<p class="animate-pulse">Loading...</p>
+			{:then badges}
+				{#each badges.data as { name }}
+					<Badge {name} />
+				{/each}
+			{/await}
 		</div>
 	</section>
 </div>

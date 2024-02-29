@@ -12,7 +12,7 @@
 		<Icon data={home} scale={1.5} />
 		<span class="btm-nav-label">Home</span>
 	</a>
-	<a class:active={pathname === '/mypass'} href="/mypass">
+	<a class:active={pathname === '/mypass'} href="/mypass" data-sveltekit-reload>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 448 512"

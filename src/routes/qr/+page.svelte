@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import { fade } from 'svelte/transition';
 
-  import QR from '@svelte-put/qr/svg/QR.svelte';
+	import QR from '@svelte-put/qr/svg/QR.svelte';
 	import { PROD_DOMAIN } from '../../const';
 
 	export let data: PageData;

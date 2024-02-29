@@ -1,123 +1,22 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+import type { SupabaseClient, User } from '@supabase/supabase-js';
 
-export type Database = {
-	public: {
-		Tables: {
-			badges: {
-				Row: {
-					created_at: string;
-					id: number;
-					image: string | null;
-					name: string | null;
-					type: Database['public']['Enums']['Badge type'] | null;
-				};
-				Insert: {
-					created_at?: string;
-					id?: number;
-					image?: string | null;
-					name?: string | null;
-					type?: Database['public']['Enums']['Badge type'] | null;
-				};
-				Update: {
-					created_at?: string;
-					id?: number;
-					image?: string | null;
-					name?: string | null;
-					type?: Database['public']['Enums']['Badge type'] | null;
-				};
-				Relationships: [];
-			};
-		};
-		Views: {
-			[_ in never]: never;
-		};
-		Functions: {
-			increment: {
-				Args: {
-					row_id: number;
-				};
-				Returns: undefined;
-			};
-		};
-		Enums: {
-			'Badge type': 'concert' | 'official_event' | 'meetup';
-		};
-		CompositeTypes: {
-			[_ in never]: never;
-		};
+export function loadProfile(supabase: SupabaseClient) {
+	return async (user: User) => {
+		const { data: profile } = await supabase
+			.from('profiles')
+			.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids')
+			.eq('id', user.id)
+			.single();
+		return profile;
 	};
-};
+}
 
-export type Tables<
-	PublicTableNameOrOptions extends
-		| keyof (Database['public']['Tables'] & Database['public']['Views'])
-		| { schema: keyof Database },
-	TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-		? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-				Database[PublicTableNameOrOptions['schema']]['Views'])
-		: never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-	? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-			Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
-			Row: infer R;
-		}
-		? R
-		: never
-	: PublicTableNameOrOptions extends keyof (Database['public']['Tables'] &
-				Database['public']['Views'])
-		? (Database['public']['Tables'] &
-				Database['public']['Views'])[PublicTableNameOrOptions] extends {
-				Row: infer R;
-			}
-			? R
-			: never
-		: never;
+export function loadBadges(badgeIds: number[], supabase: SupabaseClient) {
+	const badges = supabase.from('badges').select('id, name, image, type').in('id', badgeIds);
+	return badges;
+}
 
-export type TablesInsert<
-	PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
-	TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-		? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-		: never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-	? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
-			Insert: infer I;
-		}
-		? I
-		: never
-	: PublicTableNameOrOptions extends keyof Database['public']['Tables']
-		? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-				Insert: infer I;
-			}
-			? I
-			: never
-		: never;
-
-export type TablesUpdate<
-	PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
-	TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-		? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
-		: never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-	? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
-			Update: infer U;
-		}
-		? U
-		: never
-	: PublicTableNameOrOptions extends keyof Database['public']['Tables']
-		? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-				Update: infer U;
-			}
-			? U
-			: never
-		: never;
-
-export type Enums<
-	PublicEnumNameOrOptions extends keyof Database['public']['Enums'] | { schema: keyof Database },
-	EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-		? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
-		: never = never
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-	? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-	: PublicEnumNameOrOptions extends keyof Database['public']['Enums']
-		? Database['public']['Enums'][PublicEnumNameOrOptions]
-		: never;
+export function loadOshi(talentIds: number[], supabase: SupabaseClient) {
+	const oshi = supabase.from('talents').select('id, name_en, fanmark').in('id', talentIds);
+	return oshi;
+}

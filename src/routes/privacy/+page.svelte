@@ -9,8 +9,8 @@
 
 <p class="text-base">Effective Date: 24/02/2024</p>
 <p>
-	At holopass, accessible from {PROD_DOMAIN}, one of our main priorities is the privacy
-	of our visitors. This Privacy Policy document contains types of information that are collected and
+	At holopass, accessible from {PROD_DOMAIN}, one of our main priorities is the privacy of our
+	visitors. This Privacy Policy document contains types of information that are collected and
 	recorded by holopass and how we use it. General Data Protection Regulation (GDPR) We are a Data
 	Controller of your information. The legal basis for collecting and using the personal information
 	described in this Privacy Policy depends on the Personal Information we collect and the specific
