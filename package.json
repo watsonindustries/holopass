@@ -40,6 +40,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fortawesome/free-brands-svg-icons": "^6.5.1",
+		"@sentry/sveltekit": "^7.103.0",
 		"@supabase/ssr": "^0.1.0",
 		"@supabase/supabase-js": "^2.39.4",
 		"@svelte-put/qr": "^1.0.3",
