@@ -22,7 +22,7 @@
 <section
 	id="home-container"
 	class="mx-4 mt-4 space-y-6 pb-36"
-	transition:fade={{ delay: 150, duration: 200 }}
+	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<div class="card space-y-4 bg-slate-50 p-6 shadow-lg" id="home-card">
 		<h1 class="mb-4 text-center text-5xl font-bold tracking-tight text-accent">holopass</h1>

@@ -66,7 +66,7 @@
 <section
 	id="basic-info"
 	class="space-y-4 p-6 pb-36"
-	transition:fade={{ delay: 150, duration: 200 }}
+	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<section id="header" class="space-y-2">
 		<div class="mx-auto max-w-40">
