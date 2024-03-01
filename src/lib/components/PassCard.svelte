@@ -29,7 +29,7 @@
 
 			<div id="location">
 				<p class="text-sm uppercase">Location</p>
-				<p class="text-2xl">{location}</p>
+				<p class="text-2xl">{location ? location : 'None'}</p>
 			</div>
 
 			<div id="oshi">
@@ -38,12 +38,12 @@
 				{#await oshi}
 					<p class="animate-pulse">Loading...</p>
 				{:then oshi}
-					{#if oshi.data?.length === 0}
+					{#if oshi && oshi.data?.length === 0}
 						<p class="text-2xl">None</p>
-					{:else if oshi.data?.length > 1}
+					{:else if oshi && oshi.data?.length > 1}
 						<p class="text-2xl">{oshi.data?.map((val) => val.fanmark).join(' ')}</p>
 					{:else}
-						<p class="text-2xl">{oshi.data[0].fanmark}</p>
+						<p class="text-2xl">None</p>
 					{/if}
 				{/await}
 			</div>
@@ -63,9 +63,13 @@
 			{#await badges}
 				<p class="animate-pulse">Loading...</p>
 			{:then badges}
-				{#each badges.data as { name }}
-					<Badge {name} />
-				{/each}
+				{#if badges && badges.data?.length > 0}
+					{#each badges.data as { name }}
+						<Badge {name} />
+					{/each}
+				{:else}
+					<p>None</p>
+				{/if}
 			{/await}
 		</div>
 	</section>

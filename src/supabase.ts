@@ -38,7 +38,8 @@ export function loadPass(supabase: SupabaseClient) {
  * @param supabase - The Supabase client instance.
  * @returns The badges data.
  */
-export function loadBadges(badgeIds: number[], supabase: SupabaseClient) {
+export function loadBadges(badgeIds: number[] = [], supabase: SupabaseClient) {
+	if (badgeIds === null) return [];
 	const badges = supabase.from('badges').select('id, name, image, type').in('id', badgeIds);
 	return badges;
 }
@@ -49,7 +50,8 @@ export function loadBadges(badgeIds: number[], supabase: SupabaseClient) {
  * @param supabase - The Supabase client instance.
  * @returns The oshi data.
  */
-export function loadOshi(talentIds: number[], supabase: SupabaseClient) {
+export function loadOshi(talentIds: number[] = [], supabase: SupabaseClient) {
+	if (talentIds === null) return [];
 	const oshi = supabase.from('talents').select('id, name_en, fanmark').in('id', talentIds);
 	return oshi;
 }
