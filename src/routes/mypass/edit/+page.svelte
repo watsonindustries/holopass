@@ -21,8 +21,6 @@
 		return acc;
 	}, {}) as { [key: string]: Talent[] };
 
-	$: console.log('errors', form?.errors);
-
 	let profileForm: HTMLFormElement;
 	let loading = false;
 	let nickname: string = profile?.nickname ?? '';
@@ -63,11 +61,7 @@
 	</div>
 {/if}
 
-<section
-	id="basic-info"
-	class="space-y-4 p-6 pb-36"
-	transition:fade={{ delay: 0, duration: 200 }}
->
+<section id="basic-info" class="space-y-4 p-6 pb-36" transition:fade={{ delay: 0, duration: 200 }}>
 	<section id="header" class="space-y-2">
 		<div class="mx-auto max-w-40">
 			<Avatar {avatarURL} />
@@ -156,11 +150,8 @@
 				<h3 class="text-2xl">Oshi</h3>
 				<div class="form-control gap-4">
 					{#each Object.entries(generations) as [gen, ts]}
-						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<div tabindex="0" class="collapse collapse-arrow border border-accent bg-base-100">
-							<div class="collapse-title text-xl font-medium">
-								<h4 class="text-xl">{gen}</h4>
-							</div>
+						<details class="collapse collapse-arrow border border-accent bg-base-100">
+							<summary class="collapse-title text-lg font-medium">{gen}</summary>
 							<div class="collapse-content">
 								{#each ts as talent}
 									<label class="label cursor-pointer">
@@ -175,7 +166,7 @@
 									</label>
 								{/each}
 							</div>
-						</div>
+						</details>
 					{/each}
 				</div>
 			</section>
