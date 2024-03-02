@@ -17,8 +17,8 @@ export const load = (async (event) => {
 	const profile = await loadProfile(supabase)(user);
 
 	return {
-		badges: loadBadges(profile?.badge_ids, supabase),
-		oshi: loadOshi(profile?.talent_ids, supabase),
+		badges: loadBadges(profile?.badge_ids || [], supabase),
+		oshi: loadOshi(profile?.talent_ids || [], supabase),
 		profile
 	};
 }) satisfies PageServerLoad;

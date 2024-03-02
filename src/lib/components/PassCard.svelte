@@ -2,7 +2,6 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import * as custom from '../../custom';
-	import { fade } from 'svelte/transition';
 
 	export let profile;
 	export let oshi: Promise<{ data: custom.Oshi[] }> | any;

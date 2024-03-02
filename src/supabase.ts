@@ -1,3 +1,4 @@
+import type { Tables } from './lib/database.types';
 import type { SupabaseClient, User } from '@supabase/supabase-js';
 
 /**
@@ -5,14 +6,15 @@ import type { SupabaseClient, User } from '@supabase/supabase-js';
  * @param supabase - The Supabase client instance.
  * @returns A function that accepts a user object and returns the user's profile.
  */
-export function loadProfile(supabase: SupabaseClient) {
-	return async (user: User) => {
+export function loadProfile(supabase: SupabaseClient): (user: User | undefined) => Promise<Tables<'profiles'> | null> {
+	return async (user: User | undefined) => {
+		if (user === null) return null;
 		const { data: profile } = await supabase
 			.from('profiles')
-			.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids')
-			.eq('id', user.id)
+			.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids, following_ids')
+			.eq('id', user?.id)
 			.single();
-		return profile;
+		return profile as Tables<'profiles'> | null;
 	};
 }
 
@@ -21,14 +23,14 @@ export function loadProfile(supabase: SupabaseClient) {
  * @param supabase - The Supabase client instance.
  * @returns A function that accepts a pass ID and returns the pass data.
  */
-export function loadPass(supabase: SupabaseClient) {
+export function loadPass(supabase: SupabaseClient): (id: string) => Promise<Tables<'profiles'> | null> {
 	return async (id: string) => {
 		const { data: pass } = await supabase
 			.from('profiles')
 			.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids')
 			.eq('id', id)
 			.single();
-		return pass;
+		return pass as Tables<'profiles'> | null;
 	};
 }
 

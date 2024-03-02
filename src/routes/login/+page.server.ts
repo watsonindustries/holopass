@@ -10,7 +10,7 @@ export const actions: Actions = {
 		const { supabase } = locals;
 
 		// where the user goes after logging in
-		const redirectTo = dev ? 'http://localhost:5173/' : PROD_DOMAIN;
+		const redirectTo = dev ? 'http://localhost:5173/mypass' : PROD_DOMAIN;
 
 		if (provider) {
 			const { data, error } = await supabase.auth.signInWithOAuth({
