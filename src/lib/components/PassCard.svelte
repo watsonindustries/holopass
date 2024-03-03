@@ -2,6 +2,8 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import * as custom from '../../custom';
+	import { Icon } from 'svelte-awesome';
+	import group from 'svelte-awesome/icons/group';
 
 	export let profile;
 	export let oshi: Promise<{ data: custom.Oshi[] }> | any;
@@ -47,6 +49,18 @@
 				{/await}
 			</div>
 		</section>
+	</section>
+
+	<section class="p-4">
+		<div class="content-center align-middle">
+			<a
+				class="flex items-center gap-2 text-lg font-semibold text-slate-800"
+				href="/mypass/connections"
+			>
+				<Icon data={group} />
+				Connections
+			</a>
+		</div>
 	</section>
 
 	<section id="bio" class="space-y-4 bg-slate-50 p-4">

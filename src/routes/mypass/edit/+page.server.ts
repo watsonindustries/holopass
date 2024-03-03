@@ -31,18 +31,14 @@ export const load = (async ({ locals }) => {
 
 	const profile = await loadProfile(supabase)(user);
 
-	const { data: badges, error } = await supabase
-		.from('badges')
-		.select('id, name, type, image');
+	const { data: badges, error } = await supabase.from('badges').select('id, name, type, image');
 
 	if (error) {
 		console.error('error', error);
 		return {};
 	}
 
-	const { data: talents, error: error2 } = await supabase
-		.from('talents')
-		.select('*');
+	const { data: talents, error: error2 } = await supabase.from('talents').select('*');
 
 	if (error2) {
 		console.error('error2', error);
