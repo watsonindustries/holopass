@@ -171,11 +171,15 @@
 				</div>
 			</section>
 
-			<button type="submit" class="btn btn-primary my-2 w-full rounded-full text-xl"
-				>{@html loading
-					? '<span class="loading loading-spinner"></span> Saving...'
-					: 'Save'}</button
-			>
+			<div class="flex items-center">
+				<button
+					type="submit"
+					class="btn btn-primary mx-auto my-2 w-44 rounded-full text-xl text-white shadow-lg"
+					>{@html loading
+						? '<span class="loading loading-spinner"></span> Saving...'
+						: 'Save'}</button
+				>
+			</div>
 		</form>
 	</section>
 </section>

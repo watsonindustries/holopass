@@ -29,11 +29,14 @@
 >
 	<PassCard {profile} {oshi} {badges} myPass />
 
-	<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg"
-		><Icon data={edit} scale={1.2}></Icon> Edit</a
-	>
+	<section class="mx-auto flex w-44 flex-col items-center gap-4">
+		<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg shadow-lg"
+			><Icon data={edit} scale={1.2}></Icon> Edit</a
+		>
 
-	<button class="btn btn-secondary w-full rounded-full text-lg" on:click={handleCopyLink}
-		><Icon data={link} scale={1.2}></Icon> Copy Link</button
-	>
+		<button
+			class="btn btn-secondary w-full rounded-full text-lg shadow-lg"
+			on:click={handleCopyLink}><Icon data={link} scale={1.2}></Icon> Copy Link</button
+		>
+	</section>
 </div>
