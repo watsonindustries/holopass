@@ -2,10 +2,10 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import * as custom from '../../custom';
-	import { Icon } from 'svelte-awesome';
-	import group from 'svelte-awesome/icons/group';
+	import type { Tables } from '$lib/database.types';
 
-	export let profile;
+	export let myPass = false;
+	export let profile: Tables<'profiles'>;
 	export let oshi: Promise<{ data: custom.Oshi[] }> | any;
 	export let badges: Promise<{ data: custom.Badge[] }> | any;
 
@@ -51,17 +51,19 @@
 		</section>
 	</section>
 
-	<section class="p-4">
-		<div class="content-center align-middle">
-			<a
-				class="flex items-center gap-2 text-lg font-semibold text-slate-800"
-				href="/mypass/connections"
-			>
-				<Icon data={group} />
-				Connections
-			</a>
-		</div>
-	</section>
+	{#if myPass}
+		<section class="p-4" id="connections">
+			<div class="align-middle">
+				<a
+					class="flex flex-col items-center font-semibold text-slate-800"
+					href="/mypass/connections"
+				>
+					<span class="text-2xl">{profile?.following_ids?.length}</span>
+					Following
+				</a>
+			</div>
+		</section>
+	{/if}
 
 	<section id="bio" class="space-y-4 bg-slate-50 p-4">
 		<p class="text-sm uppercase">Bio</p>
