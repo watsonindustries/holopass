@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.logo-text {
+	/* holopass */
+
+	position: absolute;
+	width: 441px;
+	height: 120px;
+	left: 214px;
+	top: 44px;
+
+	font-family: 'Geologica';
+	font-style: italic;
+	font-weight: 700;
+	font-size: 96px;
+	line-height: 120px;
+	/* identical to box height */
+	display: flex;
+	align-items: center;
+
+	color: #27cdf2;
+}

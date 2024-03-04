@@ -3,6 +3,8 @@
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
 
+	import { MetaTags } from 'svelte-meta-tags';
+
 	export let data: PageData;
 
 	let { supabase, session } = data;
@@ -18,6 +20,17 @@
 		goto('/login');
 	}
 </script>
+
+<MetaTags
+	title="holopass - home"
+	description="holopass app home"
+	openGraph={{
+		url: 'https://holo-pass.com',
+		title: 'holopass',
+		description: 'holopass - connect with fans at events!',
+		siteName: 'holo-pass'
+	}}
+/>
 
 <section
 	id="home-container"

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
+	import { MetaTags } from 'svelte-meta-tags';
+
 	import PassCard from '$lib/components/PassCard.svelte';
 	import FollowButton from '$lib/components/FollowButton.svelte';
 
@@ -31,6 +33,17 @@
 		return profile?.following_ids?.includes(pass.id);
 	}
 </script>
+
+<MetaTags
+	title="holopass - mypass"
+	description="holopass app"
+	openGraph={{
+		url: 'https://holo-pass.com',
+		title: 'holopass - mypass',
+		description: `@${pass?.nickname} - follow me on holopass!`,
+		siteName: 'holo-pass'
+	}}
+/>
 
 <div
 	id="my-pass-container"
