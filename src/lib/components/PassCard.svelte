@@ -39,8 +39,8 @@
 				{#await oshi}
 					<p class="animate-pulse">Loading...</p>
 				{:then oshi}
-					{#if oshi && oshi.data?.length === 0}
-						<p class="text-2xl">None</p>
+					{#if oshi && oshi.data?.length === 1}
+						<p class="text-2xl">{oshi.data[0].fanmark}</p>
 					{:else if oshi && oshi.data?.length > 1}
 						<p class="text-2xl">{oshi.data?.map((val) => val.fanmark).join(' ')}</p>
 					{:else}
