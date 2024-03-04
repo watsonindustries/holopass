@@ -2,6 +2,7 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 import { z } from 'zod';
+import { loadProfile } from '../../../supabase';
 
 const profileSchema = z.object({
 	nickname: z.string().min(3).max(30).trim(),
@@ -28,11 +29,7 @@ export const load = (async ({ locals }) => {
 		redirect(303, '/login');
 	}
 
-	const { data: profile } = await supabase
-		.from('profiles')
-		.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids')
-		.eq('id', user.id)
-		.single();
+	const profile = await loadProfile(supabase)(user);
 
 	const { data: badges, error } = await supabase.from('badges').select('id, name, type, image');
 

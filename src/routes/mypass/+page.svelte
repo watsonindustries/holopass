@@ -27,7 +27,7 @@
 	class="mx-4 mt-4 space-y-6 pb-36"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
-	<PassCard {profile} {oshi} {badges} />
+	<PassCard {profile} {oshi} {badges} myPass />
 
 	<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg"
 		><Icon data={edit} scale={1.2}></Icon> Edit</a

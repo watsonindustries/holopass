@@ -58,7 +58,7 @@ export type Database = {
 					badge_ids: number[] | null;
 					bio: string | null;
 					email: string | null;
-					following_ids: number[] | null;
+					following_ids: string[] | null;
 					id: string;
 					location: string | null;
 					nickname: string | null;
@@ -70,7 +70,7 @@ export type Database = {
 					badge_ids?: number[] | null;
 					bio?: string | null;
 					email?: string | null;
-					following_ids?: number[] | null;
+					following_ids?: string[] | null;
 					id: string;
 					location?: string | null;
 					nickname?: string | null;
@@ -82,7 +82,7 @@ export type Database = {
 					badge_ids?: number[] | null;
 					bio?: string | null;
 					email?: string | null;
-					following_ids?: number[] | null;
+					following_ids?: string[] | null;
 					id?: string;
 					location?: string | null;
 					nickname?: string | null;
