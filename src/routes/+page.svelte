@@ -27,7 +27,7 @@
 	<div class="card space-y-4 bg-slate-50 p-6 shadow-lg" id="home-card">
 		<h1 class="mb-4 text-center text-5xl font-bold tracking-tight text-accent">holopass</h1>
 
-		<a href="/mypass/edit" class="btn btn-primary rounded-full">Edit My Pass</a>
+		<a href="/mypass/edit" class="btn btn-primary rounded-full">My Pass</a>
 
 		{#if isLoggedIn}
 			<button class="btn btn-secondary rounded-full" on:click={handleLogout}>Logout</button>
@@ -35,6 +35,6 @@
 			<a href="/login" class="btn btn-secondary rounded-full">Login</a>
 		{/if}
 
-		<a href="/privacy" class="link link-secondary text-center">Privacy</a>
+		<a href="/privacy" class="link link-accent text-center">Privacy</a>
 	</div>
 </section>
