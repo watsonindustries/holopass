@@ -21,6 +21,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>holopass</title>
+</svelte:head>
+
 <div class="xl:mx-auto xl:max-w-xl">
 	<slot />
 	<BottomNav {pathname} />
