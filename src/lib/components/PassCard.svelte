@@ -10,7 +10,7 @@
 	export let badges: Promise<{ data: custom.Badge[] }> | any;
 
 	let nickname: string = profile?.nickname ?? '';
-	let avatarURL: string = profile?.avatar_url ?? '';
+	$: avatarURL = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
 </script>
@@ -55,7 +55,7 @@
 		<section class="p-4" id="connections">
 			<div class="align-middle">
 				<a
-					class="flex flex-col items-center font-semibold text-slate-800"
+					class="flex flex-col items-center font-medium text-slate-800"
 					href="/mypass/connections"
 				>
 					<span class="text-2xl">{profile?.following_ids?.length}</span>

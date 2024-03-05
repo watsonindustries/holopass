@@ -30,12 +30,12 @@
 	<PassCard {profile} {oshi} {badges} myPass />
 
 	<section class="mx-auto flex w-44 flex-col items-center gap-4">
-		<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg shadow-lg"
+		<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg font-medium shadow-lg"
 			><Icon data={edit} scale={1.2}></Icon> Edit</a
 		>
 
 		<button
-			class="btn btn-secondary w-full rounded-full text-lg shadow-lg"
+			class="btn btn-secondary w-full rounded-full text-lg font-medium shadow-lg"
 			on:click={handleCopyLink}><Icon data={link} scale={1.2}></Icon> Copy Link</button
 		>
 	</section>

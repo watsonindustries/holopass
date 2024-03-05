@@ -33,7 +33,7 @@
 </section>
 
 <div class="space-y-4 overflow-x-auto" id="following-profiles">
-	<h1 class="mx-4 text-4xl font-bold tracking-tight">Following</h1>
+	<h1 class="mx-4 text-4xl font-semibold tracking-tight">Following</h1>
 
 	{#await followingProfiles}
 		<div class="flex w-full flex-col gap-4 p-4">
@@ -55,7 +55,7 @@
 									</div>
 								</div>
 								<div>
-									<div class="font-bold">{profile.nickname}</div>
+									<div class="font-semibold">{profile.nickname}</div>
 									<div class="text-sm opacity-50">{profile.location || randomDefaultPlace()}</div>
 								</div>
 							</a>
