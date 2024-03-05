@@ -27,5 +27,7 @@
 
 <div class="xl:mx-auto xl:max-w-xl">
 	<slot />
-	<BottomNav {pathname} />
+	{#if pathname !== '/'}
+		<BottomNav {pathname} />
+	{/if}
 </div>

@@ -1,17 +1,11 @@
 <script lang="ts">
 	import Icon from 'svelte-awesome';
-	import home from 'svelte-awesome/icons/home';
-	import user from 'svelte-awesome/icons/user';
 	import qrcode from 'svelte-awesome/icons/qrcode';
 
 	export let pathname = '/';
 </script>
 
 <div class="btm-nav bg-slate-200 text-info xl:mx-auto xl:max-w-xl">
-	<a class:active={pathname === '/'} href="/">
-		<Icon data={home} scale={1.5} />
-		<span class="btm-nav-label">Home</span>
-	</a>
 	<a class:active={pathname.includes('/mypass')} href="/mypass" data-sveltekit-reload>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

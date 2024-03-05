@@ -1,6 +1,21 @@
 <script lang="ts">
 	import { version } from '$app/environment';
 	import { fade } from 'svelte/transition';
+	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
+
+	export let data: PageData;
+
+	let { supabase } = data;
+	$: ({ supabase } = data);
+
+	async function handleLogout() {
+		const { error } = await supabase.auth.signOut();
+		if (error) {
+			console.error('Error logging out:', error.message);
+		}
+		goto('/login');
+	}
 </script>
 
 <section class="p-4" transition:fade={{ duration: 300, delay: 100 }}>
@@ -21,4 +36,7 @@
 
 	<h2 class="text-2xl font-bold tracking-tight">Privacy</h2>
 	<a href="/privacy" class="link link-accent">Privacy Policy</a>
+
+	<br />
+	<button class="btn btn-secondary rounded-full" on:click={handleLogout}>Logout</button>
 </section>
