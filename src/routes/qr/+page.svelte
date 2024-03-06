@@ -64,7 +64,7 @@
 				class="btn btn-primary w-full rounded-full text-lg font-medium shadow-lg"
 				on:click={copyCode}
 			>
-				<Icon data={link} scale={1.2}></Icon> Copy Code
+				<Icon data={link} scale={1.2}></Icon> Copy Link
 			</button>
 
 			<button
