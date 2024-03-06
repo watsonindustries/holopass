@@ -7,8 +7,8 @@ export const load: PageServerLoad = (async ({ locals, parent }) => {
 	const { profile } = await parent();
 
 	return {
-		badges: loadBadges(profile?.badge_ids || [], supabase),
-		oshi: loadOshi(profile?.talent_ids || [], supabase),
+		badges: loadBadges(supabase)(profile?.badge_ids || []),
+		oshi: loadOshi(supabase)(profile?.talent_ids || []),
 		profile
 	};
 }) satisfies PageServerLoad;

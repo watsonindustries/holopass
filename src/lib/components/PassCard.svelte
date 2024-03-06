@@ -1,13 +1,12 @@
 <script lang="ts">
 	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
-	import * as custom from '../../custom';
 	import type { Tables } from '$lib/database.types';
 
 	export let myPass = false;
 	export let profile: Tables<'profiles'>;
-	export let oshi: Promise<{ data: custom.Oshi[] }> | any;
-	export let badges: Promise<{ data: custom.Badge[] }> | any;
+	export let oshi: Promise<Tables<'talents'>[]>;
+	export let badges: Promise<Tables<'badges'>[]>;
 	export let followingCount: number = 0;
 	export let followersAndCount: Promise<{ followers: Tables<'profiles'>[]; count: number }>;
 
@@ -39,12 +38,12 @@
 				<p class="text-sm uppercase">Oshi</p>
 
 				{#await oshi}
-					<p class="animate-pulse">Loading...</p>
+					<div class="skeleton h-4 w-full"></div>
 				{:then oshi}
-					{#if oshi && oshi.data?.length === 1}
-						<p class="text-2xl">{oshi.data[0].fanmark}</p>
-					{:else if oshi && oshi.data?.length > 1}
-						<p class="text-2xl">{oshi.data?.map((val) => val.fanmark).join(' ')}</p>
+					{#if oshi && oshi.length === 1}
+						<p class="text-2xl">{oshi[0].fanmark}</p>
+					{:else if oshi && oshi.length > 1}
+						<p class="text-2xl">{oshi.map((val) => val.fanmark).join(' ')}</p>
 					{:else}
 						<p class="text-2xl">None</p>
 					{/if}
@@ -77,7 +76,7 @@
 
 	<section id="bio" class="space-y-4 bg-slate-50 p-4">
 		<p class="text-sm uppercase">Bio</p>
-		<p class="text-xl whitespace-pre-line">
+		<p class="whitespace-pre-line text-xl">
 			{bio}
 		</p>
 	</section>
@@ -88,9 +87,9 @@
 			{#await badges}
 				<p class="animate-pulse">Loading...</p>
 			{:then badges}
-				{#if badges && badges.data?.length > 0}
-					{#each badges.data as { name }}
-						<Badge {name} />
+				{#if badges && badges.length > 0}
+					{#each badges as { name }}
+						<Badge name={name || ''} />
 					{/each}
 				{:else}
 					<p>None</p>

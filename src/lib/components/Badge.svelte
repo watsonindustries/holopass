@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let name = 'unknown';
+	export let name: string;
 	export let image: string | null = null;
 
 	const gradients = {

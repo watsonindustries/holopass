@@ -20,6 +20,11 @@ export function loadProfile(
 	};
 }
 
+/**
+ * Loads multiple profiles from the Supabase database based on their IDs.
+ * @param supabase - The Supabase client instance.
+ * @returns A function that accepts an array of profile IDs and returns the profiles data.
+ */
 export function loadProfiles(
 	supabase: SupabaseClient
 ): (ids: string[]) => Promise<Tables<'profiles'>[]> {
@@ -70,24 +75,32 @@ export function loadFollowers(
 
 /**
  * Loads badges from the Supabase database based on their IDs.
- * @param badgeIds - An array of badge IDs.
  * @param supabase - The Supabase client instance.
- * @returns The badges data.
+ * @returns A function that accepts an array of badge IDs and returns the badges data.
  */
-export function loadBadges(badgeIds: number[] = [], supabase: SupabaseClient) {
-	if (badgeIds === null) return [];
-	const badges = supabase.from('badges').select('id, name, image, type').in('id', badgeIds);
-	return badges;
+export function loadBadges(supabase: SupabaseClient) {
+	return async (badgeIds: number[]) => {
+		const { data: badges } = await supabase
+			.from('badges')
+			.select('id, name, image, type')
+			.in('id', badgeIds);
+
+		return badges as Tables<'badges'>[];
+	}
 }
 
 /**
  * Loads oshi (talents) from the Supabase database based on their IDs.
- * @param talentIds - An array of talent IDs.
  * @param supabase - The Supabase client instance.
- * @returns The oshi data.
+ * @returns A function that accepts an array of talent IDs and returns the oshi data.
  */
-export function loadOshi(talentIds: number[] = [], supabase: SupabaseClient) {
-	if (talentIds === null) return [];
-	const oshi = supabase.from('talents').select('id, name_en, fanmark').in('id', talentIds);
-	return oshi;
+export function loadOshi(supabase: SupabaseClient) {
+	return async (talentIds: number[]) => {
+		const { data: oshi } = await supabase
+			.from('talents')
+			.select('id, name_en, fanmark')
+			.in('id', talentIds);
+
+		return oshi as Tables<'talents'>[];
+	};
 }

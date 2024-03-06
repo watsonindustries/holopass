@@ -16,8 +16,8 @@ export const load = (async ({ params, locals }) => {
 	}
 
 	return {
-		badges: loadBadges(pass?.badge_ids || [], supabase),
-		oshi: loadOshi(pass?.talent_ids || [], supabase),
+		badges: loadBadges(supabase)(pass?.badge_ids || []),
+		oshi: loadOshi(supabase)(pass?.talent_ids || []),
 		profile: loadProfile(supabase)(user),
 		pass
 	};
