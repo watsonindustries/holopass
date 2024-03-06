@@ -16,7 +16,7 @@ export function loadProfile(
 			.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids, following_ids')
 			.eq('id', user?.id)
 			.single();
-		return profile as Tables<'profiles'> | null;
+		return profile as Tables<'profiles'>;
 	};
 }
 
@@ -26,7 +26,7 @@ export function loadProfiles(
 	return async (ids: string[]) => {
 		const { data: profiles } = await supabase
 			.from('profiles')
-			.select('id, avatar_url, nickname, following_ids')
+			.select('id, avatar_url, nickname, following_ids, location')
 			.in('id', ids);
 		return profiles as Tables<'profiles'>[];
 	};
@@ -47,6 +47,24 @@ export function loadPass(
 			.eq('id', id)
 			.single();
 		return pass as Tables<'profiles'> | null;
+	};
+}
+
+/**
+ * Retrieves the follower count for a user from the Supabase database.
+ * @param supabase - The Supabase client instance.
+ * @returns A function that accepts a profile ID and returns the followers and follower count.
+ */
+export function loadFollowers(
+	supabase: SupabaseClient
+): (profileId: string) => Promise<{ followers: Tables<'profiles'>[]; count: number }> {
+	return async (profileId: string) => {
+		const { data: followers, count } = await supabase
+			.from('profiles')
+			.select('*', { count: 'exact' })
+			.contains('following_ids', [profileId]);
+
+		return { followers, count } as unknown as { followers: Tables<'profiles'>[]; count: number };
 	};
 }
 

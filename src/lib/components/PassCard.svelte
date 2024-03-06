@@ -8,6 +8,8 @@
 	export let profile: Tables<'profiles'>;
 	export let oshi: Promise<{ data: custom.Oshi[] }> | any;
 	export let badges: Promise<{ data: custom.Badge[] }> | any;
+	export let followingCount: number = 0;
+	export let followersAndCount: Promise<{ followers: Tables<'profiles'>[]; count: number }>;
 
 	let nickname: string = profile?.nickname ?? '';
 	$: avatarURL = profile?.avatar_url ?? '';
@@ -52,16 +54,24 @@
 	</section>
 
 	{#if myPass}
-		<section class="p-4" id="connections">
-			<div class="align-middle">
+		<section class="flex flex-row place-content-evenly p-4" id="connections">
+			<a
+				class="flex flex-col items-center font-medium text-slate-800"
+				href="/mypass/connections?type=following"
+			>
+				<span class="text-2xl">{followingCount}</span>
+				Following
+			</a>
+
+			{#await followersAndCount then { count }}
 				<a
 					class="flex flex-col items-center font-medium text-slate-800"
-					href="/mypass/connections"
+					href="/mypass/connections?type=followers"
 				>
-					<span class="text-2xl">{profile?.following_ids?.length}</span>
-					Following
+					<span class="text-2xl">{count}</span>
+					Followers
 				</a>
-			</div>
+			{/await}
 		</section>
 	{/if}
 

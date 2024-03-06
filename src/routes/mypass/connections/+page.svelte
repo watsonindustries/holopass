@@ -1,11 +1,12 @@
 <script lang="ts">
+	import ListProfile from '$lib/components/ListProfile.svelte';
 	import type { PageData } from './$types';
 	import { Icon } from 'svelte-awesome';
 	import arrowLeft from 'svelte-awesome/icons/arrowLeft';
 
 	export let data: PageData;
 
-	$: ({ followingProfiles } = data);
+	$: ({ followingProfiles, followersAndCount, type } = data);
 
 	function randomDefaultPlace() {
 		const places = [
@@ -32,40 +33,58 @@
 	>
 </section>
 
-<div class="space-y-4 overflow-x-auto" id="following-profiles">
-	<h1 class="mx-4 text-4xl font-semibold tracking-tight">Following</h1>
+<div class="mb-14 space-y-4 overflow-x-auto" id="following-profiles">
+	<h1 class="mx-4 text-4xl font-semibold tracking-tight">
+		{type.charAt(0).toUpperCase() + type.slice(1)}
+	</h1>
 
-	{#await followingProfiles}
-		<div class="flex w-full flex-col gap-4 p-4">
-			<div class="skeleton h-32 w-full"></div>
-			<div class="skeleton h-4 w-28"></div>
-			<div class="skeleton h-4 w-full"></div>
-			<div class="skeleton h-4 w-full"></div>
-		</div>
-	{:then followingProfiles}
-		<table class="table">
-			<tbody>
-				{#each followingProfiles as profile}
-					<tr>
-						<td>
-							<a class="flex items-center gap-3" href="/pass/{profile.id}" data-sveltekit-reload>
-								<div class="avatar">
-									<div class="h-12 w-12 rounded-full ring ring-primary">
-										<img src={profile.avatar_url} alt="Avatar" />
-									</div>
-								</div>
-								<div>
-									<div class="font-semibold">{profile.nickname}</div>
-									<div class="text-sm opacity-50">{profile.location || randomDefaultPlace()}</div>
-								</div>
-							</a>
-						</td>
-						<td>
-							<!-- <span class="badge badge-ghost badge-sm"></span> -->
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	{/await}
+	{#if type === 'following'}
+		{#await followingProfiles}
+			<div class="flex w-full flex-col gap-4 p-4">
+				<div class="skeleton h-32 w-full"></div>
+				<div class="skeleton h-4 w-28"></div>
+				<div class="skeleton h-4 w-full"></div>
+				<div class="skeleton h-4 w-full"></div>
+			</div>
+		{:then followingProfiles}
+			<table class="table">
+				<tbody>
+					{#each followingProfiles as profile}
+						<tr>
+							<td>
+								<ListProfile {profile} />
+							</td>
+							<td>
+								<!-- <span class="badge badge-ghost badge-sm"></span> -->
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		{/await}
+	{:else if type === 'followers'}
+		{#await followersAndCount}
+			<div class="flex w-full flex-col gap-4 p-4">
+				<div class="skeleton h-32 w-full"></div>
+				<div class="skeleton h-4 w-28"></div>
+				<div class="skeleton h-4 w-full"></div>
+				<div class="skeleton h-4 w-full"></div>
+			</div>
+		{:then { followers, count }}
+			<table class="table">
+				<tbody>
+					{#each followers as profile}
+						<tr>
+							<td>
+								<ListProfile {profile} />
+							</td>
+							<td>
+								<!-- <span class="badge badge-ghost badge-sm"></span> -->
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		{/await}
+	{/if}
 </div>
