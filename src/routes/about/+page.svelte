@@ -37,6 +37,14 @@
 	<h2 class="text-2xl font-bold tracking-tight">Privacy</h2>
 	<a href="/privacy" class="link link-accent">Privacy Policy</a>
 
+	<h2 class="text-2xl font-bold tracking-tight">Disclaimer</h2>
+	<p>
+		This is purely a fan project and not official in anyway. This project is done within the rules
+		of the <a href="https://hololivepro.com/en/terms/" class="link link-secondary"
+			>COVER Corp fan work guidelines</a
+		> .
+	</p>
+
 	<br />
 	<button class="btn btn-secondary rounded-full" on:click={handleLogout}>Logout</button>
 </section>
