@@ -77,7 +77,7 @@
 
 	<section id="bio" class="space-y-4 bg-slate-50 p-4">
 		<p class="text-sm uppercase">Bio</p>
-		<p class="text-xl">
+		<p class="text-xl whitespace-pre-line">
 			{bio}
 		</p>
 	</section>
