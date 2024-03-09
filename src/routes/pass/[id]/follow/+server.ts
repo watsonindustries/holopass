@@ -12,11 +12,13 @@ export const POST: RequestHandler = async ({ request, locals, params }) => {
 	const { profile } = payload;
 	const { id: pass_id } = params;
 
+	if (profile.id === pass_id) {
+		return new Response('Cannot follow yourself', { status: 400 });
+	}
+
 	const { error } = await supabase
-		.from('profiles')
-		.update({ following_ids: [...profile.following_ids, pass_id] })
-		.eq('id', profile.id)
-		.select();
+		.from('follows')
+		.insert({ follower_id: profile.id, followee_id: pass_id });
 
 	if (error) {
 		return new Response('Error', { status: 500 });

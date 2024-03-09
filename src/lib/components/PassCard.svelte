@@ -5,10 +5,16 @@
 
 	export let myPass = false;
 	export let profile: Tables<'profiles'> | any;
-	export let oshi: Promise<Tables<'talents'>[]>;
-	export let badges: Promise<Tables<'badges'>[]>;
-	export let following: Promise<{ following: Tables<'profiles'>; count: number }> | any;
-	export let followers: Promise<{ followers: Tables<'profiles'>; count: number }> | any;
+	export let oshi: Promise<Tables<'talents'>[]> | any;
+	export let badges: Promise<Tables<'badges'>[]> | any;
+	export let following: Promise<{ following: Tables<'profiles'>[]; count: number }> = {
+		following: [],
+		count: 0
+	};
+	export let followers: Promise<{ followers: Tables<'profiles'>[]; count: number }> = {
+		followers: [],
+		count: 0
+	};
 
 	let nickname: string = profile?.nickname ?? '';
 	$: avatarURL = profile?.avatar_url ?? '';

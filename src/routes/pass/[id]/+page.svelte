@@ -8,29 +8,25 @@
 
 	import type { PageData } from './$types';
 	import type { Tables } from '$lib/database.types';
+	import { invalidateAll } from '$app/navigation';
 
 	export let data: PageData;
 
 	// in this context pass is another user's "profile"
 	// and profile is the current user's profile
-	$: ({ pass, oshi, badges, profile } = data);
+	$: ({ pass, oshi, badges, profile, following } = data);
 
-	async function handleFollow(profile: Tables<'profiles'>, pass: Tables<'profiles'> | undefined) {
-		if (pass === null) return;
-		if (pass && profile.following_ids?.includes(pass.id)) return; // already following
-
+	async function handleFollow(profile: Tables<'profiles'>, pass: Tables<'profiles'>) {
 		const resp = await fetch(`/pass/${pass?.id}/follow`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ profile })
 		});
 		if (resp.ok) {
-			location.reload();
+			invalidateAll();
+		} else {
+			console.error('Failed to follow user with status:', resp.status);
 		}
-	}
-
-	function isProfileFollowingPass(profile: Tables<'profiles'>, pass: Tables<'profiles'>) {
-		return profile?.following_ids?.includes(pass.id);
 	}
 </script>
 
@@ -53,15 +49,11 @@
 	<PassCard profile={pass} {oshi} {badges} />
 
 	<div class="flex justify-center">
-		{#await profile}
-			<span class="loading loading-ball loading-lg text-accent"></span>
-		{:then profile}
-			{#if profile && pass}
-				<!-- <FollowButton
-					clickCallback={() => handleFollow(profile, pass)}
-					isFollowed={isProfileFollowingPass(profile, pass)}
-				/> -->
-			{/if}
-		{/await}
+		{#if profile && pass}
+			<FollowButton
+				isFollowed={following}
+				clickCallback={() => profile && pass && handleFollow(profile, pass)}
+			/>
+		{/if}
 	</div>
 </div>

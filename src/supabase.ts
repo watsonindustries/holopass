@@ -44,6 +44,7 @@ export function loadProfileFollowing(
 				`
 			follower_id, 
 			profiles:followee_id (
+				id,
 				nickname,
 				avatar_url,
 				location
@@ -66,6 +67,7 @@ export function loadProfileFollowers(
 				`
 			followee_id, 
 			profiles:follower_id (
+				id,
 				nickname,
 				avatar_url,
 				location
