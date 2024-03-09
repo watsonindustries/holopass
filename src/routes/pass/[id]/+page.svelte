@@ -57,10 +57,10 @@
 			<span class="loading loading-ball loading-lg text-accent"></span>
 		{:then profile}
 			{#if profile && pass}
-				<FollowButton
+				<!-- <FollowButton
 					clickCallback={() => handleFollow(profile, pass)}
 					isFollowed={isProfileFollowingPass(profile, pass)}
-				/>
+				/> -->
 			{/if}
 		{/await}
 	</div>
