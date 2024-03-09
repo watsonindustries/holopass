@@ -38,4 +38,15 @@
 		information we have on you. The right of rectification. The right to object. The right of
 		restriction. The right to data portability The right to withdraw consent
 	</p>
+	<p class="mt-2">
+		Our website utilizes Cloudflare Web Analytics to better understand how visitors engage with our
+		site. By accessing and using our website, you consent to the collection and use of your data by
+		Cloudflare Web Analytics as outlined in this privacy statement. Cloudflare Web Analytics helps
+		us analyze website traffic and optimize your user experience, without identifying individual
+		visitors. For more detailed information on Cloudflare's data practices and how they respect your
+		privacy, please visit Cloudflare's Privacy Policy. Please
+		note, your continued use of our website indicates your agreement with the use of Cloudflare Web
+		Analytics as described in this privacy statement. If you have any concerns or questions
+		regarding your privacy, feel free to contact us.
+	</p>
 </div>
