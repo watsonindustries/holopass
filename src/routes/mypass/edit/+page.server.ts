@@ -13,8 +13,8 @@ const profileSchema = z.object({
 		.max(250, { message: 'Bio must be less than 250 characters' })
 		.trim()
 		.optional(),
-	badge_ids: z.array(z.number()).max(100).optional(),
-	talent_ids: z.array(z.number()).max(100).optional()
+	badge_ids: z.array(z.number().max(100)).max(100).optional(),
+	talent_ids: z.array(z.number().max(100)).max(100).optional()
 });
 
 export const load = (async ({ locals }) => {

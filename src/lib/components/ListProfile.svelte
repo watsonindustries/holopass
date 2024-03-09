@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { Tables } from '$lib/database.types';
 
-	export let profile: Tables<'profiles'>;
+	export let profile: Tables<'profiles'> | any;
 </script>
 
 <a class="flex items-center gap-3" href="/pass/{profile.id}" data-sveltekit-reload>
 	<div class="avatar">
 		<div class="h-12 w-12 rounded-full ring ring-primary">
-			<img src={profile.avatar_url} alt="Avatar" />
+			<img src={profile.avatar_url} alt="Avatar" loading="lazy" />
 		</div>
 	</div>
 	<div>

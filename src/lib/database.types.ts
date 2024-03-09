@@ -52,6 +52,36 @@ export type Database = {
 				};
 				Relationships: [];
 			};
+			follows: {
+				Row: {
+					followee_id: string;
+					follower_id: string;
+				};
+				Insert: {
+					followee_id: string;
+					follower_id: string;
+				};
+				Update: {
+					followee_id?: string;
+					follower_id?: string;
+				};
+				Relationships: [
+					{
+						foreignKeyName: 'follows_followee_id_fkey';
+						columns: ['followee_id'];
+						isOneToOne: false;
+						referencedRelation: 'profiles';
+						referencedColumns: ['id'];
+					},
+					{
+						foreignKeyName: 'follows_follower_id_fkey';
+						columns: ['follower_id'];
+						isOneToOne: false;
+						referencedRelation: 'profiles';
+						referencedColumns: ['id'];
+					}
+				];
+			};
 			profiles: {
 				Row: {
 					avatar_url: string | null;

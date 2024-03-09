@@ -6,7 +6,7 @@
 
 	export let data: PageData;
 
-	$: ({ followingProfiles, followersAndCount, type } = data);
+	$: ({ followers, following, type } = data);
 
 	function randomDefaultPlace() {
 		const places = [
@@ -39,20 +39,20 @@
 	</h1>
 
 	{#if type === 'following'}
-		{#await followingProfiles}
+		{#await following}
 			<div class="flex w-full flex-col gap-4 p-4">
 				<div class="skeleton h-32 w-full"></div>
 				<div class="skeleton h-4 w-28"></div>
 				<div class="skeleton h-4 w-full"></div>
 				<div class="skeleton h-4 w-full"></div>
 			</div>
-		{:then followingProfiles}
+		{:then following}
 			<table class="table">
 				<tbody>
-					{#each followingProfiles as profile}
+					{#each following.follows as follow}
 						<tr>
 							<td>
-								<ListProfile {profile} />
+								<ListProfile profile={follow.profiles} />
 							</td>
 							<td>
 								<!-- <span class="badge badge-ghost badge-sm"></span> -->
@@ -63,20 +63,20 @@
 			</table>
 		{/await}
 	{:else if type === 'followers'}
-		{#await followersAndCount}
+		{#await followers}
 			<div class="flex w-full flex-col gap-4 p-4">
 				<div class="skeleton h-32 w-full"></div>
 				<div class="skeleton h-4 w-28"></div>
 				<div class="skeleton h-4 w-full"></div>
 				<div class="skeleton h-4 w-full"></div>
 			</div>
-		{:then { followers, count }}
+		{:then followers}
 			<table class="table">
 				<tbody>
-					{#each followers as profile}
+					{#each followers.followers as follower}
 						<tr>
 							<td>
-								<ListProfile {profile} />
+								<ListProfile profile={follower.profiles} />
 							</td>
 							<td>
 								<!-- <span class="badge badge-ghost badge-sm"></span> -->

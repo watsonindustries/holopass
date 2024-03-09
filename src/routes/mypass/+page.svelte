@@ -11,9 +11,9 @@
 
 	export let data: PageData;
 
-	let { profile, badges, oshi, followersAndCount } = data;
+	let { profile, badges, oshi, following, followers } = data;
 
-	$: ({ session, supabase, profile, badges, oshi, followersAndCount } = data);
+	$: ({ session, supabase, profile, badges, oshi, following, followers } = data);
 
 	function handleCopyLink() {
 		const link = `${PROD_DOMAIN}/pass/${profile?.id}`;
@@ -27,14 +27,7 @@
 	class="mx-4 mt-4 space-y-6 pb-36"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
-	<PassCard
-		{profile}
-		{oshi}
-		{badges}
-		followingCount={profile?.following_ids?.length}
-		{followersAndCount}
-		myPass
-	/>
+	<PassCard {profile} {oshi} {badges} {following} {followers} myPass />
 
 	<section class="mx-auto flex w-44 flex-col items-center gap-4">
 		<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg font-medium shadow-lg"

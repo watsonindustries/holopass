@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { loadFollowers, loadProfile } from '../../supabase';
+import { loadProfile, loadProfileFollowers, loadProfileFollowing } from '../../supabase';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async ({ locals, parent }) => {
@@ -16,5 +16,10 @@ export const load = (async ({ locals, parent }) => {
 
 	const profile = await loadProfile(supabase)(user);
 
-	return { user, profile, followersAndCount: loadFollowers(supabase)(profile?.id || '') };
+	return {
+		user,
+		profile,
+		following: loadProfileFollowing(supabase)(profile?.id || ''),
+		followers: loadProfileFollowers(supabase)(profile?.id || '')
+	};
 }) satisfies LayoutServerLoad;

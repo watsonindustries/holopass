@@ -13,10 +13,67 @@ export function loadProfile(
 		if (user === null) return null;
 		const { data: profile } = await supabase
 			.from('profiles')
-			.select('id, avatar_url, nickname, location, bio, badge_ids, talent_ids, following_ids')
+			.select(
+				`id, 
+				avatar_url, 
+				nickname, 
+				location, 
+				bio, 
+				badge_ids, 
+				talent_ids`
+			)
 			.eq('id', user?.id)
 			.single();
 		return profile as Tables<'profiles'>;
+	};
+}
+
+/**
+ * Loads the profiles that a user is following from the Supabase database.
+ * @param supabase - The Supabase client instance.
+ * @returns A function that accepts a profile ID and returns the profiles that the user is following.
+ */
+export function loadProfileFollowing(
+	supabase: SupabaseClient
+): (profileId: string) => Promise<{ follows: Tables<'follows'>[]; count: number }> {
+	return async (profileId: string) => {
+		if (profileId === null) return { follows: [], count: 0 };
+		const { data: follows, count } = await supabase
+			.from('follows')
+			.select(
+				`
+			follower_id, 
+			profiles:followee_id (
+				nickname,
+				avatar_url,
+				location
+			)`,
+				{ count: 'exact' }
+			)
+			.eq('follower_id', profileId);
+		return { follows, count } as unknown as { follows: Tables<'follows'>[]; count: number };
+	};
+}
+
+export function loadProfileFollowers(
+	supabase: SupabaseClient
+): (profileId: string) => Promise<{ followers: Tables<'profiles'>[]; count: number }> {
+	return async (profileId: string) => {
+		if (profileId === null) return { followers: [], count: 0 };
+		const { data: followers, count } = await supabase
+			.from('follows')
+			.select(
+				`
+			followee_id, 
+			profiles:follower_id (
+				nickname,
+				avatar_url,
+				location
+			)`,
+				{ count: 'exact' }
+			)
+			.eq('followee_id', profileId);
+		return { followers, count } as unknown as { followers: Tables<'profiles'>[]; count: number };
 	};
 }
 
@@ -86,7 +143,7 @@ export function loadBadges(supabase: SupabaseClient) {
 			.in('id', badgeIds);
 
 		return badges as Tables<'badges'>[];
-	}
+	};
 }
 
 /**

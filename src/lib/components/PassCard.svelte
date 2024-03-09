@@ -4,11 +4,11 @@
 	import type { Tables } from '$lib/database.types';
 
 	export let myPass = false;
-	export let profile: Tables<'profiles'>;
+	export let profile: Tables<'profiles'> | any;
 	export let oshi: Promise<Tables<'talents'>[]>;
 	export let badges: Promise<Tables<'badges'>[]>;
-	export let followingCount: number = 0;
-	export let followersAndCount: Promise<{ followers: Tables<'profiles'>[]; count: number }>;
+	export let following: Promise<{ following: Tables<'profiles'>; count: number }> | any;
+	export let followers: Promise<{ followers: Tables<'profiles'>; count: number }> | any;
 
 	let nickname: string = profile?.nickname ?? '';
 	$: avatarURL = profile?.avatar_url ?? '';
@@ -54,15 +54,17 @@
 
 	{#if myPass}
 		<section class="flex flex-row place-content-evenly p-4" id="connections">
-			<a
-				class="flex flex-col items-center font-medium text-slate-800"
-				href="/mypass/connections?type=following"
-			>
-				<span class="text-2xl">{followingCount}</span>
-				Following
-			</a>
+			{#await following then { count }}
+				<a
+					class="flex flex-col items-center font-medium text-slate-800"
+					href="/mypass/connections?type=following"
+				>
+					<span class="text-2xl">{count}</span>
+					Following
+				</a>
+			{/await}
 
-			{#await followersAndCount then { count }}
+			{#await followers then { count }}
 				<a
 					class="flex flex-col items-center font-medium text-slate-800"
 					href="/mypass/connections?type=followers"
