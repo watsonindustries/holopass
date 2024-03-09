@@ -11,7 +11,7 @@
 
 	export let data: PageData;
 
-	let { supabase, session } = data;
+	let { supabase, session, socialThumbImgURL } = data;
 	$: ({ supabase } = data);
 
 	$: if (session) {
@@ -26,8 +26,35 @@
 		url: 'https://holo-pass.com',
 		title: 'holopass',
 		description: 'holopass - connect with fans at events!',
-		siteName: 'holo-pass'
+		siteName: 'holo-pass',
+		images: [
+      {
+        url: socialThumbImgURL,
+        width: 700,
+        height: 466,
+        alt: 'HoloPass logo'
+      }
+		]
 	}}
+	twitter={{
+		handle: '@danirukun',
+		site: '@danirukun',
+		title: 'holopass',
+		description: 'holopass - connect with fans at events!',
+		image: socialThumbImgURL,
+		imageAlt: 'HoloPass logo',
+		cardType: 'summary_large_image'
+	}}
+	additionalMetaTags={[
+		{
+			property: 'og:image:secure_url',
+			content: socialThumbImgURL
+		},
+		{
+			property: 'twitter:image:src',
+			content: socialThumbImgURL
+		}
+	]}
 />
 
 <section id="home-container" transition:fade={{ delay: 0, duration: 300 }}>
