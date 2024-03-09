@@ -36,7 +36,7 @@ export function loadProfile(
  */
 export function loadProfileFollowing(
 	supabase: SupabaseClient
-): (profileId: string) => Promise<{ follows: Tables<'follows'>[]; count: number }> {
+): (profileId: string) => Promise<{ follows: { profiles: Tables<'profiles'> }[]; count: number }> {
 	return async (profileId: string) => {
 		if (profileId === null) return { follows: [], count: 0 };
 		const { data: follows, count } = await supabase
@@ -53,13 +53,13 @@ export function loadProfileFollowing(
 				{ count: 'exact' }
 			)
 			.eq('follower_id', profileId);
-		return { follows, count } as unknown as { follows: Tables<'follows'>[]; count: number };
+		return { follows, count } as unknown as { follows: { profiles: Tables<'profiles'> }[]; count: number };
 	};
 }
 
 export function loadProfileFollowers(
 	supabase: SupabaseClient
-): (profileId: string) => Promise<{ followers: Tables<'profiles'>[]; count: number }> {
+): (profileId: string) => Promise<{ followers: { profiles: Tables<'profiles'> }[]; count: number }> {
 	return async (profileId: string) => {
 		if (profileId === null) return { followers: [], count: 0 };
 		const { data: followers, count } = await supabase
@@ -76,7 +76,7 @@ export function loadProfileFollowers(
 				{ count: 'exact' }
 			)
 			.eq('followee_id', profileId);
-		return { followers, count } as unknown as { followers: Tables<'profiles'>[]; count: number };
+		return { followers, count } as unknown as { followers: { profiles: Tables<'profiles'> }[]; count: number };
 	};
 }
 
