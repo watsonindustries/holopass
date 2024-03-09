@@ -6,6 +6,7 @@ import { loadProfile } from '../../../supabase';
 
 const profileSchema = z.object({
 	nickname: z.string().min(3).max(30).trim(),
+	nickname_jp: z.string().min(3).max(30).trim().optional(),
 	location: z.string().max(30).optional(),
 	bio: z
 		.string()
@@ -53,6 +54,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 
 		const nickname = formData.get('nickname') as string;
+		const nickname_jp = formData.get('nickname_jp') as string;
 		const location = formData.get('location') as string;
 		const bio = formData.get('bio') as string;
 		const badgeIds = mapToEntityIds(formData.entries(), 'badge') as number[];
@@ -63,6 +65,7 @@ export const actions: Actions = {
 		try {
 			profileSchema.parse({
 				nickname,
+				nickname_jp,
 				location,
 				bio,
 				badge_ids: badgeIds,
@@ -70,12 +73,13 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			const { fieldErrors: errors } = (error as z.ZodError).flatten();
-			return { errors, nickname, location, bio, badgeIds, talentIds, success: false };
+			return { errors, nickname, nickname_jp, location, bio, badgeIds, talentIds, success: false };
 		}
 
 		const { error } = await supabase.from('profiles').upsert({
 			id: session?.user.id,
 			nickname,
+			nickname_jp,
 			location,
 			bio,
 			badge_ids: badgeIds,
@@ -86,7 +90,7 @@ export const actions: Actions = {
 			return fail(500, { nickname, location, bio, badgeIds, talentIds });
 		}
 
-		return { nickname, location, bio, badgeIds, talentIds, success: true };
+		return { nickname, nickname_jp, location, bio, badgeIds, talentIds, success: true };
 	}
 } satisfies Actions;
 

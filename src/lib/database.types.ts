@@ -97,6 +97,7 @@ export type Database = {
           id: string
           location: string | null
           nickname: string | null
+          nickname_jp: string | null
           talent_ids: number[] | null
           updated_at: string | null
         }
@@ -108,6 +109,7 @@ export type Database = {
           id: string
           location?: string | null
           nickname?: string | null
+          nickname_jp?: string | null
           talent_ids?: number[] | null
           updated_at?: string | null
         }
@@ -119,6 +121,7 @@ export type Database = {
           id?: string
           location?: string | null
           nickname?: string | null
+          nickname_jp?: string | null
           talent_ids?: number[] | null
           updated_at?: string | null
         }

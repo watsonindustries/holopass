@@ -1,0 +1,2 @@
+ALTER TABLE profiles
+ADD COLUMN nickname_jp VARCHAR(30) NULL;

@@ -17,6 +17,7 @@ export function loadProfile(
 				`id, 
 				avatar_url, 
 				nickname, 
+				nickname_jp,
 				location, 
 				bio, 
 				badge_ids, 

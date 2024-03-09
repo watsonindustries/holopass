@@ -18,6 +18,7 @@
 	};
 
 	let nickname: string = profile?.nickname ?? '';
+	let nicknameJP = profile?.nickname_jp ?? '';
 	$: avatarURL = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
@@ -38,7 +39,7 @@
 		<section class="flex-2 w-2/3 space-y-4 p-4">
 			<div id="nickname">
 				<p class="text-sm uppercase">Nickname</p>
-				<p class="text-2xl">{nickname}</p>
+				<p class="whitespace-pre-line text-2xl">{nickname}{nicknameJP ? '\n' + nicknameJP : ''}</p>
 			</div>
 
 			<div id="location">

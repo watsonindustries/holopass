@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { SubmitFunction } from '@sveltejs/kit';
 	import { fly, fade } from 'svelte/transition';
 
 	import Avatar from '$lib/components/Avatar.svelte';
@@ -24,19 +23,12 @@
 	let profileForm: HTMLFormElement;
 	let loading = false;
 	let nickname: string = profile?.nickname ?? '';
+	let nicknameJP: string = profile?.nickname_jp ?? '';
 	let avatarURL: string = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
 	let badgeIds: number[] = profile?.badge_ids ?? [];
 	let oshiIds: number[] = profile?.talent_ids ?? [];
-
-	const handleSubmit: SubmitFunction = () => {
-		loading = true;
-
-		return async () => {
-			loading = false;
-		};
-	};
 </script>
 
 {#if form?.success}
@@ -87,6 +79,25 @@
 				{/if}
 				<div class="label">
 					<span class="label-text-alt">*Required</span>
+				</div>
+			</label>
+
+			<label class="form-control w-full max-w-xs">
+				<div class="label">
+					<span class="label-text">Name JP / 名前</span>
+				</div>
+				<input
+					type="text"
+					name="nickname_jp"
+					id="nickname_jp"
+					class="input input-bordered input-secondary w-full max-w-xs"
+					value={form?.nickname_jp ?? nicknameJP}
+				/>
+				{#if form?.errors?.nickname_jp}
+					<span class="px-1 py-2 text-error">{form?.errors?.nickname_jp[0]}</span>
+				{/if}
+				<div class="label">
+					<span class="label-text-alt">Optional</span>
 				</div>
 			</label>
 
