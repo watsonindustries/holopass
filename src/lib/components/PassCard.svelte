@@ -2,6 +2,7 @@
 	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import type { Tables } from '$lib/database.types';
+	import * as profiles from '../../profiles';
 
 	export let myPass = false;
 	export let profile: Tables<'profiles'> | any;
@@ -22,7 +23,12 @@
 	let bio: string = profile?.bio ?? '';
 </script>
 
-<div class="card bg-slate-50 p-6 shadow-lg" id="pass-card">
+<div
+	class={profiles.isDaniru(profile.id)
+		? 'card bg-gradient-to-br from-primary/50 to-secondary/50 p-6 shadow-2xl shadow-primary/60'
+		: 'card bg-slate-50 p-6 shadow-lg'}
+	id="pass-card"
+>
 	<section id="pass-info" class="flex">
 		<section class="w-1/3 flex-1" id="profile-pic">
 			<Avatar {avatarURL} />
@@ -82,7 +88,7 @@
 		</section>
 	{/if}
 
-	<section id="bio" class="space-y-4 bg-slate-50 p-4">
+	<section id="bio" class="space-y-4 p-4">
 		<p class="text-sm uppercase">Bio</p>
 		<p class="whitespace-pre-line text-xl">
 			{bio}
