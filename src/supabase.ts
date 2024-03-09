@@ -80,23 +80,6 @@ export function loadProfileFollowers(
 }
 
 /**
- * Loads multiple profiles from the Supabase database based on their IDs.
- * @param supabase - The Supabase client instance.
- * @returns A function that accepts an array of profile IDs and returns the profiles data.
- */
-export function loadProfiles(
-	supabase: SupabaseClient
-): (ids: string[]) => Promise<Tables<'profiles'>[]> {
-	return async (ids: string[]) => {
-		const { data: profiles } = await supabase
-			.from('profiles')
-			.select('id, avatar_url, nickname, following_ids, location')
-			.in('id', ids);
-		return profiles as Tables<'profiles'>[];
-	};
-}
-
-/**
  * Loads a pass from the Supabase database based on its ID.
  * @param supabase - The Supabase client instance.
  * @returns A function that accepts a pass ID and returns the pass data.
@@ -114,23 +97,6 @@ export function loadPass(
 	};
 }
 
-/**
- * Retrieves the follower count for a user from the Supabase database.
- * @param supabase - The Supabase client instance.
- * @returns A function that accepts a profile ID and returns the followers and follower count.
- */
-export function loadFollowers(
-	supabase: SupabaseClient
-): (profileId: string) => Promise<{ followers: Tables<'profiles'>[]; count: number }> {
-	return async (profileId: string) => {
-		const { data: followers, count } = await supabase
-			.from('profiles')
-			.select('*', { count: 'exact' })
-			.contains('following_ids', [profileId]);
-
-		return { followers, count } as unknown as { followers: Tables<'profiles'>[]; count: number };
-	};
-}
 
 /**
  * Loads badges from the Supabase database based on their IDs.
