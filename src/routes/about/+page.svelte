@@ -14,7 +14,7 @@
 		if (error) {
 			console.error('Error logging out:', error.message);
 		}
-		goto('/login');
+		goto('/');
 	}
 </script>
 

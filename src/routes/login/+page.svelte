@@ -8,14 +8,11 @@
 	export let data: PageData;
 </script>
 
-<section
-	id="home-container"
-	class="mx-4 mt-4 space-y-6 pb-36"
-	transition:fade={{ delay: 150, duration: 200 }}
->
+<section id="home-container" class="mx-4 mt-4 space-y-6 pb-36">
 	<div
 		class="card mx-auto mt-[40vh] flex items-center space-y-4 bg-slate-50 p-6 shadow-lg"
 		id="signin-card"
+		transition:fade={{ delay: 200, duration: 400 }}
 	>
 		<div class="card-body items-center space-y-4">
 			<h2 class="card-title text-4xl font-bold tracking-tight text-secondary">Sign In</h2>
