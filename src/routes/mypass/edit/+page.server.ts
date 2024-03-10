@@ -6,7 +6,7 @@ import { loadProfile } from '../../../supabase';
 
 const profileSchema = z.object({
 	nickname: z.string().min(3).max(30).trim(),
-	nickname_jp: z.string().min(3).max(30).trim().optional(),
+	nickname_jp: z.string().max(30).trim().optional(),
 	location: z.string().max(30).optional(),
 	bio: z
 		.string()
