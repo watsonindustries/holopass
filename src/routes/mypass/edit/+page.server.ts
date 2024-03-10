@@ -14,6 +14,7 @@ const profileSchema = z.object({
 		.max(250, { message: 'Bio must be less than 250 characters' })
 		.trim()
 		.optional(),
+	fav_stream: z.string().max(100).optional(),
 	badge_ids: z.array(z.number().max(100)).max(100).optional(),
 	talent_ids: z.array(z.number().max(100)).max(100).optional()
 });
@@ -57,6 +58,7 @@ export const actions: Actions = {
 		const nickname_jp = formData.get('nickname_jp') as string;
 		const location = formData.get('location') as string;
 		const bio = formData.get('bio') as string;
+		const fav_stream = formData.get('fav_stream') as string;
 		const badgeIds = mapToEntityIds(formData.entries(), 'badge') as number[];
 		const talentIds = mapToEntityIds(formData.entries(), 'talent') as number[];
 
@@ -68,12 +70,13 @@ export const actions: Actions = {
 				nickname_jp,
 				location,
 				bio,
+				fav_stream,
 				badge_ids: badgeIds,
 				talent_ids: talentIds
 			});
 		} catch (error) {
 			const { fieldErrors: errors } = (error as z.ZodError).flatten();
-			return { errors, nickname, nickname_jp, location, bio, badgeIds, talentIds, success: false };
+			return { errors, nickname, nickname_jp, location, bio, fav_stream, badgeIds, talentIds, success: false };
 		}
 
 		const { error } = await supabase.from('profiles').upsert({
@@ -82,15 +85,16 @@ export const actions: Actions = {
 			nickname_jp,
 			location,
 			bio,
+			fav_stream,
 			badge_ids: badgeIds,
 			talent_ids: talentIds
 		});
 
 		if (error) {
-			return fail(500, { nickname, location, bio, badgeIds, talentIds });
+			return fail(500, { nickname, location, bio, fav_stream, badgeIds, talentIds });
 		}
 
-		return { nickname, nickname_jp, location, bio, badgeIds, talentIds, success: true };
+		return { nickname, nickname_jp, location, bio, fav_stream, badgeIds, talentIds, success: true };
 	}
 } satisfies Actions;
 

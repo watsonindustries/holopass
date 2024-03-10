@@ -22,6 +22,7 @@
 	$: avatarURL = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
+	let favStream = profile?.fav_stream ?? '';
 </script>
 
 <div
@@ -96,11 +97,20 @@
 		</p>
 	</section>
 
+	{#if favStream}
+		<section id="bio" class="space-y-4 p-4">
+			<p class="text-sm uppercase">Favorite stream</p>
+			<p class="whitespace-pre-line text-xl">
+				{favStream}
+			</p>
+		</section>
+	{/if}
+
 	<section id="badges" class="space-y-4 p-4">
 		<p class="text-sm uppercase">badges</p>
 		<div class="space-y-8">
 			{#await badges}
-				<p class="animate-pulse">Loading...</p>
+				<div class="skeleton h-64 w-full"></div>
 			{:then badges}
 				{#if badges && badges.length > 0}
 					{#each badges as { name }}

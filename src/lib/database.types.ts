@@ -94,6 +94,7 @@ export type Database = {
           badge_ids: number[] | null
           bio: string | null
           email: string | null
+          fav_stream: string | null
           id: string
           location: string | null
           nickname: string | null
@@ -106,6 +107,7 @@ export type Database = {
           badge_ids?: number[] | null
           bio?: string | null
           email?: string | null
+          fav_stream?: string | null
           id: string
           location?: string | null
           nickname?: string | null
@@ -118,6 +120,7 @@ export type Database = {
           badge_ids?: number[] | null
           bio?: string | null
           email?: string | null
+          fav_stream?: string | null
           id?: string
           location?: string | null
           nickname?: string | null

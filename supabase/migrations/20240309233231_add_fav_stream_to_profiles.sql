@@ -1,0 +1,2 @@
+ALTER TABLE profiles
+ADD COLUMN fav_stream VARCHAR(100);

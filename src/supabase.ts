@@ -20,6 +20,7 @@ export function loadProfile(
 				nickname_jp,
 				location, 
 				bio, 
+				fav_stream,
 				badge_ids, 
 				talent_ids`
 			)

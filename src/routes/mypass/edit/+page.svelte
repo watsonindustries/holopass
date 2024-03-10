@@ -4,6 +4,7 @@
 	import Avatar from '$lib/components/Avatar.svelte';
 	import type { PageData } from './$types';
 	import type { Talent } from '../../../custom';
+	import FormTextInput from '$lib/components/FormTextInput.svelte';
 
 	export let form;
 	export let data: PageData;
@@ -27,6 +28,7 @@
 	let avatarURL: string = profile?.avatar_url ?? '';
 	let location: string = profile?.location ?? '';
 	let bio: string = profile?.bio ?? '';
+	let favStream: string = profile?.fav_stream ?? '';
 	let badgeIds: number[] = profile?.badge_ids ?? [];
 	let oshiIds: number[] = profile?.talent_ids ?? [];
 </script>
@@ -63,66 +65,32 @@
 	<section id="profile-details">
 		<h3 class="text-2xl">Basic Info</h3>
 		<form method="post" class="space-y-4" bind:this={profileForm}>
-			<label class="form-control w-full max-w-xs">
-				<div class="label">
-					<span class="label-text">Nickname</span>
-				</div>
-				<input
-					type="text"
-					name="nickname"
-					id="nickname"
-					class="input input-bordered input-primary w-full max-w-xs"
-					value={form?.nickname ?? nickname}
-				/>
-				{#if form?.errors?.nickname}
-					<span class="px-1 py-2 text-error">{form?.errors?.nickname[0]}</span>
-				{/if}
-				<div class="label">
-					<span class="label-text-alt">*Required</span>
-				</div>
-			</label>
+			<FormTextInput
+				{form}
+				fieldName="nickname"
+				label="Nickname / 名前（英語）"
+				fallbackValue={nickname}
+			/>
 
-			<label class="form-control w-full max-w-xs">
-				<div class="label">
-					<span class="label-text">Name JP / 名前</span>
-				</div>
-				<input
-					type="text"
-					name="nickname_jp"
-					id="nickname_jp"
-					class="input input-bordered input-secondary w-full max-w-xs"
-					value={form?.nickname_jp ?? nicknameJP}
-				/>
-				{#if form?.errors?.nickname_jp}
-					<span class="px-1 py-2 text-error">{form?.errors?.nickname_jp[0]}</span>
-				{/if}
-				<div class="label">
-					<span class="label-text-alt">Optional</span>
-				</div>
-			</label>
+			<FormTextInput
+				{form}
+				fieldName="nickname_jp"
+				label="Name JP / 名前"
+				fallbackValue={nicknameJP}
+				optional
+			/>
 
-			<label class="form-control w-full max-w-xs">
-				<div class="label">
-					<span class="label-text">Where are you from?</span>
-				</div>
-				<input
-					type="text"
-					name="location"
-					id="location"
-					class="input input-bordered input-secondary w-full max-w-xs"
-					value={form?.location ?? location}
-				/>
-				{#if form?.errors?.location}
-					<span class="px-1 py-2 text-error">{form?.errors?.location[0]}</span>
-				{/if}
-				<div class="label">
-					<span class="label-text-alt">Optional</span>
-				</div>
-			</label>
+			<FormTextInput
+				{form}
+				fieldName="location"
+				label="Where are you from? / 出身"
+				fallbackValue={location}
+				optional
+			/>
 
 			<label class="form-control">
 				<div class="label">
-					<span class="label-text">About you</span>
+					<span class="label-text">About you / みんなに一言</span>
 				</div>
 				<textarea
 					name="bio"
@@ -138,6 +106,14 @@
 					<span class="label-text-alt">Optional</span>
 				</div>
 			</label>
+
+			<FormTextInput
+				{form}
+				fieldName="fav_stream"
+				label="Favorite stream / 好きな配信"
+				fallbackValue={favStream}
+				optional
+			/>
 
 			<section id="badges" class="space-y-2">
 				<h3 class="text-2xl">Badges</h3>
