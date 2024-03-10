@@ -9,6 +9,7 @@
 	import type { PageData } from './$types';
 	import type { Tables } from '$lib/database.types';
 	import { invalidateAll } from '$app/navigation';
+	import LoginButton from '$lib/components/LoginButton.svelte';
 
 	export let data: PageData;
 
@@ -54,6 +55,13 @@
 				isFollowed={following}
 				clickCallback={() => profile && pass && handleFollow(profile, pass)}
 			/>
+		{:else}
+			<div class="flex flex-col gap-4">
+				<p class="text-center text-2xl font-semibold tracking-tight text-secondary">
+					Login to follow
+				</p>
+				<LoginButton />
+			</div>
 		{/if}
 	</div>
 </div>

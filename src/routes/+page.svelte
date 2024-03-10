@@ -10,6 +10,7 @@
 	import { MetaTags } from 'svelte-meta-tags';
 	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import LoginButton from '$lib/components/LoginButton.svelte';
 
 	export let data: PageData;
 
@@ -84,11 +85,7 @@
 				<p class="py-6 text-xl font-semibold text-accent">
 					Connect with fans at hololive events from around the world!
 				</p>
-				<a
-					href="/login"
-					class="btn btn-primary btn-lg min-w-52 rounded-full px-4 text-lg font-bold text-white shadow-lg"
-					>Login</a
-				>
+				<LoginButton />
 			</div>
 		</div>
 	</section>
