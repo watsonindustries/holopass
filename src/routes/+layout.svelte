@@ -20,18 +20,16 @@
 		return () => data.subscription.unsubscribe();
 	});
 
-	function isHomePage() {
-		return pathname === '/';
-	}
+	$: isHomePage = pathname === '/';
 </script>
 
 <svelte:head>
 	<title>holopass</title>
 </svelte:head>
 
-<div class="xl:mx-auto" class:xl:max-w-xl={!isHomePage()}>
+<div class="xl:mx-auto" class:xl:max-w-xl={!isHomePage}>
 	<slot />
-	{#if !isHomePage()}
+	{#if !isHomePage}
 		<BottomNav {pathname} />
 	{/if}
 </div>

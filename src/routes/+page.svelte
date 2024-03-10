@@ -8,15 +8,17 @@
 	import ScanCodeImg from '$lib/assets/images/scan_code.png';
 
 	import { MetaTags } from 'svelte-meta-tags';
+	import { invalidateAll } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
 
-	let { supabase, session, socialThumbImgURL } = data;
+	let { supabase, socialThumbImgURL } = data;
 	$: ({ supabase } = data);
 
-	$: if (session) {
-		window.location.reload(); // TODO: Think of a better way than this hack to force redirect to mypass after login
-	}
+	onMount(() => {
+		invalidateAll();
+	});
 </script>
 
 <MetaTags
@@ -28,12 +30,12 @@
 		description: 'holopass - connect with fans at events!',
 		siteName: 'holo-pass',
 		images: [
-      {
-        url: socialThumbImgURL,
-        width: 700,
-        height: 466,
-        alt: 'HoloPass logo'
-      }
+			{
+				url: socialThumbImgURL,
+				width: 700,
+				height: 466,
+				alt: 'HoloPass logo'
+			}
 		]
 	}}
 	twitter={{
