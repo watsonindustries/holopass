@@ -32,7 +32,7 @@
 	id="pass-card"
 >
 	<section id="pass-info" class="flex">
-		<section class="w-1/3 flex-1" id="profile-pic">
+		<section class="w-3/5 flex-1" id="profile-pic">
 			<Avatar {avatarURL} />
 			<p class="mb-4 text-center align-middle text-slate-600">holopass</p>
 		</section>
@@ -40,13 +40,18 @@
 		<section class="flex-2 w-2/3 space-y-4 p-4">
 			<div id="nickname">
 				<p class="text-sm uppercase">Nickname</p>
-				<p class="whitespace-pre-line text-2xl">{nickname}{nicknameJP ? '\n' + nicknameJP : ''}</p>
+				<p class="text-2xl">{nickname}</p>
+				{#if nicknameJP}
+					<p class="text-2xl">{nicknameJP}</p>
+				{/if}
 			</div>
 
-			<div id="location">
-				<p class="text-sm uppercase">Location</p>
-				<p class="text-2xl">{location ? location : 'None'}</p>
-			</div>
+			{#if location}
+				<div id="location">
+					<p class="text-sm uppercase">Location</p>
+					<p class="text-lg">{location ? location : 'None'}</p>
+				</div>
+			{/if}
 
 			<div id="oshi">
 				<p class="text-sm uppercase">Oshi</p>
@@ -55,11 +60,11 @@
 					<div class="skeleton h-4 w-full"></div>
 				{:then oshi}
 					{#if oshi && oshi.length === 1}
-						<p class="text-2xl">{oshi[0].fanmark}</p>
+						<p class="text-lg">{oshi[0].fanmark}</p>
 					{:else if oshi && oshi.length > 1}
-						<p class="text-2xl">{oshi.map((val) => val.fanmark).join(' ')}</p>
+						<p class="text-lg">{oshi.map((val) => val.fanmark).join(' ')}</p>
 					{:else}
-						<p class="text-2xl">None</p>
+						<p class="text-lg">None</p>
 					{/if}
 				{/await}
 			</div>
@@ -92,7 +97,7 @@
 
 	<section id="bio" class="space-y-4 p-4">
 		<p class="text-sm uppercase">Bio</p>
-		<p class="whitespace-pre-line text-xl">
+		<p class="whitespace-pre-line text-lg">
 			{bio}
 		</p>
 	</section>
