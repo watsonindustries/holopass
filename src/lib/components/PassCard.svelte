@@ -3,6 +3,7 @@
 	import Avatar from '$lib/components/Avatar.svelte';
 	import type { Tables } from '$lib/database.types';
 	import * as profiles from '../../profiles';
+	import Oshi from './Oshi.svelte';
 
 	export let myPass = false;
 	export let profile: Tables<'profiles'> | any;
@@ -59,12 +60,14 @@
 				{#await oshi}
 					<div class="skeleton h-4 w-full"></div>
 				{:then oshi}
-					{#if oshi && oshi.length === 1}
-						<p class="text-lg">{oshi[0].fanmark}</p>
-					{:else if oshi && oshi.length > 1}
-						<p class="text-lg">{oshi.map((val) => val.fanmark).join(' ')}</p>
+					{#if oshi.length === 0}
+						<p>None</p>
 					{:else}
-						<p class="text-lg">None</p>
+						<div class="space-x-1 text-lg">
+							{#each oshi as o}
+								<Oshi oshi={o} />
+							{/each}
+						</div>
 					{/if}
 				{/await}
 			</div>
