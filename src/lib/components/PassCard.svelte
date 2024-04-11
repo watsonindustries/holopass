@@ -1,14 +1,16 @@
 <script lang="ts">
-	import Badge from '$lib/components/Badge.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
+	import Badge from '$lib/components/Badge.svelte';
+	import Bio from '$lib/components/Bio.svelte';
+	import Counter from '$lib/components/Counter.svelte';
 	import type { Tables } from '$lib/database.types';
 	import * as profiles from '../../profiles';
 	import Oshi from './Oshi.svelte';
 
 	export let myPass = false;
-	export let profile: Tables<'profiles'> | any;
-	export let oshi: Promise<Tables<'talents'>[]> | any;
-	export let badges: Promise<Tables<'badges'>[]> | any;
+	export let profile: Tables<'profiles'>;
+	export let oshi: Promise<Tables<'talents'>[]>;
+	export let badges: Promise<Tables<'badges'>[]>;
 	export let following: Promise<{ following: Tables<'profiles'>[]; count: number }> = {
 		following: [],
 		count: 0
@@ -18,12 +20,12 @@
 		count: 0
 	};
 
-	let nickname: string = profile?.nickname ?? '';
-	let nicknameJP = profile?.nickname_jp ?? '';
-	$: avatarURL = profile?.avatar_url ?? '';
-	let location: string = profile?.location ?? '';
-	let bio: string = profile?.bio ?? '';
-	let favStream = profile?.fav_stream ?? '';
+	let nickname = profile.nickname ?? '';
+	let nicknameJP = profile.nickname_jp ?? '';
+	$: avatarURL = profile.avatar_url ?? '';
+	let location = profile.location ?? '';
+	let bio = profile.bio ?? '';
+	let favStream = profile.fav_stream ?? '';
 </script>
 
 <div
@@ -63,7 +65,7 @@
 					{#if oshi.length === 0}
 						<p>None</p>
 					{:else}
-						<div class="space-x-1 text-lg">
+						<div class="space-x-1 text-lg" id="oshi-container">
 							{#each oshi as o}
 								<Oshi oshi={o} />
 							{/each}
@@ -77,33 +79,16 @@
 	{#if myPass}
 		<section class="flex flex-row place-content-evenly p-4" id="connections">
 			{#await following then { count }}
-				<a
-					class="flex flex-col items-center font-medium text-slate-800"
-					href="/mypass/connections?type=following"
-				>
-					<span class="text-2xl">{count}</span>
-					Following
-				</a>
+				<Counter {count} url="/mypass/connections?type=following" text="Following" />
 			{/await}
 
 			{#await followers then { count }}
-				<a
-					class="flex flex-col items-center font-medium text-slate-800"
-					href="/mypass/connections?type=followers"
-				>
-					<span class="text-2xl">{count}</span>
-					Followers
-				</a>
+				<Counter {count} url="/mypass/connections?type=followers" text="Followers" />
 			{/await}
 		</section>
 	{/if}
 
-	<section id="bio" class="space-y-4 p-4">
-		<p class="text-sm uppercase">Bio</p>
-		<p class="whitespace-pre-line text-lg">
-			{bio}
-		</p>
-	</section>
+	<Bio {bio} />
 
 	{#if favStream}
 		<section id="bio" class="space-y-4 p-4">
