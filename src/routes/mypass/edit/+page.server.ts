@@ -94,7 +94,7 @@ export const actions: Actions = {
 			return fail(500, { nickname, location, bio, fav_stream, badgeIds, talentIds });
 		}
 
-		return { nickname, nickname_jp, location, bio, fav_stream, badgeIds, talentIds, success: true };
+		redirect(303, '/mypass');
 	}
 } satisfies Actions;
 
