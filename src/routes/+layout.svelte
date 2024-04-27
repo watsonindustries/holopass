@@ -56,9 +56,10 @@
 			)
 			.subscribe();
 
-		iapStore.subscribe((value) => {
-			console.log('inappNotifications', value);
-		});
+		// FOR DEBUGGING
+		// iapStore.subscribe((value) => {
+		// 	console.log('inappNotifications', value);
+		// });
 
 		// window.ian = inapp_notifications;
 
