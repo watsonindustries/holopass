@@ -1,8 +1,8 @@
-import { WHITELISTED_DOMAINS } from "./const";
+import { WHITELISTED_DOMAINS } from './const';
 
 export const htmlifyLinks = (input: string): string => {
 	const urlPattern = /\bhttps?:\/\/[\w.-]+\.\w+[/\w.-]*\w/g;
-	return input.replace(urlPattern, url => {
+	return input.replace(urlPattern, (url) => {
 		const { hostname, pathname } = new URL(url);
 		return `<a href="${wrapForeignLinks(url)}" class="link link-primary">${hostname}${pathname === '/' ? '' : pathname}</a>`;
 	});
@@ -21,6 +21,5 @@ const wrapForeignLinks = (url: string) => {
 		unwrap = true;
 	}
 
-	return unwrap ? `/mypass` : url;
+	return unwrap ? `/#` : url;
 };
-
