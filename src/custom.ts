@@ -5,3 +5,8 @@ export type Talent = {
 	gen: string;
 	fanmark: string;
 };
+
+export type InAppNotification = {
+	type: 'info' | 'error',
+	message: string,
+};
