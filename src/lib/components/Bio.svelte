@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { htmlifyLinks } from "../../html";
+	import { htmlifyLinks } from '../../html';
 
 	export let bio = 'None';
 </script>

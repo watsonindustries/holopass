@@ -29,7 +29,9 @@
 	<h2 class="text-2xl font-bold tracking-tight">Credits</h2>
 	<p>Project lead: <a href="https://danirukun.com" class="link link-accent">@danirukun</a></p>
 	<p>Alpha testers: Kaigainiki server members</p>
-	<p>Artist: <a href="https://twitter.com/CaptainMeowHere" class="link link-accent">@captainmeow</a></p>
+	<p>
+		Artist: <a href="https://twitter.com/CaptainMeowHere" class="link link-accent">@captainmeow</a>
+	</p>
 
 	<h2 class="text-2xl font-bold tracking-tight">Support</h2>
 	<a href="https://discord.gg/VRMWrDb8" class="link link-accent">Discord</a>

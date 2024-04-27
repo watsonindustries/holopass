@@ -13,8 +13,8 @@
 	</div>
 	<input
 		type="text"
-		name="{fieldName}"
-		id="{fieldName}"
+		name={fieldName}
+		id={fieldName}
 		class="input input-bordered {optional ? 'input-secondary' : 'input-primary'} w-full max-w-xs"
 		value={form?.[fieldName] || fallbackValue}
 	/>

@@ -6,6 +6,10 @@
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord';
 
 	export let data: PageData;
+
+	$: if (data.redirectAfterLoginURL) {
+		sessionStorage.setItem('redirectAfterLoginURL', data.redirectAfterLoginURL);
+	}
 </script>
 
 <section id="home-container" class="mx-4 mt-4 space-y-6 pb-36">
@@ -19,7 +23,7 @@
 			<div class="card-actions justify-end">
 				<form class="" id="social-login" method="post">
 					<button
-						formaction="?/login&provider=discord"
+						formaction={`?/login&provider=discord`}
 						class="btn rounded-full bg-[#5865F2] text-white"
 					>
 						<Icon data={faDiscord} scale={1.2} />

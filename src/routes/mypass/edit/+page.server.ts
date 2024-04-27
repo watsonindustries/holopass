@@ -76,7 +76,17 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			const { fieldErrors: errors } = (error as z.ZodError).flatten();
-			return { errors, nickname, nickname_jp, location, bio, fav_stream, badgeIds, talentIds, success: false };
+			return {
+				errors,
+				nickname,
+				nickname_jp,
+				location,
+				bio,
+				fav_stream,
+				badgeIds,
+				talentIds,
+				success: false
+			};
 		}
 
 		const { error } = await supabase.from('profiles').upsert({

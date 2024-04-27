@@ -8,6 +8,8 @@
 	import { fade } from 'svelte/transition';
 	import PassCard from '$lib/components/PassCard.svelte';
 	import { PROD_DOMAIN } from '../../const';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
@@ -20,6 +22,13 @@
 		navigator.clipboard.writeText(link);
 		alert('Pass link copied to clipboard!');
 	}
+
+	onMount(() => {
+		const redirectAfterLoginURL = sessionStorage.getItem('redirectAfterLoginURL');
+		if (redirectAfterLoginURL) {
+			goto(redirectAfterLoginURL);
+		}
+	});
 </script>
 
 <div

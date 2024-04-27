@@ -7,6 +7,6 @@ export type Talent = {
 };
 
 export type InAppNotification = {
-	type: 'info' | 'error',
-	message: string,
+	type: 'info' | 'error';
+	message: string;
 };

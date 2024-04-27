@@ -4,9 +4,9 @@
 	export let message: string;
 </script>
 
-<div class="toast toast-top toast-start">
+<div class="toast toast-start toast-top">
 	<div class="alert alert-info w-fit shadow-lg" transition:fade>
-		<div class="text-center place-content-center text-lg text-white">
+		<div class="place-content-center text-center text-lg text-white">
 			<span>{message}</span>
 		</div>
 	</div>

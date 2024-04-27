@@ -44,9 +44,9 @@
 		Cloudflare Web Analytics as outlined in this privacy statement. Cloudflare Web Analytics helps
 		us analyze website traffic and optimize your user experience, without identifying individual
 		visitors. For more detailed information on Cloudflare's data practices and how they respect your
-		privacy, please visit Cloudflare's Privacy Policy. Please
-		note, your continued use of our website indicates your agreement with the use of Cloudflare Web
-		Analytics as described in this privacy statement. If you have any concerns or questions
-		regarding your privacy, feel free to contact us.
+		privacy, please visit Cloudflare's Privacy Policy. Please note, your continued use of our
+		website indicates your agreement with the use of Cloudflare Web Analytics as described in this
+		privacy statement. If you have any concerns or questions regarding your privacy, feel free to
+		contact us.
 	</p>
 </div>

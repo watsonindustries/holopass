@@ -10,6 +10,7 @@
 	import type { Tables } from '$lib/database.types';
 	import { invalidateAll } from '$app/navigation';
 	import LoginButton from '$lib/components/LoginButton.svelte';
+	import { profileRedirectURL } from '../../../profiles';
 
 	export let data: PageData;
 
@@ -58,9 +59,11 @@
 		{:else}
 			<div class="flex flex-col gap-4">
 				<p class="text-center text-2xl font-semibold tracking-tight text-secondary">
-					Login to follow
+					Login or Signup to follow
 				</p>
-				<LoginButton />
+				<LoginButton
+					loginRoute={`/login?redirectAfterLoginURL=${profileRedirectURL(pass?.id || '')}`}
+				/>
 			</div>
 		{/if}
 	</div>
