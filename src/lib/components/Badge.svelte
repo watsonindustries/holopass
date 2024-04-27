@@ -22,7 +22,7 @@
 
 <div
 	class="{image ??
-		randomGradientStyle} flex h-14 w-full items-center justify-center rounded-xl outline-dashed outline-offset-1 outline-neutral/80"
+		randomGradientStyle} flex h-14 w-full items-center justify-center rounded-2xl shadow-md"
 >
 	<p>{name}</p>
 </div>
