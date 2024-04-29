@@ -1,10 +1,9 @@
-import { WHITELISTED_DOMAINS } from './const';
+import { WHITELISTED_DOMAINS, YT_DOMAINS } from './const';
 
 export const htmlifyLinks = (input: string): string => {
-	const urlPattern = /\bhttps?:\/\/[\w.-]+\.\w+[/\w.-]*\w/g;
+	const urlPattern = /\bhttps?:\/\/[\w.-]+\.\w+[/\w.-]*\w(\?\w+=\w+(&\w+=\w+)*)?/g;
 	return input.replace(urlPattern, (url) => {
-		const { hostname, pathname } = new URL(url);
-		return `<a href="${wrapForeignLinks(url)}" class="link link-primary">${hostname}${pathname === '/' ? '' : pathname}</a>`;
+		return `<a href="${wrapForeignLinks(url)}" class="link link-primary">${linkDisplay(url)}</a>`;
 	});
 };
 
@@ -22,4 +21,15 @@ const wrapForeignLinks = (url: string) => {
 	}
 
 	return unwrap ? `/#` : url;
+};
+
+const linkDisplay = (url: string) => {
+	const { hostname, pathname, searchParams } = new URL(url);
+
+	if (YT_DOMAINS.includes(hostname)) {
+		const v = searchParams.get('v');
+		return `${hostname}${pathname}?v=${v}`;
+	}
+
+	return `${hostname}${pathname === '/' ? '' : pathname}`;
 };

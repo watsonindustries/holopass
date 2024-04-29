@@ -101,7 +101,9 @@ export function loadPass(
 	return async (id: string) => {
 		const { data: pass } = await supabase
 			.from('profiles')
-			.select('id, avatar_url, nickname, nickname_jp, location, bio, badge_ids, talent_ids')
+			.select(
+				'id, avatar_url, nickname, nickname_jp, location, bio, badge_ids, talent_ids, fav_stream'
+			)
 			.eq('id', id)
 			.single();
 		return pass as Tables<'profiles'> | null;

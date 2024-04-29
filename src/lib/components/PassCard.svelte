@@ -4,6 +4,7 @@
 	import Bio from '$lib/components/Bio.svelte';
 	import Counter from '$lib/components/Counter.svelte';
 	import type { Tables } from '$lib/database.types';
+	import { htmlifyLinks } from '../../html';
 	import * as profiles from '../../profiles';
 	import Oshi from './Oshi.svelte';
 
@@ -91,10 +92,10 @@
 	<Bio {bio} />
 
 	{#if favStream}
-		<section id="bio" class="space-y-4 p-4">
+		<section id="favstream" class="space-y-4 p-4">
 			<p class="text-sm uppercase">Favorite stream</p>
-			<p class="whitespace-pre-line text-xl">
-				{favStream}
+			<p class="whitespace-pre-line text-wrap text-xl">
+				{@html htmlifyLinks(favStream)}
 			</p>
 		</section>
 	{/if}
