@@ -20,7 +20,7 @@ const wrapForeignLinks = (url: string) => {
 		unwrap = true;
 	}
 
-	return unwrap ? `/#` : url;
+	return url;
 };
 
 const linkDisplay = (url: string) => {
