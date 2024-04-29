@@ -106,13 +106,11 @@
 			{#await badges}
 				<div class="skeleton h-64 w-full"></div>
 			{:then badges}
-				{#if badges && badges.length > 0}
-					{#each badges as { name }}
-						<Badge name={name || ''} />
-					{/each}
+				{#each badges as { name }}
+					<Badge name={name || ''} />
 				{:else}
 					<p>None</p>
-				{/if}
+				{/each}
 			{/await}
 		</div>
 	</section>
