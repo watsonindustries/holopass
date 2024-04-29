@@ -11,3 +11,8 @@ export function profileRedirectURL(profileId: string): string {
 	const redirectURL = `${baseURL}/pass/${profileId}`;
 	return redirectURL;
 }
+
+export function discordAvatarURLtoStoragePath(url: string): string {
+	const fileName = url.split('/').pop();
+	return fileName || '';
+}

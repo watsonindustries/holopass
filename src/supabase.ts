@@ -1,5 +1,6 @@
 import type { SupabaseClient, User } from '@supabase/supabase-js';
 import type { Tables } from './lib/database.types';
+import { discordAvatarURLtoStoragePath } from './profiles';
 
 /**
  * Loads the profile of a user from the Supabase database.
@@ -137,4 +138,35 @@ export function loadOshi(supabase: SupabaseClient) {
 
 		return oshi as Tables<'talents'>[];
 	};
+}
+
+/**
+ *
+ * @param supabase Supabase client instance
+ * @param url Public URL of the new profile picture image
+ * @param profileId ID of the profile to update
+ * @returns Promise<void>
+ */
+export async function setProfilePictureFromURL(
+	supabase: SupabaseClient,
+	url: string,
+	profileId: string
+) {
+	const filePath = discordAvatarURLtoStoragePath(url); // how the image is stored in the bucket
+
+	try {
+		const response = await fetch(url);
+		if (!response.ok) throw new Error('Failed to download file');
+		const fileBlob = await response.blob();
+		await supabase.storage.from('avatars').upload(filePath, fileBlob, { cacheControl: '86400' });
+		const { data } = await supabase.storage.from('avatars').getPublicUrl(filePath);
+		await supabase
+			.from('profiles')
+			.update({
+				avatar_url: data.publicUrl
+			})
+			.eq('id', profileId);
+	} catch (error) {
+		throw new Error('Failed to update avatar URL');
+	}
 }
