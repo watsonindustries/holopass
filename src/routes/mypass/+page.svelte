@@ -26,6 +26,7 @@
 	onMount(() => {
 		const redirectAfterLoginURL = sessionStorage.getItem('redirectAfterLoginURL');
 		if (redirectAfterLoginURL) {
+			sessionStorage.removeItem('redirectAfterLoginURL');
 			goto(redirectAfterLoginURL);
 		}
 	});
