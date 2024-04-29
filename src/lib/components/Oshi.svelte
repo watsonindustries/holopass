@@ -4,6 +4,7 @@
 	export let oshi: Promise<Tables<'talents'>> | any;
 </script>
 
-<span class="tooltip" data-tip={oshi.name_en}>
+<span class="tooltip cursor-pointer" data-tip={oshi.name_en}>
 	{oshi.fanmark}
 </span>
+
