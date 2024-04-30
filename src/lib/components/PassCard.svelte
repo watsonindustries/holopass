@@ -8,7 +8,6 @@
 	import * as profiles from '../../profiles';
 	import Oshi from './Oshi.svelte';
 
-	export let myPass = false;
 	export let profile: Tables<'profiles'>;
 	export let oshi: Promise<Tables<'talents'>[]>;
 	export let badges: Promise<Tables<'badges'>[]>;
@@ -77,17 +76,15 @@
 		</section>
 	</section>
 
-	{#if myPass}
-		<section class="flex flex-row place-content-evenly p-4" id="connections">
-			{#await following then { count }}
-				<Counter {count} url="/mypass/connections?type=following" text="Following" />
-			{/await}
+	<section class="flex flex-row place-content-evenly p-4" id="connections">
+		{#await following then { count }}
+			<Counter {count} url={`/pass/${profile.id}/connections?type=following`} text="Following" />
+		{/await}
 
-			{#await followers then { count }}
-				<Counter {count} url="/mypass/connections?type=followers" text="Followers" />
-			{/await}
-		</section>
-	{/if}
+		{#await followers then { count }}
+			<Counter {count} url={`/pass/${profile.id}/connections?type=followers`} text="Followers" />
+		{/await}
+	</section>
 
 	<Bio {bio} />
 

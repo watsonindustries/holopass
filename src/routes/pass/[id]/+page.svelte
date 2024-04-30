@@ -16,7 +16,7 @@
 
 	// in this context pass is another user's "profile"
 	// and profile is the current user's profile
-	$: ({ pass, oshi, badges, profile, following } = data);
+	$: ({ pass, oshi, badges, profile, following, followers, isFollowed } = data);
 
 	async function handleFollow(profile: Tables<'profiles'>, pass: Tables<'profiles'>) {
 		const resp = await fetch(`/pass/${pass?.id}/follow`, {
@@ -48,12 +48,12 @@
 	class="mx-4 mt-4 space-y-6 pb-36"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
-	<PassCard profile={pass} {oshi} {badges} />
+	<PassCard profile={pass} {oshi} {badges} {followers} {following} />
 
 	<div class="flex justify-center">
 		{#if profile && pass}
 			<FollowButton
-				isFollowed={following}
+				{isFollowed}
 				clickCallback={() => profile && pass && handleFollow(profile, pass)}
 			/>
 		{:else}

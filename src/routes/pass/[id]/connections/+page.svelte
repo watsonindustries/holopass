@@ -6,7 +6,7 @@
 
 	export let data: PageData;
 
-	$: ({ followers, following, type } = data);
+	$: ({ followers, following, type, pass } = data);
 
 	function randomDefaultPlace() {
 		const places = [
@@ -24,7 +24,7 @@
 
 <section class="m-4 mb-4">
 	<a
-		href="/mypass"
+		href={`/pass/${pass?.id}`}
 		class="btn btn-accent min-w-fit rounded-full px-4 text-lg text-white shadow-sm"
 		data-sveltekit-reload
 	>

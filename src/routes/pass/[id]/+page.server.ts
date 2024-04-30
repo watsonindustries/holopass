@@ -24,13 +24,13 @@ export const load = (async ({ params, locals }) => {
 		.eq('followee_id', pass.id)
 		.single();
 
-	const following = data !== null;
+	const isFollowed = data !== null;
 
 	return {
 		badges: loadBadges(supabase)(pass?.badge_ids || []),
 		oshi: loadOshi(supabase)(pass?.talent_ids || []),
 		profile,
 		pass,
-		following
+		isFollowed
 	};
 }) satisfies PageServerLoad;

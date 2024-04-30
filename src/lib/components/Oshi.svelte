@@ -7,4 +7,3 @@
 <span class="tooltip cursor-pointer" data-tip={oshi.name_en}>
 	{oshi.fanmark}
 </span>
-

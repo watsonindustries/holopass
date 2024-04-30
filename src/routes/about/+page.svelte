@@ -18,7 +18,7 @@
 	}
 </script>
 
-<section class="p-4 space-y-4" transition:fade={{ duration: 300, delay: 100 }}>
+<section class="space-y-4 p-4" transition:fade={{ duration: 300, delay: 100 }}>
 	<section id="about">
 		<h1 class="text-4xl font-bold tracking-tight">About</h1>
 		<p>
