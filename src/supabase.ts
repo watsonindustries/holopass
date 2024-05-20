@@ -93,18 +93,20 @@ export function loadProfileFollowers(
 /**
  * Loads a pass from the Supabase database based on its ID.
  * @param supabase - The Supabase client instance.
- * @returns A function that accepts a pass ID and returns the pass data.
+ * @returns A function that accepts a pass ID or nickname and returns the pass data.
  */
 export function loadPass(
 	supabase: SupabaseClient
-): (id: string) => Promise<Tables<'profiles'> | null> {
-	return async (id: string) => {
-		const { data: pass } = await supabase
+): (idOrNickname: string) => Promise<Tables<'profiles'> | null> {
+	return async (idOrNickname: string) => {
+		const selectQuery = supabase
 			.from('profiles')
 			.select(
 				'id, avatar_url, nickname, nickname_jp, location, bio, badge_ids, talent_ids, fav_stream'
-			)
-			.eq('id', id)
+			);
+
+		const { data: pass } = await selectQuery
+			.eq(isNickname(idOrNickname) ? 'nickname' : 'id', idOrNickname)
 			.single();
 		return pass as Tables<'profiles'> | null;
 	};
@@ -171,4 +173,8 @@ export async function setProfilePictureFromURL(
 	} catch (error) {
 		throw new Error('Failed to update avatar URL');
 	}
+}
+
+function isNickname(text: string): boolean {
+	return text.length != 36 && text.charAt(8) != '-';
 }

@@ -9,7 +9,8 @@ export const load = (async ({ params, locals }) => {
 	const session = await getSession();
 	const user = session?.user;
 
-	const pass = await loadPass(supabase)(id);
+	const idOrNickname = decodeURIComponent(id);
+	const pass = await loadPass(supabase)(idOrNickname);
 
 	if (pass === null) {
 		return fail(404, { message: 'Pass not found' });
