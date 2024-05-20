@@ -10,7 +10,7 @@ export const load = (async ({ params, locals }) => {
 	const user = session?.user;
 
 	const idOrNickname = decodeURIComponent(id);
-	const pass = await loadPass(supabase)(idOrNickname);
+	const pass = await loadPass(supabase)(idOrNickname); // needed for the follow check
 
 	if (pass === null) {
 		return fail(404, { message: 'Pass not found' });
@@ -31,7 +31,6 @@ export const load = (async ({ params, locals }) => {
 		badges: loadBadges(supabase)(pass?.badge_ids || []),
 		oshi: loadOshi(supabase)(pass?.talent_ids || []),
 		profile,
-		pass,
 		isFollowed
 	};
 }) satisfies PageServerLoad;
