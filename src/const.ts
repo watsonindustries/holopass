@@ -21,6 +21,7 @@ export const WHITELISTED_DOMAINS = [
 	'line.me',
 	'danirukun.com',
 	'discord.gg',
+	'carrd.co',
 	...X_DOMAINS,
 	...YT_DOMAINS
 ];

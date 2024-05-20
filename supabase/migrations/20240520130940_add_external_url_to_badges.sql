@@ -1,0 +1,2 @@
+ALTER TABLE badges
+ADD COLUMN external_url VARCHAR(50);
