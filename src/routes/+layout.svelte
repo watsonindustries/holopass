@@ -73,8 +73,11 @@
 	<title>holopass</title>
 </svelte:head>
 
-<div class="xl:mx-auto" class:xl:max-w-xl={!isHomePage}>
-	<div class="stack mx-auto bg-red-50">
+<div
+	class="bg-gradient-to-r from-secondary/25 to-accent/25 xl:mx-auto"
+	class:xl:max-w-xl={!isHomePage}
+>
+	<div class="stack mx-auto">
 		{#if $iapStore && $iapStore.length > 0}
 			{#each $iapStore as notification}
 				<Toast message={notification.message} />

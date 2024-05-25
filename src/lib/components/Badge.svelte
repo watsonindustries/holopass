@@ -1,28 +1,25 @@
 <script lang="ts">
+	import { BADGE_PLACEHOLDER_URL } from '../../const';
+
 	export let name: string;
-	export let image: string | null = null;
-
-	const gradients = {
-		powder: 'bg-gradient-to-r from-violet-200 to-pink-200',
-		holly: 'bg-gradient-to-r from-blue-200 to-cyan-200',
-		twilight: 'bg-gradient-to-r from-amber-500 to-pink-500',
-		'raw-green': 'bg-gradient-to-r from-lime-400 to-lime-500',
-		rosebud: 'bg-gradient-to-r from-pink-500 to-rose-500'
-	};
-
-	function randomGradient(): string {
-		const keys = Object.keys(gradients);
-		const randomIndex = Math.floor(Math.random() * keys.length);
-		const randomGradientName = keys[randomIndex];
-		return gradients[randomGradientName as keyof typeof gradients];
-	}
-
-	const randomGradientStyle = randomGradient();
+	export let image = BADGE_PLACEHOLDER_URL;
 </script>
 
 <div
-	class="{image ??
-		randomGradientStyle} flex h-14 w-full items-center justify-center rounded-2xl shadow-md"
+	class="flex min-h-36 w-full flex-col items-center justify-center space-y-8 rounded-2xl py-4 shadow-md"
 >
-	<p>{name}</p>
+	<div class="avatar w-24">
+		<div class="w-full rounded-full ring ring-neutral ring-offset-base-100">
+			<img
+				src={image ?? BADGE_PLACEHOLDER_URL}
+				width="1000"
+				height="1000"
+				loading="lazy"
+				class:p-4={image === BADGE_PLACEHOLDER_URL}
+				alt="badge-pic"
+			/>
+		</div>
+	</div>
+
+	<p class="text-balance text-center font-semibold" id="badge-caption">{name}</p>
 </div>

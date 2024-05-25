@@ -25,3 +25,6 @@ export const WHITELISTED_DOMAINS = [
 	...X_DOMAINS,
 	...YT_DOMAINS
 ];
+
+export const BADGE_PLACEHOLDER_URL =
+	'https://nvllajfoffuvocugzigw.supabase.co/storage/v1/object/public/badges/Badge_from_Flaticon.png';
