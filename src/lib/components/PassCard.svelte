@@ -30,8 +30,8 @@
 
 <div
 	class={profiles.isDaniru(profile.id)
-		? 'card bg-gradient-to-br from-primary/50 to-secondary/50 p-6 shadow-2xl shadow-primary/60'
-		: 'card bg-slate-50 p-6 shadow-lg'}
+		? 'card bg-gradient-to-br from-primary/50 to-secondary/50 p-4 shadow-2xl shadow-primary/60'
+		: 'card bg-slate-50 p-4 shadow-lg'}
 	id="pass-card"
 >
 	<section id="pass-info" class="flex">
@@ -99,12 +99,15 @@
 
 	<section id="badges" class="space-y-4 p-4">
 		<p class="text-sm uppercase">badges</p>
-		<div class="space-y-8">
+		<div class="grid grid-cols-2 gap-4">
 			{#await badges}
 				<div class="skeleton h-64 w-full"></div>
+				<div class="skeleton h-64 w-full"></div>
+				<div class="skeleton h-64 w-full"></div>
+				<div class="skeleton h-64 w-full"></div>
 			{:then badges}
-				{#each badges as { name }}
-					<Badge name={name || ''} />
+				{#each badges as { name, image }}
+					<Badge name={name || ''} image={image ? image : undefined} />
 				{:else}
 					<p>None</p>
 				{/each}
