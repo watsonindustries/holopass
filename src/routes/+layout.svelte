@@ -77,6 +77,7 @@
 	class="bg-gradient-to-r from-secondary/25 to-accent/25 xl:mx-auto"
 	class:xl:max-w-xl={!isHomePage}
 >
+	<slot />
 	<div class="stack mx-auto">
 		{#if $iapStore && $iapStore.length > 0}
 			{#each $iapStore as notification}
@@ -84,7 +85,6 @@
 			{/each}
 		{/if}
 	</div>
-	<slot />
 	{#if !isHomePage}
 		<BottomNav {pathname} />
 	{/if}

@@ -45,7 +45,7 @@
 
 <div
 	id="my-pass-container"
-	class="mx-4 mt-4 space-y-6 pb-36"
+	class="mx-4 space-y-6 pb-36 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<PassCard profile={pass} {oshi} {badges} {followers} {following} />

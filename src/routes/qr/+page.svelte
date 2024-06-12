@@ -32,7 +32,7 @@
 
 <section
 	id="qr-code-card-container"
-	class="mx-4 mt-4 space-y-8 pb-36"
+	class="mx-4 h-screen space-y-8 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<div

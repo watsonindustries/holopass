@@ -7,23 +7,11 @@
 	export let data: PageData;
 
 	$: ({ followers, following, type, pass } = data);
-
-	function randomDefaultPlace() {
-		const places = [
-			'usual room',
-			"yagoo's office",
-			'detective bureau',
-			'Makuhari Messe',
-			'Menya Botan',
-			"Shiori's archives",
-			"Haato's kitchen"
-		];
-		return places[Math.floor(Math.random() * places.length)];
-	}
 </script>
 
-<section class="m-4 mb-4">
+<section class="bg-base-100 p-4">
 	<a
+		id="back-button"
 		href={`/pass/${pass?.id}`}
 		class="btn btn-accent min-w-fit rounded-full px-4 text-lg text-white shadow-sm"
 		data-sveltekit-reload
@@ -33,8 +21,8 @@
 	>
 </section>
 
-<div class="mb-14 space-y-4 overflow-x-auto" id="following-profiles">
-	<h1 class="mx-4 text-4xl font-semibold tracking-tight">
+<div class="mb-14 space-y-4 overflow-x-auto bg-base-100" id="following-profiles">
+	<h1 class="mx-4 py-4 text-4xl font-semibold tracking-tight">
 		{type.charAt(0).toUpperCase() + type.slice(1)}
 	</h1>
 

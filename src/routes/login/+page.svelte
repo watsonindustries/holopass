@@ -12,9 +12,9 @@
 	}
 </script>
 
-<section id="home-container" class="mx-4 mt-4 space-y-6 pb-36">
+<section id="home-container" class="mx-4 flex h-screen items-center justify-center space-y-6">
 	<div
-		class="card mx-auto mt-[40vh] flex items-center space-y-4 bg-slate-50 p-6 shadow-lg"
+		class="card mx-auto flex items-center space-y-4 bg-slate-50 p-6 shadow-lg"
 		id="signin-card"
 		transition:fade={{ delay: 200, duration: 400 }}
 	>
