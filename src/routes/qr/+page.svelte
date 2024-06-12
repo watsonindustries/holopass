@@ -13,17 +13,17 @@
 
 	$: ({ profile } = data);
 
-	$: qrCodeUrl = `${PROD_DOMAIN}/pass/${profile.id}`;
+	$: encodedNickname = encodeURIComponent(profile.nickname);
+	$: qrCodeUrl = `${PROD_DOMAIN}/pass/${encodedNickname}`;
 
-	function copyCode() {
-		navigator.clipboard.writeText(qrCodeUrl);
+	async function copyCode() {
+		await navigator.clipboard.writeText(qrCodeUrl);
 		alert('Code copied to clipboard!');
 	}
 
 	async function shareLink() {
-		const shareUrl = `${PROD_DOMAIN}/pass/${profile.id}`;
 		try {
-			await navigator.share({ url: shareUrl });
+			await navigator.share({ url: qrCodeUrl });
 		} catch (e) {
 			console.log(e);
 		}
