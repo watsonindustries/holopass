@@ -35,6 +35,7 @@
 		<p>
 			Artist: <a href="https://twitter.com/CaptainMeowHere" class="link link-accent">@captainmeow</a
 			>
+			Designer: <a href="https://x.com/elmi_hikaribi" class="link link-accent">@elmi_hikaribi</a>
 		</p>
 	</section>
 
