@@ -5,9 +5,7 @@
 	export let image = BADGE_PLACEHOLDER_URL;
 </script>
 
-<div
-	class="flex min-h-36 w-full flex-col items-center justify-center space-y-8 rounded-2xl py-4 shadow-md"
->
+<div class="flex min-h-36 w-full flex-col items-center justify-center space-y-4 py-4">
 	<div class="avatar w-24">
 		<div class="w-full rounded-full ring ring-neutral ring-offset-base-100">
 			<img
