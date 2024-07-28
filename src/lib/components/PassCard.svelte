@@ -106,8 +106,8 @@
 				<div class="skeleton h-64 w-full"></div>
 				<div class="skeleton h-64 w-full"></div>
 			{:then badges}
-				{#each badges as { name, image }}
-					<Badge name={name || ''} image={image ? image : undefined} />
+				{#each badges as { id, name, image }}
+					<Badge name={name || ''} image={image ? image : undefined} {id} />
 				{:else}
 					<p>None</p>
 				{/each}

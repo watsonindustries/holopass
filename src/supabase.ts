@@ -121,10 +121,22 @@ export function loadBadges(supabase: SupabaseClient) {
 	return async (badgeIds: number[]) => {
 		const { data: badges } = await supabase
 			.from('badges')
-			.select('id, name, image, type')
+			.select('id, name, image, type, external_url')
 			.in('id', badgeIds);
 
 		return badges as Tables<'badges'>[];
+	};
+}
+
+export function loadBadge(supabase: SupabaseClient) {
+	return async (badgeId: number) => {
+		const { data: badge } = await supabase
+			.from('badges')
+			.select('id, name, image, type, external_url')
+			.eq('id', badgeId)
+			.single();
+
+		return badge as Tables<'badges'>;
 	};
 }
 

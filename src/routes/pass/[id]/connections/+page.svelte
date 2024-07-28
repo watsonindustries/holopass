@@ -1,8 +1,7 @@
 <script lang="ts">
+	import BackButton from '$lib/components/BackButton.svelte';
 	import ListProfile from '$lib/components/ListProfile.svelte';
 	import type { PageData } from './$types';
-	import { Icon } from 'svelte-awesome';
-	import arrowLeft from 'svelte-awesome/icons/arrowLeft';
 
 	export let data: PageData;
 
@@ -10,15 +9,7 @@
 </script>
 
 <section class="bg-base-100 p-4">
-	<a
-		id="back-button"
-		href={`/pass/${pass?.id}`}
-		class="btn btn-accent min-w-fit rounded-full px-4 text-lg text-white shadow-sm"
-		data-sveltekit-reload
-	>
-		<Icon data={arrowLeft} />
-		Back</a
-	>
+	<BackButton url={`/pass/${pass?.id}`} />
 </section>
 
 <div class="mb-14 space-y-4 overflow-x-auto bg-base-100" id="following-profiles">
