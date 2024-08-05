@@ -1,6 +1,7 @@
 <script lang="ts">
 	import BackButton from '$lib/components/BackButton.svelte';
-	import ListProfile from '$lib/components/ListProfile.svelte';
+	import ProfileItemList from '$lib/components/ProfileItemList.svelte';
+	import ProfileItemListSkeleton from '$lib/components/ProfileItemListSkeleton.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -19,51 +20,15 @@
 
 	{#if type === 'following'}
 		{#await following}
-			<div class="flex w-full flex-col gap-4 p-4">
-				<div class="skeleton h-32 w-full"></div>
-				<div class="skeleton h-4 w-28"></div>
-				<div class="skeleton h-4 w-full"></div>
-				<div class="skeleton h-4 w-full"></div>
-			</div>
+			<ProfileItemListSkeleton />
 		{:then following}
-			<table class="table">
-				<tbody>
-					{#each following.follows as follow}
-						<tr>
-							<td>
-								<ListProfile profile={follow.profiles} />
-							</td>
-							<td>
-								<!-- <span class="badge badge-ghost badge-sm"></span> -->
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
+			<ProfileItemList profiles={following?.follows} />
 		{/await}
 	{:else if type === 'followers'}
 		{#await followers}
-			<div class="flex w-full flex-col gap-4 p-4">
-				<div class="skeleton h-32 w-full"></div>
-				<div class="skeleton h-4 w-28"></div>
-				<div class="skeleton h-4 w-full"></div>
-				<div class="skeleton h-4 w-full"></div>
-			</div>
+			<ProfileItemListSkeleton />
 		{:then followers}
-			<table class="table">
-				<tbody>
-					{#each followers.followers as follower}
-						<tr>
-							<td>
-								<ListProfile profile={follower.profiles} />
-							</td>
-							<td>
-								<!-- <span class="badge badge-ghost badge-sm"></span> -->
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
+			<ProfileItemList profiles={followers?.followers} />
 		{/await}
 	{/if}
 </div>
