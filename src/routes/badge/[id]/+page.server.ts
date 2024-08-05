@@ -1,13 +1,13 @@
 import type { PageServerLoad } from '../$types';
-import { loadBadge } from '../../../supabase';
+import { loadBadge, loadProfilesWithBadge } from '../../../supabase';
 
 export const load = (async ({ params, locals }) => {
 	const { id } = params;
 	const { supabase } = locals;
 
-	const badge = await loadBadge(supabase)(id);
+	const badge = loadBadge(supabase, id);
 
-	console.log(badge);
+	const profilesForBadge = loadProfilesWithBadge(supabase, id);
 
-	return { badge };
+	return { badge, profilesForBadge };
 }) satisfies PageServerLoad;

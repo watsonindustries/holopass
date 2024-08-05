@@ -22,13 +22,13 @@
 		{#await following}
 			<ProfileItemListSkeleton />
 		{:then following}
-			<ProfileItemList profiles={following?.follows} />
+			<ProfileItemList profiles={following?.follows.map(p => p.profiles)} />
 		{/await}
 	{:else if type === 'followers'}
 		{#await followers}
 			<ProfileItemListSkeleton />
 		{:then followers}
-			<ProfileItemList profiles={followers?.followers} />
+			<ProfileItemList profiles={followers?.followers.map(p => p.profiles)} />
 		{/await}
 	{/if}
 </div>

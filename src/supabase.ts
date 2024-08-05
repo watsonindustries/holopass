@@ -128,16 +128,14 @@ export function loadBadges(supabase: SupabaseClient) {
 	};
 }
 
-export function loadBadge(supabase: SupabaseClient) {
-	return async (badgeId: number) => {
-		const { data: badge } = await supabase
-			.from('badges')
-			.select('id, name, image, type, external_url')
-			.eq('id', badgeId)
-			.single();
+export async function loadBadge(supabase: SupabaseClient, badgeId: number) {
+	const { data: badge } = await supabase
+		.from('badges')
+		.select('id, name, image, type, external_url')
+		.eq('id', badgeId)
+		.single();
 
-		return badge as Tables<'badges'>;
-	};
+	return badge as Tables<'badges'>;
 }
 
 /**
@@ -185,6 +183,18 @@ export async function setProfilePictureFromURL(
 	} catch (error) {
 		throw new Error('Failed to update avatar URL');
 	}
+}
+
+export async function loadProfilesWithBadge(
+	supabase: SupabaseClient,
+	badgeId: number
+): Promise<Tables<'profiles'>[]> {
+	const { data: profiles } = await supabase
+		.from('profiles')
+		.select('id, nickname, avatar_url, location')
+		.contains('badge_ids', [badgeId]);
+
+	return profiles as Tables<'profiles'>[];
 }
 
 function isNickname(text: string): boolean {
