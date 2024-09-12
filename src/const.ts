@@ -28,3 +28,5 @@ export const WHITELISTED_DOMAINS = [
 
 export const BADGE_PLACEHOLDER_URL =
 	'https://nvllajfoffuvocugzigw.supabase.co/storage/v1/object/public/badges/Badge_from_Flaticon.png';
+
+export const DISCORD_SERVER_INVITE_URL = 'https://discord.gg/ugPKYx6M';

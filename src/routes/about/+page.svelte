@@ -3,6 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
+	import { DISCORD_SERVER_INVITE_URL } from '../../const';
 
 	export let data: PageData;
 
@@ -41,7 +42,7 @@
 
 	<section id="support">
 		<h2 class="text-2xl font-bold tracking-tight">Support</h2>
-		<a href="https://discord.gg/VRMWrDb8" class="link link-accent">Discord</a>
+		<a href={DISCORD_SERVER_INVITE_URL} class="link link-accent">Discord</a>
 		<a href="https://github.com/watsonindustries/holopass/issues" class="link link-accent"
 			>Issue Tracker</a
 		>
