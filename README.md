@@ -9,25 +9,20 @@ This repository contains the frontend code for `holopass`. The stack:
 
 ## Developing
 
-First populate your `.env.local` file.
+1. Populate your `.env.local` file by copying `.env.example`. Ask @DaniruKun for the values.
+2. Install `pnpm` and install dependencies with `pnpm install`
+3. Start the dev server with `pnpm dev` and log in using Discord
 
-Once you've installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+At the moment, the app always uses the production Supabase instance, and the prod Discord app for Oauth.
 
 ## Building
 
 To create a production version of your app:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
-You can preview the production build with `npm run preview`.
+You can preview the production build with `pnpm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
