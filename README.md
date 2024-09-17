@@ -26,3 +26,11 @@ pnpm run build
 You can preview the production build with `pnpm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Updating database schema via Supabase migrations
+
+Once you've updated the schema, use the following command in local dev to regenerate the `database.types.ts` file with the types used by the rest of the app.
+
+```bash
+npx supabase gen types --lang=typescript --local > database.types.ts
+```
