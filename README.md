@@ -29,6 +29,8 @@ secret = "env(SUPABASE_AUTH_EXTERNAL_DISCORD_SECRET)"
 redirect_uri = "env(SUPABASE_AUTH_REDIRECT_URI)"
 ```
 
+* You may need to set `auth.site_url` to match your `pnpm run dev` local, like `http://localhost:5173`.
+
 2. Create a new application in the [Discord developer portal](https://discord.com/developers/applications), or reach out to @DaniruKun to fetch the prod values.
 3. Fetch the client ID and client secret, and paste them into a `.env` file (NOT `.env.local`, because `supabase` / `npx supabase` won't read it otherwise) with the respective keys in step 1.
 4. Add the following redirects to your "Redirects" section in the Discord dev portal:
