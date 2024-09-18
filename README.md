@@ -21,6 +21,7 @@ To configure local Supabase to handle Discord logins:
 
 0. Ensure your local Supabase instance is stopped.
 1. Add the following to your `supabase/config.toml`:
+
 ```toml
 [auth.external.discord]
 enabled = true
@@ -29,20 +30,23 @@ secret = "env(SUPABASE_AUTH_EXTERNAL_DISCORD_SECRET)"
 redirect_uri = "env(SUPABASE_AUTH_REDIRECT_URI)"
 ```
 
-* You may need to set `auth.site_url` to match your `pnpm run dev` local, like `http://localhost:5173`.
+- You may need to set `auth.site_url` to match your `pnpm run dev` local, like `http://localhost:5173`.
 
 2. Create a new application in the [Discord developer portal](https://discord.com/developers/applications), or reach out to @DaniruKun to fetch the prod values.
 3. Fetch the client ID and client secret, and paste them into a `.env` file (NOT `.env.local`, because `supabase` / `npx supabase` won't read it otherwise) with the respective keys in step 1.
 4. Add the following redirects to your "Redirects" section in the Discord dev portal:
+
 ```
 http://localhost:5173/auth/callback
 http://localhost:54321/auth/v1/callback
 http://127.0.0.1:54321/auth/v1/callback
 ```
+
 (Supabase is finicky with localhost, so we add both to be safe.)
 
 5. Add `SUPABASE_AUTH_REDIRECT_URI="http://127.0.0.1:54321/auth/v1/callback"` to the `.env` file.
 6. Launch your local Supabase instance.
+
 ```sh
 npx supabase start
 ```
