@@ -34,11 +34,9 @@ redirect_uri = "env(SUPABASE_AUTH_REDIRECT_URI)"
 
 2. Create a new application in the [Discord developer portal](https://discord.com/developers/applications), or reach out to @DaniruKun to fetch the prod values.
 3. Fetch the client ID and client secret, and paste them into a `.env` file (NOT `.env.local`, because `supabase` / `npx supabase` won't read it otherwise) with the respective keys in step 1.
-4. Add the following redirects to your "Redirects" section in the Discord dev portal:
+4. Add the following to your "Redirects" section in the Discord dev portal:
 
 ```
-http://localhost:5173/auth/callback
-http://localhost:54321/auth/v1/callback
 http://127.0.0.1:54321/auth/v1/callback
 ```
 
@@ -65,8 +63,11 @@ You can preview the production build with `pnpm run preview`.
 
 ## Updating database schema via Supabase migrations
 
-Once you've updated the schema, use the following command in local dev to regenerate the `database.types.ts` file with the types used by the rest of the app.
+Once you've updated the schema, use the following command in local dev to regenerate the `database.types.ts` file with the types used by the database.
 
 ```bash
 npx supabase gen types typescript --local > database.types.ts
+# --> make sure the generated file is UTF-8... it likes to pull UTF-16 LE on Windows...
+# then run:
+npx prettier --write .\src\lib\database.types.ts
 ```
