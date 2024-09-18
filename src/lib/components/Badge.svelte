@@ -20,8 +20,7 @@
 				/>
 			</div>
 		</div>
-	
+
 		<p class="text-balance text-center font-semibold" id="badge-caption">{name}</p>
 	</div>
-	
 </a>
