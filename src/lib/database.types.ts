@@ -176,6 +176,50 @@ export interface Database {
 			[_ in never]: never;
 		};
 		Functions: {
+			get_badge_location: {
+				Args: {
+					id: number;
+				};
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+				}[];
+			};
+			get_badge_locations: {
+				Args: Record<PropertyKey, never>;
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+				}[];
+			};
+			get_nearest_badges: {
+				Args: {
+					lat: number;
+					long: number;
+					max_dist: number;
+				};
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+					dist_m: number;
+				}[];
+			};
+			get_nearest_badges_temporal: {
+				Args: {
+					lat: number;
+					long: number;
+					max_dist: number;
+				};
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+					dist_m: number;
+				}[];
+			};
 			increment: {
 				Args: {
 					row_id: number;
