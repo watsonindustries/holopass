@@ -26,6 +26,9 @@ importers:
       '@sveu/browser':
         specifier: ^1.0.1
         version: 1.0.1
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       sveaflet:
         specifier: ^0.0.10
         version: 0.0.10(@algolia/client-search@4.24.0)(leaflet@1.9.4)(search-insights@2.17.2)(svelte@4.2.10)
@@ -884,6 +887,9 @@ packages:
   data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
+
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   debug@4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -2886,6 +2892,8 @@ snapshots:
       - postcss
 
   data-uri-to-buffer@4.0.1: {}
+
+  dayjs@1.11.13: {}
 
   debug@4.3.4:
     dependencies:
