@@ -1,4 +1,4 @@
-import { loadBadge, loadProfilesWithBadge } from '../../../supabase';
+import { loadBadge, loadBadgeLocation, loadProfilesWithBadge } from '../../../supabase';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params, locals }) => {
@@ -12,8 +12,13 @@ export const load = (async ({ params, locals }) => {
 	}
 
 	const badge = loadBadge(supabase, idAsNumber);
+	const badgeLocation = loadBadgeLocation(supabase, idAsNumber);
 
 	const profilesForBadge = loadProfilesWithBadge(supabase, idAsNumber);
 
-	return { badge, profilesForBadge };
+	return {
+		badge,
+		badgeLocation,
+		profilesForBadge
+	};
 }) satisfies PageServerLoad;
