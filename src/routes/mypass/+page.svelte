@@ -14,6 +14,10 @@
 	import { PROD_DOMAIN } from '../../const';
 	import { goto } from '$app/navigation';
 	import { profileURLFromNickname } from '../../profiles';
+	import type {
+		CheckInStartPostRequestBody,
+		CheckInStartPostResponseBody
+	} from '../api/check-in/start/+server';
 
 	export let data: PageData;
 
@@ -21,10 +25,65 @@
 
 	$: ({ session, supabase, profile, badges, oshi, following, followers } = data);
 
+	// note: Stores must be declared at the top level of the component (this may change in a future version of Svelte)
+	const { supported, coords, locatedAt, error, resume, pause } = geolocation();
+
 	function handleCopyLink() {
 		const link = profileURLFromNickname(profile?.nickname || '');
 		navigator.clipboard.writeText(link);
 		alert('Pass link copied to clipboard!');
+	}
+
+	async function handleCheckIn() {
+		resume();
+		if (!$supported) {
+			alert('This browser does not support geolocation. Please use another browser!');
+			pause();
+			return;
+		}
+		if ($error) {
+			var errMsg = "";
+			switch ($error.code) {
+				case $error.PERMISSION_DENIED:
+					errMsg = "You must allow location access to check in!";
+					break;
+				case $error.POSITION_UNAVAILABLE:
+					errMsg = "Location information is unavailable. Please try again later!";
+					break;
+				case $error.TIMEOUT:
+					errMsg = "The request to get location timed out. Please try again later!";
+					break;
+			}
+			alert(errMsg);
+			pause();
+			return;
+		}
+
+		// make API call to fetch possible check-in locations
+		const res = await fetch("/api/check-in/start", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				loc: [$coords.latitude, $coords.longitude],
+			} as CheckInStartPostRequestBody),
+		});
+
+		console.log("coords:", JSON.stringify($coords));
+		
+		const data: CheckInStartPostResponseBody = await res.json();
+
+		switch (res.status) {
+			case 200:
+				alert("Check-in locations fetched successfully!");
+				console.log(data);
+				break;
+			default:
+				alert(data.error ?? "An error occurred while fetching check-in locations. Please try again later!");
+				break;
+		}
+		pause();
 	}
 
 	onMount(() => {
