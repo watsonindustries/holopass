@@ -1,14 +1,17 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	import Icon from 'svelte-awesome';
 	import link from 'svelte-awesome/icons/link';
 	import edit from 'svelte-awesome/icons/edit';
+	import calendarCheckO from 'svelte-awesome/icons/calendarCheckO';
 
-	import { fade } from 'svelte/transition';
+	import { geolocation } from '@sveu/browser';
+
 	import PassCard from '$lib/components/PassCard.svelte';
 	import { PROD_DOMAIN } from '../../const';
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
 	export let data: PageData;
@@ -39,14 +42,22 @@
 >
 	<PassCard {profile} {oshi} {badges} {following} {followers} myPass />
 
-	<section class="mx-auto flex w-44 flex-col items-center gap-4">
-		<a href="/mypass/edit" class="btn btn-primary w-full rounded-full text-lg font-medium shadow-lg"
-			><Icon data={edit} scale={1.2}></Icon> Edit</a
+	<section class="mx-auto flex w-full flex-col sm:flex-row justify-center gap-4">
+		<a
+			href="/mypass/edit"
+			class="btn btn-primary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
+		>
+			<Icon data={edit} scale={1.2}></Icon> Edit
+		</a>
+
+		<button
+			class="btn btn-secondary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
+			on:click={handleCopyLink}><Icon data={link} scale={1.2}></Icon> Copy Link</button
 		>
 
 		<button
-			class="btn btn-secondary w-full rounded-full text-lg font-medium shadow-lg"
-			on:click={handleCopyLink}><Icon data={link} scale={1.2}></Icon> Copy Link</button
+			class="btn btn-secondary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
+			on:click={null}><Icon data={calendarCheckO} scale={1.2}></Icon> Check In</button
 		>
 	</section>
 </div>
