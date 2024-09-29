@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import BottomNav from '$lib/components/BottomNav.svelte';
+	import SideNav from '$lib/components/SideNav.svelte';
 	import * as inapp_notifications from '$lib/stores/inapp_notifications';
 	import { store as iapStore } from '$lib/stores/inapp_notifications';
 	import Toast from '$lib/components/Toast.svelte';
@@ -13,7 +14,30 @@
 	let { supabase, session, pathname } = data;
 	$: ({ supabase, session, pathname } = data);
 
+	// Handle Responsive Navigation
+	let windowWidth: number;
+  	let activeIndex = 0;
+  	let position: string;
+  	let positionMobile = "bottom";
+
+	const MIN_MOBILE_WIDTH = 768;
+  	$: position = windowWidth <= MIN_MOBILE_WIDTH ? positionMobile : "left";
+
+	function handleResize() {
+    	windowWidth = window.innerWidth;
+
+    	console.log("Window width: ", windowWidth);
+  	}
+
 	onMount(() => {
+		if (typeof window !== "undefined") {
+      		// Set initial window width
+      		windowWidth = window.innerWidth;
+
+      		// Add resize event listener
+      		window.addEventListener("resize", handleResize);
+    	}
+
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
@@ -66,6 +90,13 @@
 		return () => data.subscription.unsubscribe();
 	});
 
+	onDestroy(() => {
+    	// Remove resize event listener when component is destroyed
+    	if (typeof window !== "undefined") {
+      		window.removeEventListener("resize", handleResize);
+    	}
+  	});
+
 	$: isHomePage = pathname === '/';
 </script>
 
@@ -75,9 +106,14 @@
 
 <div
 	class="bg-gradient-to-r from-secondary/25 to-accent/25 xl:mx-auto"
-	class:xl:max-w-xl={!isHomePage}
 >
-	<slot />
+	{#if position == "left"}
+		<SideNav {pathname} />
+	{/if}
+
+	<div class="p-4 sm:ml-64">
+		<slot />
+	</div>
 	<div class="stack mx-auto">
 		{#if $iapStore && $iapStore.length > 0}
 			{#each $iapStore as notification}
@@ -86,6 +122,8 @@
 		{/if}
 	</div>
 	{#if !isHomePage}
-		<BottomNav {pathname} />
+		{#if position == "bottom"}
+			<BottomNav {pathname} />
+		{/if}
 	{/if}
 </div>
