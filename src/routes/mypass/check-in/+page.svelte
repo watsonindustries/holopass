@@ -5,16 +5,6 @@
 	import errorIcon from 'svelte-awesome/icons/exclamationTriangle';
 	import infoIcon from 'svelte-awesome/icons/infoCircle';
 
-	import dayjs from 'dayjs';
-	import localizedFormat from 'dayjs/plugin/localizedFormat';
-	import advancedFormat from 'dayjs/plugin/advancedFormat';
-	import utc from 'dayjs/plugin/utc';
-	import timezone from 'dayjs/plugin/timezone';
-	dayjs.extend(advancedFormat);
-	dayjs.extend(localizedFormat);
-	dayjs.extend(utc);
-	dayjs.extend(timezone);
-
 	import { geolocation } from '@sveu/browser';
 	import type {
 		CheckInStartPostRequestBody,
@@ -106,30 +96,6 @@
 		return await res.json();
 	}
 
-	/** Builds a string representing the duration between two dates, in days/hours/minutes. */
-	function buildDurationString(start: dayjs.Dayjs, end: dayjs.Dayjs): string {
-		const duration = end.diff(start, 'hours', true);
-		const days = Math.abs(Math.floor(duration / 24));
-		const hours = Math.abs(Math.floor(duration % 24));
-		const minutes = Math.abs(Math.floor((duration % 1) * 60));
-		const seconds = Math.abs(Math.floor((((duration % 1) * 60) % 1) * 60));
-
-		let buildStr = '';
-		if (days > 0) {
-			buildStr += `${days} day${days > 1 ? 's' : ''} `;
-		}
-		if (hours > 0) {
-			buildStr += `${hours} hour${hours > 1 ? 's' : ''} `;
-		}
-		if (minutes > 0) {
-			buildStr += `${minutes} minute${minutes > 1 ? 's' : ''}`;
-		}
-		if (minutes === 0) {
-			buildStr += ` ${seconds} second${seconds > 1 ? 's' : ''}`;
-		}
-		return buildStr;
-	}
-
 	onMount(() => {
 		// small delay to allow geolocation stores to update
 		setTimeout(async () => {
@@ -164,7 +130,7 @@
 						{#if nearbyEventData}
 							{#if nearbyEventData.error}
 								<PopupStatusCard icon={infoIcon} color="red" text_color="white">
-									{nearbyEventData.error?.endsWith('.')
+									{(nearbyEventData.error?.endsWith('.') || nearbyEventData.error?.endsWith('!'))
 										? nearbyEventData.error
 										: `${nearbyEventData.error}.`}
 								</PopupStatusCard>
@@ -175,7 +141,8 @@
 									{#if badgeData}
 										{#if badgeData.error}
 											<PopupStatusCard icon={errorIcon} color="red" text_color="white">
-												Failed to fetch badges: {badgeData.error?.endsWith('.')
+												Failed to fetch badges: {
+													(badgeData.error?.endsWith('.') || badgeData.error?.endsWith('!'))
 													? badgeData.error
 													: `${badgeData.error}.`}
 											</PopupStatusCard>
