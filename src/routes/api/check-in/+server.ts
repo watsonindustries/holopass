@@ -46,8 +46,6 @@ export async function POST({ request, locals: { supabase, getSession } }) {
 
 	const { id, loc } = body;
 
-	console.log(JSON.stringify(body));
-
 	const { user } = session;
 	// fetch user badge IDs
 	const profile = await loadProfile(supabase)(user);
