@@ -1,20 +1,13 @@
-import { fail } from '@sveltejs/kit';
-import { loadBadges, loadOshi, loadPass, loadProfile } from '../../../supabase';
+import { loadBadges, loadOshi, loadProfile } from '../../../supabase';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params, locals }) => {
-	const { id } = params;
+export const load = (async ({ locals, parent }) => {
 	const { supabase, getSession } = locals;
-
+	
 	const session = await getSession();
 	const user = session?.user;
 
-	const idOrNickname = decodeURIComponent(id);
-	const pass = await loadPass(supabase)(idOrNickname); // needed for the follow check
-
-	if (pass === null) {
-		return fail(404, { message: 'Pass not found' });
-	}
+	const { pass } = await parent();
 
 	const profile = await loadProfile(supabase)(user);
 
@@ -22,7 +15,7 @@ export const load = (async ({ params, locals }) => {
 		.from('follows')
 		.select('follower_id, followee_id')
 		.eq('follower_id', profile?.id)
-		.eq('followee_id', pass.id)
+		.eq('followee_id', pass?.id)
 		.single();
 
 	const isFollowed = data !== null;
