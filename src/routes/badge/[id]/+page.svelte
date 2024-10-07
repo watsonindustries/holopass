@@ -48,12 +48,15 @@
 	<BackButton url="/mypass" />
 </section>
 
-<div class="flex min-h-[calc(100vh-128px)] flex-col">
+<div class="flex min-h-[calc(100vh-128px)] mx-2 md:mx-4 flex-col">
 	{#await badge}
 		<p>Loading...</p>
 	{:then badge}
 		{#if badge}
-			<div id="badge-container" class="flex flex-col items-center justify-center space-y-4 py-6">
+			<div
+				id="badge-container"
+				class="flex flex-col items-center justify-center space-y-4 py-6"
+			>
 				<div class="avatar w-48" id="badge">
 					<div class="w-full rounded-full shadow-lg ring ring-neutral ring-offset-base-100">
 						<img
@@ -111,8 +114,8 @@
 						</div>
 				{/if}
 			</div>
-			<div class="flex flex-col grow h-full w-full rounded-t-3xl bg-base-100 py-4 pb-10 shadow-lg">
-				<p class="p-8 text-center text-4xl font-bold tracking-tight text-secondary">
+			<div class="flex flex-col px-2 md:px-4 grow h-full w-full rounded-t-3xl bg-base-100 py-4 pb-10 shadow-lg">
+				<p class="p-8 text-center text-2xl md:text-4xl font-bold tracking-tight text-secondary">
 					People with this badge
 				</p>
 				{#await profilesForBadge}
