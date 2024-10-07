@@ -116,14 +116,17 @@ export function loadPass(
  * Loads badges from the Supabase database based on their IDs.
  * @param supabase - The Supabase client instance.
  * @returns A function that accepts an array of badge IDs and returns a promise that
- * resolves to an array of badge data.
+ * resolves to an array of badge data. A value of `null` will return all badge data.
  */
 export function loadBadges(supabase: SupabaseClient) {
-	return async (badgeIds: number[]) => {
-		const { data: badges } = await supabase
+	return async (badgeIds: number[] | null) => {
+		let query = supabase
 			.from('badges')
-			.select('id, name, image, type, external_url, event_start, event_end')
-			.in('id', badgeIds);
+			.select('id, name, image, type, external_url, event_start, event_end');
+		if (badgeIds) {
+			query = query.in('id', badgeIds);
+		}
+		const { data: badges } = await query;
 
 		return badges as Tables<'badges'>[];
 	};
