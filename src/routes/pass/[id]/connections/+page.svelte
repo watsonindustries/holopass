@@ -6,7 +6,8 @@
 
 	export let data: PageData;
 
-	$: ({ followers, following, type, pass } = data);
+	$: ({ followers, following, type, pass, profile } = data);
+	$: self_id = profile?.id;
 </script>
 
 <section class="bg-base-100 p-4">
@@ -26,13 +27,13 @@
 			{#await following}
 				<ProfileItemListSkeleton />
 			{:then following}
-				<ProfileItemList profiles={following?.follows.map((p) => p.profiles)} />
+				<ProfileItemList {self_id} profiles={following?.follows.map((p) => p.profiles)} />
 			{/await}
 		{:else if type === 'followers'}
 			{#await followers}
 				<ProfileItemListSkeleton />
 			{:then followers}
-				<ProfileItemList profiles={followers?.followers.map((p) => p.profiles)} />
+				<ProfileItemList {self_id} profiles={followers?.followers.map((p) => p.profiles)} />
 			{/await}
 		{/if}
 	</div>
