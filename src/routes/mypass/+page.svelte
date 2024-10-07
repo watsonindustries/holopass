@@ -8,8 +8,6 @@
 	import edit from 'svelte-awesome/icons/edit';
 	import calendarCheckO from 'svelte-awesome/icons/calendarCheckO';
 
-	import { geolocation } from '@sveu/browser';
-
 	import PassCard from '$lib/components/PassCard.svelte';
 	import { PROD_DOMAIN } from '../../const';
 	import { goto } from '$app/navigation';
@@ -42,12 +40,12 @@
 
 <div
 	id="my-pass-container"
-	class="mx-4 space-y-6 pb-36 pt-4"
+	class="min-h-[calc(100vh-64px)] mx-4 space-y-6 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
-	<PassCard {profile} {oshi} {badges} {following} {followers} myPass />
+	<PassCard {profile} {oshi} {badges} {following} {followers} />
 
-	<section class="mx-auto flex w-full flex-col sm:flex-row justify-center gap-4">
+	<section class="h-[128px] mx-auto flex w-full flex-col sm:flex-row justify-center gap-4">
 		<a
 			href="/mypass/edit"
 			class="btn btn-primary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
