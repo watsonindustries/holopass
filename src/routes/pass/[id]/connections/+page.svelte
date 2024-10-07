@@ -13,22 +13,27 @@
 	<BackButton url={`/pass/${pass?.id}`} />
 </section>
 
-<div class="mb-14 space-y-4 overflow-x-auto bg-base-100" id="following-profiles">
-	<h1 class="mx-4 py-4 text-4xl font-semibold tracking-tight">
-		{type.charAt(0).toUpperCase() + type.slice(1)}
-	</h1>
+<div class="flex min-h-[calc(100vh-128px)] mx-2 md:mx-4 flex-col">
+	<div
+		id="following-profiles"
+		class="grow mt-4 px-2 md:px-4 pb-10 h-full w-full rounded-t-3xl bg-base-100 shadow-lg"
+	>
+		<h1 class="mx-4 py-4 text-4xl font-semibold tracking-tight">
+			{type.charAt(0).toUpperCase() + type.slice(1)}
+		</h1>
 
-	{#if type === 'following'}
-		{#await following}
-			<ProfileItemListSkeleton />
-		{:then following}
-			<ProfileItemList profiles={following?.follows.map((p) => p.profiles)} />
-		{/await}
-	{:else if type === 'followers'}
-		{#await followers}
-			<ProfileItemListSkeleton />
-		{:then followers}
-			<ProfileItemList profiles={followers?.followers.map((p) => p.profiles)} />
-		{/await}
-	{/if}
+		{#if type === 'following'}
+			{#await following}
+				<ProfileItemListSkeleton />
+			{:then following}
+				<ProfileItemList profiles={following?.follows.map((p) => p.profiles)} />
+			{/await}
+		{:else if type === 'followers'}
+			{#await followers}
+				<ProfileItemListSkeleton />
+			{:then followers}
+				<ProfileItemList profiles={followers?.followers.map((p) => p.profiles)} />
+			{/await}
+		{/if}
+	</div>
 </div>
