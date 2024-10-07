@@ -13,16 +13,16 @@
 	import type { Tables } from '$lib/database.types';
 
 	export let data: Tables<'badges'>;
-	
+
 	/** Builds a string representing the duration between two dates, in days/hours/minutes. */
 	function buildDurationString(start: dayjs.Dayjs, end: dayjs.Dayjs): string {
 		const duration = end.diff(start, 'hours', true);
 		const days = Math.abs(Math.floor(duration / 24));
 		const hours = Math.abs(Math.floor(duration % 24));
 		const minutes = Math.abs(Math.floor((duration % 1) * 60));
-		const seconds = Math.abs(Math.floor(((duration % 1) * 60) % 1 * 60));
+		const seconds = Math.abs(Math.floor((((duration % 1) * 60) % 1) * 60));
 
-		let buildStr = "";
+		let buildStr = '';
 		if (days > 0) {
 			buildStr += `${days} day${days > 1 ? 's' : ''} `;
 		}
@@ -39,14 +39,13 @@
 	}
 </script>
 
-<a
-	href={`/mypass/check-in/${data.id}`}
-	class="flex w-full py-2"
->
-	<div class="flex-row w-full text-start place-items-center card transition bg-slate-200 hover:bg-slate-300 p-2">
+<a href={`/mypass/check-in/${data.id}`} class="flex w-full py-2">
+	<div
+		class="card w-full flex-row place-items-center bg-slate-200 p-2 text-start transition hover:bg-slate-300"
+	>
 		<!-- image -->
 		<div class="avatar h-20 w-20 md:h-24 md:w-24">
-			<div class="w-full rounded-2xl ring-2 md:ring ring-neutral ring-offset-base-100">
+			<div class="w-full rounded-2xl ring-2 ring-neutral ring-offset-base-100 md:ring">
 				<img
 					src={data.image ?? BADGE_PLACEHOLDER_URL}
 					width="1000"
@@ -60,8 +59,8 @@
 		<!-- /image -->
 		<div class="px-2" />
 		<div class="flex-col">
-			<p class="text-lg md:text-xl leading-tight md:leading-snug"><b>{data.name}</b></p>
-			<p class="text-sm hyphens-none">
+			<p class="text-lg leading-tight md:text-xl md:leading-snug"><b>{data.name}</b></p>
+			<p class="hyphens-none text-sm">
 				{#if dayjs() < dayjs(data.event_start)}
 					Starts in {buildDurationString(dayjs(), dayjs(data.event_start))}
 				{:else if dayjs() > dayjs(data.event_end)}
@@ -70,6 +69,6 @@
 					Ends in {buildDurationString(dayjs(), dayjs(data.event_end))}
 				{/if}
 			</p>
-		</div>	
+		</div>
 	</div>
 </a>
