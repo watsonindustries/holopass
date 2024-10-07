@@ -1,9 +1,18 @@
-import { loadBadge, loadBadgeLocation, loadProfilesWithBadge } from '../../../supabase';
+import {
+	loadBadge,
+	loadBadgeLocation,
+	loadProfile,
+	loadProfilesWithBadge
+} from '../../../supabase';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params, locals }) => {
+export const load = (async ({ params, locals: { supabase, getSession } }) => {
 	const { id } = params;
-	const { supabase } = locals;
+
+	const session = await getSession();
+	const user = session?.user;
+
+	const profile = await loadProfile(supabase)(user);
 
 	// try convert id to number
 	const idAsNumber = Number(id);
@@ -17,6 +26,7 @@ export const load = (async ({ params, locals }) => {
 	const profilesForBadge = loadProfilesWithBadge(supabase, idAsNumber);
 
 	return {
+		profile,
 		badge,
 		badgeLocation,
 		profilesForBadge

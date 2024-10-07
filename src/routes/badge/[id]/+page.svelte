@@ -23,7 +23,7 @@
 
 	export let data: PageData;
 
-	$: ({ badge, badgeLocation, profilesForBadge } = data);
+	$: ({ profile, badge, badgeLocation, profilesForBadge } = data);
 
 	let image: string;
 	let loc: [number, number] | null = null;
@@ -40,6 +40,7 @@
 			loc = [l.lat, l.long];
 		});
 	}
+	$: self_id = profile?.id;
 
 	let map: any;
 </script>
@@ -120,7 +121,7 @@
 				{#await profilesForBadge}
 					<ProfileItemListSkeleton />
 				{:then profiles}
-					<ProfileItemList {profiles}></ProfileItemList>
+					<ProfileItemList {self_id} {profiles} />
 				{/await}
 			</div>
 		{:else}

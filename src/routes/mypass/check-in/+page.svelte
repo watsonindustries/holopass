@@ -130,7 +130,7 @@
 						{#if nearbyEventData}
 							{#if nearbyEventData.error}
 								<PopupStatusCard icon={infoIcon} color="red" text_color="white">
-									{(nearbyEventData.error?.endsWith('.') || nearbyEventData.error?.endsWith('!'))
+									{nearbyEventData.error?.endsWith('.') || nearbyEventData.error?.endsWith('!')
 										? nearbyEventData.error
 										: `${nearbyEventData.error}.`}
 								</PopupStatusCard>
@@ -141,8 +141,8 @@
 									{#if badgeData}
 										{#if badgeData.error}
 											<PopupStatusCard icon={errorIcon} color="red" text_color="white">
-												Failed to fetch badges: {
-													(badgeData.error?.endsWith('.') || badgeData.error?.endsWith('!'))
+												Failed to fetch badges: {badgeData.error?.endsWith('.') ||
+												badgeData.error?.endsWith('!')
 													? badgeData.error
 													: `${badgeData.error}.`}
 											</PopupStatusCard>

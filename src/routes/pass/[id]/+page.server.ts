@@ -1,15 +1,15 @@
-import { loadBadges, loadOshi, loadProfile } from '../../../supabase';
+import { redirect } from '@sveltejs/kit';
+import { loadBadges, loadOshi } from '../../../supabase';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals, parent }) => {
-	const { supabase, getSession } = locals;
+	const { supabase } = locals;
 
-	const session = await getSession();
-	const user = session?.user;
+	const { pass, profile } = await parent();
 
-	const { pass } = await parent();
-
-	const profile = await loadProfile(supabase)(user);
+	if (profile && profile.id === pass?.id) {
+		redirect(303, '/mypass');
+	}
 
 	const { data } = await supabase
 		.from('follows')
@@ -23,7 +23,6 @@ export const load = (async ({ locals, parent }) => {
 	return {
 		badges: loadBadges(supabase)(pass?.badge_ids || []),
 		oshi: loadOshi(supabase)(pass?.talent_ids || []),
-		profile,
 		isFollowed
 	};
 }) satisfies PageServerLoad;
