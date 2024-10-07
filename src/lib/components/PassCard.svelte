@@ -11,8 +11,8 @@
 	export let profile: Tables<'profiles'> | null;
 	export let oshi: Promise<Tables<'talents'>[]>;
 	export let badges: Promise<Tables<'badges'>[]>;
-	export let following: Promise<{ follows: { profiles: Tables<'profiles'>; }[]; count: number; }>;
-	export let followers: Promise<{ followers: { profiles: Tables<'profiles'>; }[]; count: number }>;
+	export let following: Promise<{ follows: { profiles: Tables<'profiles'> }[]; count: number }>;
+	export let followers: Promise<{ followers: { profiles: Tables<'profiles'> }[]; count: number }>;
 
 	let nickname = profile?.nickname ?? '';
 	let nicknameJP = profile?.nickname_jp ?? '';
@@ -74,11 +74,19 @@
 
 			<section class="flex flex-row place-content-evenly p-4" id="connections">
 				{#await following then { count }}
-					<Counter {count} url={`/pass/${profile.id}/connections?type=following`} text="Following" />
+					<Counter
+						{count}
+						url={`/pass/${profile.id}/connections?type=following`}
+						text="Following"
+					/>
 				{/await}
 
 				{#await followers then { count }}
-					<Counter {count} url={`/pass/${profile.id}/connections?type=followers`} text="Followers" />
+					<Counter
+						{count}
+						url={`/pass/${profile.id}/connections?type=followers`}
+						text="Followers"
+					/>
 				{/await}
 			</section>
 

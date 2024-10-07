@@ -35,17 +35,17 @@
 <MetaTags
 	title="holopass - mypass"
 	description="holopass app"
-	openGraph={({
+	openGraph={{
 		url: 'https://holo-pass.com',
 		title: 'holopass - mypass',
 		description: `@${pass?.nickname} - follow me on holopass!`,
 		siteName: 'holo-pass'
-	})}
+	}}
 />
 
 <div
 	id="my-pass-container"
-	class="min-h-[calc(100vh-64px)] mx-4 space-y-6 pb-2 pt-4"
+	class="mx-4 min-h-[calc(100vh-64px)] space-y-6 pb-2 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<PassCard profile={pass} {oshi} {badges} {followers} {following} />

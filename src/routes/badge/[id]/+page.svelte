@@ -48,15 +48,12 @@
 	<BackButton url="/mypass" />
 </section>
 
-<div class="flex min-h-[calc(100vh-128px)] mx-2 md:mx-4 flex-col">
+<div class="mx-2 flex min-h-[calc(100vh-128px)] flex-col md:mx-4">
 	{#await badge}
 		<p>Loading...</p>
 	{:then badge}
 		{#if badge}
-			<div
-				id="badge-container"
-				class="flex flex-col items-center justify-center space-y-4 py-6"
-			>
+			<div id="badge-container" class="flex flex-col items-center justify-center space-y-4 py-6">
 				<div class="avatar w-48" id="badge">
 					<div class="w-full rounded-full shadow-lg ring ring-neutral ring-offset-base-100">
 						<img
@@ -73,8 +70,10 @@
 				<p class="text-balance text-center text-2xl font-semibold" id="badge-caption">
 					{badge.name}
 				</p>
-				<p class="text-center text-md hyphens-none" id="badge-description">
-					{dayjs(badge.event_start).format('LLLL z')} &mdash; {dayjs(badge.event_end).format('LLLL z')}
+				<p class="text-md hyphens-none text-center" id="badge-description">
+					{dayjs(badge.event_start).format('LLLL z')} &mdash; {dayjs(badge.event_end).format(
+						'LLLL z'
+					)}
 				</p>
 				<a
 					href={badge.external_url}
@@ -82,40 +81,40 @@
 					>Website</a
 				>
 				{#if loc && browser}
-						<div class="w-full md:max-w-[96vw] lg:max-w-[90vw] h-[500px] z-[0]">
-							<Map
-								options={{
-									center: loc,
-									zoom: 10
-								}}
-								bind:instance={map}
-							>
-								<Control options={{ position: "topleft"}}>
-									<!--recenter map button-->
-									<button
-										class="btn btn-sm w-[34px] rounded-[4px] px-1 text-lg font-bold text-black shadow-md bg-white hover:bg-gray-200 active:bg-sky-300 border-[#00000044] border-2"
-										on:click={() => {
-											map.flyTo(loc, 10);
-										}}
-									>
-										<Icon data={faLocationCrosshairs} scale={1.2} />
-									</button>
-								</Control>
-								<ControlScale />
-								<TileLayer url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"} />
-								<Marker
-									latLng={loc}
+					<div class="z-[0] h-[500px] w-full md:max-w-[96vw] lg:max-w-[90vw]">
+						<Map
+							options={{
+								center: loc,
+								zoom: 10
+							}}
+							bind:instance={map}
+						>
+							<Control options={{ position: 'topleft' }}>
+								<!--recenter map button-->
+								<button
+									class="btn btn-sm w-[34px] rounded-[4px] border-2 border-[#00000044] bg-white px-1 text-lg font-bold text-black shadow-md hover:bg-gray-200 active:bg-sky-300"
+									on:click={() => {
+										map.flyTo(loc, 10);
+									}}
 								>
-									<Popup>
-										{badge.name}
-									</Popup>
-								</Marker>
-							</Map>
-						</div>
+									<Icon data={faLocationCrosshairs} scale={1.2} />
+								</button>
+							</Control>
+							<ControlScale />
+							<TileLayer url={'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'} />
+							<Marker latLng={loc}>
+								<Popup>
+									{badge.name}
+								</Popup>
+							</Marker>
+						</Map>
+					</div>
 				{/if}
 			</div>
-			<div class="flex flex-col px-2 md:px-4 grow h-full w-full rounded-t-3xl bg-base-100 py-4 pb-10 shadow-lg">
-				<p class="p-8 text-center text-2xl md:text-4xl font-bold tracking-tight text-secondary">
+			<div
+				class="flex h-full w-full grow flex-col rounded-t-3xl bg-base-100 px-2 py-4 pb-10 shadow-lg md:px-4"
+			>
+				<p class="p-8 text-center text-2xl font-bold tracking-tight text-secondary md:text-4xl">
 					People with this badge
 				</p>
 				{#await profilesForBadge}

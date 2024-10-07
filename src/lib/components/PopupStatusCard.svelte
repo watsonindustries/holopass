@@ -7,7 +7,9 @@
 	export let text_color: string;
 </script>
 
-<div class={`flex-row card bg-${color}-600 p-2 text-${text_color} place-content-center text-center`}>
+<div
+	class={`card flex-row bg-${color}-600 p-2 text-${text_color} place-content-center text-center`}
+>
 	<div class="align-center">
 		<Icon data={icon} scale={1.2}></Icon>
 	</div>

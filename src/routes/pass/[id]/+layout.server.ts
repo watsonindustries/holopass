@@ -12,6 +12,6 @@ export const load = (async ({ locals, params }) => {
 	return {
 		pass,
 		following: loadProfileFollowing(supabase)(pass?.id ?? ''),
-		followers: loadProfileFollowers(supabase)(pass?.id ?? ''),
+		followers: loadProfileFollowers(supabase)(pass?.id ?? '')
 	};
 }) satisfies LayoutServerLoad;

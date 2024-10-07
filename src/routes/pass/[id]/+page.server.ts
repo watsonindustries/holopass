@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals, parent }) => {
 	const { supabase, getSession } = locals;
-	
+
 	const session = await getSession();
 	const user = session?.user;
 

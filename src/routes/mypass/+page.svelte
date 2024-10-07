@@ -40,27 +40,27 @@
 
 <div
 	id="my-pass-container"
-	class="min-h-[calc(100vh-64px)] mx-4 space-y-6 pt-4"
+	class="mx-4 min-h-[calc(100vh-64px)] space-y-6 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<PassCard {profile} {oshi} {badges} {following} {followers} />
 
-	<section class="h-[128px] mx-auto flex w-full flex-col sm:flex-row justify-center gap-4">
+	<section class="mx-auto flex h-[128px] w-full flex-col justify-center gap-4 sm:flex-row">
 		<a
 			href="/mypass/edit"
-			class="btn btn-primary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
+			class="btn btn-primary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
 		>
 			<Icon data={edit} scale={1.2}></Icon> Edit
 		</a>
 
 		<button
-			class="btn btn-secondary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
+			class="btn btn-secondary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
 			on:click={handleCopyLink}><Icon data={link} scale={1.2}></Icon> Copy Link</button
 		>
 
 		<a
 			href="/mypass/check-in"
-			class="btn btn-secondary basis-0 grow w-full rounded-full text-lg font-medium shadow-lg"
+			class="btn btn-secondary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
 		>
 			<Icon data={calendarCheckO} scale={1.2}></Icon> Check In
 		</a>

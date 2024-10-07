@@ -13,10 +13,10 @@
 	<BackButton url={`/pass/${pass?.id}`} />
 </section>
 
-<div class="flex min-h-[calc(100vh-128px)] mx-2 md:mx-4 flex-col">
+<div class="mx-2 flex min-h-[calc(100vh-128px)] flex-col md:mx-4">
 	<div
 		id="following-profiles"
-		class="grow mt-4 px-2 md:px-4 pb-10 h-full w-full rounded-t-3xl bg-base-100 shadow-lg"
+		class="mt-4 h-full w-full grow rounded-t-3xl bg-base-100 px-2 pb-10 shadow-lg md:px-4"
 	>
 		<h1 class="mx-4 py-4 text-4xl font-semibold tracking-tight">
 			{type.charAt(0).toUpperCase() + type.slice(1)}

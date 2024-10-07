@@ -162,10 +162,7 @@ export async function loadNearestBadges(
 	long: number,
 	max_dist: number
 ) {
-	const { data: badges } = await supabase.rpc(
-		'get_nearest_badges',
-		{ lat, long, max_dist }
-	);
+	const { data: badges } = await supabase.rpc('get_nearest_badges', { lat, long, max_dist });
 
 	return badges;
 }
@@ -173,7 +170,7 @@ export async function loadNearestBadges(
 /**
  * Identical to {@link loadNearestBadges}, but additionally filters only for badges that are
  * currently running according to `badges.event_start` and `badges.event_end`.
- * 
+ *
  * This is used to allow users to check in at a location and receive a badge if they are within
  * the event's location and time frame.
  * @returns A promise that resolves to an array of badge data.
@@ -184,10 +181,11 @@ export async function loadNearestBadgesTemporal(
 	long: number,
 	max_dist: number
 ) {
-	const { data: badges } = await supabase.rpc(
-		'get_nearest_badges_temporal',
-		{ lat, long, max_dist }
-	);
+	const { data: badges } = await supabase.rpc('get_nearest_badges_temporal', {
+		lat,
+		long,
+		max_dist
+	});
 
 	return badges;
 }
@@ -210,9 +208,7 @@ export async function loadBadgeLocations(supabase: SupabaseClient<Database>) {
  * @returns A promise that resolves to badge location data.
  */
 export async function loadBadgeLocation(supabase: SupabaseClient<Database>, id: number) {
-	const { data: location } = await supabase.rpc(
-		'get_badge_location', { id }
-	);
+	const { data: location } = await supabase.rpc('get_badge_location', { id });
 
 	return location;
 }
