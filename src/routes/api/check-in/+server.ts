@@ -78,7 +78,7 @@ export async function POST({ request, locals: { supabase, getSession } }) {
 	if (!badgeLoc) {
 		return json(
 			{
-				error: 'Badge location not found'
+				error: 'Event location not found'
 			} as CheckInPostResponseBody,
 			{
 				status: 404
@@ -95,7 +95,7 @@ export async function POST({ request, locals: { supabase, getSession } }) {
 	if (!activeNearbyBadges || activeNearbyBadges.length === 0) {
 		return json(
 			{
-				error: 'No badges found for current time and location'
+				error: 'No events found for current time and location'
 			} as CheckInPostResponseBody,
 			{
 				status: 404
@@ -108,10 +108,10 @@ export async function POST({ request, locals: { supabase, getSession } }) {
 	if (!badgeInActiveNearbyBadges) {
 		return json(
 			{
-				error: 'That badge is not active right now'
+				error: 'That event is not active right now'
 			} as CheckInPostResponseBody,
 			{
-				status: 400
+				status: 409
 			}
 		);
 	}
@@ -120,10 +120,10 @@ export async function POST({ request, locals: { supabase, getSession } }) {
 	if (profile.badge_ids?.includes(idAsNumber)) {
 		return json(
 			{
-				error: 'You already have this badge'
+				error: 'You already have this event badge'
 			} as CheckInPostResponseBody,
 			{
-				status: 400
+				status: 409
 			}
 		);
 	}

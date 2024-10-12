@@ -56,7 +56,7 @@ export async function POST({ request, locals: { supabase, getSession } }) {
 	if (res.length === 0) {
 		return json(
 			{
-				error: 'No badges found for current time and location'
+				error: 'No events found for current time and location'
 			} as CheckInStartPostResponseBody,
 			{
 				status: 404
