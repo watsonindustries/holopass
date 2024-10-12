@@ -35,7 +35,7 @@
 	id="pass-card"
 >
 	<section id="pass-info" class="flex">
-		<section class="w-3/5 flex-1" id="profile-pic">
+		<section class="w-3/5 flex-1 flex flex-col content-center items-center" id="profile-pic">
 			<Avatar {avatarURL} />
 			<p class="mb-4 text-center align-middle text-slate-600">holopass</p>
 		</section>
