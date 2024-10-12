@@ -4,6 +4,7 @@
 	import Icon from 'svelte-awesome';
 	import errorIcon from 'svelte-awesome/icons/exclamationTriangle';
 	import successIcon from 'svelte-awesome/icons/checkCircle';
+	import infoIcon from 'svelte-awesome/icons/infoCircle';
 
 	import { geolocation } from '@sveu/browser';
 	import BackButton from '$lib/components/BackButton.svelte';
@@ -13,10 +14,12 @@
 	} from '../../../api/check-in/+server';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import PopupStatusCard from '$lib/components/PopupStatusCard.svelte';
 
 	const { supported, coords, locatedAt, error, resume, pause } = geolocation();
 
 	let data: CheckInPostResponseBody | null = null;
+	let status: number | null = null;
 
 	async function wait(ms: number) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
@@ -28,6 +31,7 @@
 			pause();
 			errMsg = 'This browser does not support geolocation. Please use another browser!';
 			data = { error: errMsg };
+			status = 400;
 			return;
 		}
 		if ($error) {
@@ -35,16 +39,20 @@
 			switch ($error.code) {
 				case $error.PERMISSION_DENIED:
 					errMsg = 'You must allow location access to check in!';
+					status = 409;
 					break;
 				case $error.POSITION_UNAVAILABLE:
 					errMsg = 'Location information is unavailable. Please try again later!';
+					status = 400;
 					break;
 				case $error.TIMEOUT:
 					errMsg = 'The request to get location timed out. Please try again later!';
+					status = 400;
 					break;
 				default:
 					errMsg =
 						'An unknown error occurred while trying to get your location. Please try again later!';
+					status = 400;
 					break;
 			}
 			data = { error: errMsg };
@@ -63,7 +71,8 @@
 				loc: [$coords.latitude, $coords.longitude]
 			} as CheckInPostRequestBody)
 		});
-
+		
+		status = res.status;
 		data = await res.json();
 
 		switch (res.status) {
@@ -106,21 +115,19 @@
 			<div class="py-2" />
 			{#if data}
 				{#if data.error}
-					<div class="card flex-row place-content-center bg-red-600 p-2 text-center text-white">
-						<div class="align-center">
-							<Icon data={errorIcon} scale={1.2}></Icon>
-						</div>
-						<div class="px-2" />
-						{data.error.endsWith('.') ? data.error : `${data.error}.`}
-					</div>
+					{#if status === 409}
+						<PopupStatusCard icon={infoIcon} color="blue" text_color="white">
+							<p>{data.error.endsWith('.') ? data.error : `${data.error}.`}</p>
+						</PopupStatusCard>
+					{:else}
+						<PopupStatusCard icon={errorIcon} color="red" text_color="white">
+							<p>{data.error.endsWith('.') ? data.error : `${data.error}.`}</p>
+						</PopupStatusCard>
+					{/if}
 				{:else}
-					<div class="card flex-row place-content-center bg-green-600 p-2 text-center text-white">
-						<div class="align-center">
-							<Icon data={successIcon} scale={1.2}></Icon>
-						</div>
-						<div class="px-2" />
-						Successfully checked in!
-					</div>
+					<PopupStatusCard icon={successIcon} color="green" text_color="white">
+						<p>Successfully checked in!</p>
+					</PopupStatusCard>
 				{/if}
 			{:else}
 				<div class="text-center">Loading...</div>

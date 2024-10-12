@@ -141,7 +141,7 @@
 									{#if badgeData}
 										{#if badgeData.error}
 											<PopupStatusCard icon={errorIcon} color="red" text_color="white">
-												Failed to fetch badges: {badgeData.error?.endsWith('.') ||
+												Failed to fetch events: {badgeData.error?.endsWith('.') ||
 												badgeData.error?.endsWith('!')
 													? badgeData.error
 													: `${badgeData.error}.`}
@@ -158,7 +158,7 @@
 											{/each}
 										{:else}
 											<PopupStatusCard icon={infoIcon} color="blue" text_color="white">
-												<p>No badges found.</p>
+												<p>No events found.</p>
 											</PopupStatusCard>
 										{/if}
 									{/if}
@@ -175,7 +175,7 @@
 						{/if}
 					</div>
 				{:else}
-					<PopupStatusCard icon={infoIcon} color="red" text_color="white">
+					<PopupStatusCard  icon={errorIcon} color="red" text_color="white">
 						This browser does not support geolocation. Please use another browser!
 					</PopupStatusCard>
 				{/if}
