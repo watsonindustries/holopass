@@ -20,13 +20,14 @@
   	let position: string;
   	let positionMobile = "bottom";
 
-	const MIN_MOBILE_WIDTH = 768;
+	const MIN_MOBILE_WIDTH = 630;
   	$: position = windowWidth <= MIN_MOBILE_WIDTH ? positionMobile : "left";
 
 	function handleResize() {
     	windowWidth = window.innerWidth;
 
     	console.log("Window width: ", windowWidth);
+		console.log(position);
   	}
 
 	onMount(() => {
@@ -121,9 +122,9 @@
 			{/each}
 		{/if}
 	</div>
-	{#if !isHomePage}
+	
 		{#if position == "bottom"}
 			<BottomNav {pathname} />
 		{/if}
-	{/if}
+	
 </div>

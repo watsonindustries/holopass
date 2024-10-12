@@ -8,13 +8,13 @@
 </script>
 
 <div class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-200">
+    <div class="h-full py-4 overflow-y-auto bg-slate-200">
         <!-- <a href="/" data-sveltekit-reload>
             <img src=
         </a> -->
-        <ul class="space-y-2 font-medium">
-            <li>
-                <a class:active={pathname.includes('/mypass')} href="/mypass" data-sveltekit-reload>
+        <ul class="space-y-2 font-medium text-info">
+            <li class="side-nav">
+                <a class:active={pathname.includes('/mypass')} class="flex items-center px-3 py-2 hover:bg-gray-100" href="/mypass" data-sveltekit-reload>
                     <svg width="28" height="28" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_156_3)">
                             <path
@@ -28,8 +28,8 @@
                     <span class="ms-3">My Pass</span>
                 </a>
             </li>
-            <li>
-                <a class:active={pathname === '/qr'} href="/qr">
+            <li class="side-nav">
+                <a class:active={pathname === '/qr'} class="flex items-center px-3 py-2 hover:bg-gray-100" href="/qr">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -52,8 +52,8 @@
                     <span class="ms-3">Connect</span>
                 </a>
             </li>
-            <li>
-                <a class:active={pathname === '/about'} href="/about">
+            <li class="side-nav">
+                <a class:active={pathname === '/about'} class="flex items-center px-3 py-2 hover:bg-gray-100" href="/about">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
