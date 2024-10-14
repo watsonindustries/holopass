@@ -12,6 +12,7 @@
 	import { onMount } from 'svelte';
 	import LoginButton from '$lib/components/LoginButton.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
 	export let data: PageData;
 
@@ -126,25 +127,5 @@
 		</div>
 	</section>
 
-	<section class="space-y-4 bg-slate-50 py-8" id="info-hero">
-		<div class="mx-auto max-w-lg space-y-6 text-center">
-			<h1 class="text-center text-8xl font-bold text-secondary">Info</h1>
-			<p class="text-center text-xl font-semibold text-accent">
-				<span class="text-primary">holopass</span> is a fan project and is not affiliated with hololive
-				or COVER Corp.
-			</p>
-			<p class="text-center text-xl font-semibold text-accent">
-				All inquiries should go to <a href="https://x.com/danirukun">@danirukun</a>
-			</p>
-			<a href="/privacy" class="text-primary">Privacy Policy</a>
-		</div>
-	</section>
-
-	<footer class="bg-slate-200 py-8" id="footer">
-		<div class="mx-auto max-w-lg space-y-6 text-center">
-			<p class="text-center text-xl font-semibold text-accent">
-				&copy; 2024 <span class="text-primary">holopass developers</span>
-			</p>
-		</div>
-	</footer>
+	<Footer />
 </section>
