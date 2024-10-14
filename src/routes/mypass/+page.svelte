@@ -9,7 +9,7 @@
 	import calendarCheckO from 'svelte-awesome/icons/calendarCheckO';
 
 	import PassCard from '$lib/components/PassCard.svelte';
-	import { PROD_DOMAIN } from '../../const';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
 
 	export let data: PageData;
@@ -19,7 +19,7 @@
 	$: ({ session, supabase, profile, badges, oshi, following, followers } = data);
 
 	function handleCopyLink() {
-		const link = `${PROD_DOMAIN}/pass/${profile?.id}`;
+		const link = `${PUBLIC_SITE_URL}/pass/${profile?.id}`;
 		navigator.clipboard.writeText(link);
 		alert('Pass link copied to clipboard!');
 	}

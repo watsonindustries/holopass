@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PROD_DOMAIN } from '../../const';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 </script>
 
 <h1 class="mt-4 text-2xl font-bold">Privacy Policy</h1>
@@ -7,7 +7,7 @@
 <div class="mt-4">
 	<p class="text-base">Effective Date: 24/02/2024</p>
 	<p class="mt-2">
-		At holopass, accessible from {PROD_DOMAIN}, one of our main priorities is the privacy of our
+		At holopass, accessible from {PUBLIC_SITE_URL}, one of our main priorities is the privacy of our
 		visitors. This Privacy Policy document contains types of information that are collected and
 		recorded by holopass and how we use it.
 	</p>
