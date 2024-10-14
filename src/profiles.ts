@@ -1,5 +1,4 @@
-import { dev } from '$app/environment';
-import { PROD_DOMAIN } from './const';
+import { PUBLIC_SITE_URL } from '$env/static/public';
 
 export function isDaniru(profileId: string): boolean {
 	return false;
@@ -7,8 +6,7 @@ export function isDaniru(profileId: string): boolean {
 }
 
 export function profileRedirectURL(profileId: string): string {
-	const baseURL = dev ? 'http://localhost:5173' : PROD_DOMAIN;
-	const redirectURL = `${baseURL}/pass/${profileId}`;
+	const redirectURL = `${PUBLIC_SITE_URL}/pass/${profileId}`;
 	return redirectURL;
 }
 
@@ -19,5 +17,5 @@ export function discordAvatarURLtoStoragePath(url: string): string {
 
 export function profileURLFromNickname(nickname: string): string {
 	const encodedNickname = encodeURIComponent(nickname);
-	return `${PROD_DOMAIN}/pass/${encodedNickname}`;
+	return `${PUBLIC_SITE_URL}/pass/${encodedNickname}`;
 }

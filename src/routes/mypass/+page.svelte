@@ -9,7 +9,7 @@
 	import calendarCheckO from 'svelte-awesome/icons/calendarCheckO';
 
 	import PassCard from '$lib/components/PassCard.svelte';
-	import { PROD_DOMAIN } from '../../const';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
 	import { profileURLFromNickname } from '../../profiles';
 	import type {

@@ -1,5 +1,3 @@
-export const PROD_DOMAIN = 'https://holo-pass.com';
-
 export const INAPP_NOTIFICATION_TTL = 5000;
 
 export const X_DOMAINS = ['x.com', 'twitter.com'];
