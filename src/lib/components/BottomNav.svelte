@@ -2,7 +2,7 @@
 	export let pathname = '/';
 </script>
 
-<div class="btm-nav bg-slate-200 text-info mx-auto xl:max-w-xl">
+<div class="btm-nav mx-auto bg-slate-200 text-info xl:max-w-xl">
 	<a class:active={pathname.includes('/mypass')} href="/mypass" data-sveltekit-reload>
 		<svg width="28" height="28" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<g clip-path="url(#clip0_156_3)">

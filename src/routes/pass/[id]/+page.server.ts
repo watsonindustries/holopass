@@ -1,28 +1,21 @@
-import { fail } from '@sveltejs/kit';
-import { loadBadges, loadOshi, loadPass, loadProfile } from '../../../supabase';
+import { redirect } from '@sveltejs/kit';
+import { loadBadges, loadOshi } from '../../../supabase';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({ params, locals }) => {
-	const { id } = params;
-	const { supabase, getSession } = locals;
+export const load = (async ({ locals, parent }) => {
+	const { supabase } = locals;
 
-	const session = await getSession();
-	const user = session?.user;
+	const { pass, profile } = await parent();
 
-	const idOrNickname = decodeURIComponent(id);
-	const pass = await loadPass(supabase)(idOrNickname); // needed for the follow check
-
-	if (pass === null) {
-		return fail(404, { message: 'Pass not found' });
+	if (profile && profile.id === pass?.id) {
+		redirect(303, '/mypass');
 	}
-
-	const profile = await loadProfile(supabase)(user);
 
 	const { data } = await supabase
 		.from('follows')
 		.select('follower_id, followee_id')
 		.eq('follower_id', profile?.id)
-		.eq('followee_id', pass.id)
+		.eq('followee_id', pass?.id)
 		.single();
 
 	const isFollowed = data !== null;
@@ -30,7 +23,6 @@ export const load = (async ({ params, locals }) => {
 	return {
 		badges: loadBadges(supabase)(pass?.badge_ids || []),
 		oshi: loadOshi(supabase)(pass?.talent_ids || []),
-		profile,
 		isFollowed
 	};
 }) satisfies PageServerLoad;

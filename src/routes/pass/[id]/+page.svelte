@@ -45,12 +45,12 @@
 
 <div
 	id="my-pass-container"
-	class="mx-4 space-y-6 pb-36 pt-4"
+	class="mx-4 min-h-[calc(100vh-64px)] space-y-6 pb-2 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<PassCard profile={pass} {oshi} {badges} {followers} {following} />
 
-	<div class="flex justify-center">
+	<div class="flex h-[96px] justify-center">
 		{#if profile && pass}
 			<FollowButton
 				{isFollowed}
