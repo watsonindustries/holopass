@@ -3,18 +3,18 @@
 	import { fade } from 'svelte/transition';
 
 	import QR from '@svelte-put/qr/svg/QR.svelte';
-	import { PROD_DOMAIN } from '../../const';
 	import { Icon } from 'svelte-awesome';
 	import link from 'svelte-awesome/icons/link';
 	import share from 'svelte-awesome/icons/share';
 	import SuperWhite from '$lib/components/SuperWhite.svelte';
+	import { profileURLFromNickname } from '../../profiles';
 
 	export let data: PageData;
 
 	$: ({ profile } = data);
 
 	$: encodedNickname = encodeURIComponent(profile.nickname);
-	$: qrCodeUrl = `${PROD_DOMAIN}/pass/${encodedNickname}`;
+	$: qrCodeUrl = profileURLFromNickname(encodedNickname);
 
 	async function copyCode() {
 		await navigator.clipboard.writeText(qrCodeUrl);
