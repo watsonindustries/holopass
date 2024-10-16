@@ -7,10 +7,17 @@
 	import { htmlifyLinks } from '../../html';
 	import * as profiles from '../../profiles';
 	import Oshi from './Oshi.svelte';
+	import {profileRedirectURL} from "../../profiles";
+	import LoginButton from "$lib/components/LoginButton.svelte";
+	import FollowButton from "$lib/components/FollowButton.svelte";
+	import {invalidateAll} from "$app/navigation";
 
 	export let profile: Tables<'profiles'>;
+	export let pass: Tables<'profiles'>;
 	export let oshi: Promise<Tables<'talents'>[]>;
 	export let badges: Promise<Tables<'badges'>[]>;
+	export let isFollowed: boolean;
+	export let myPass: boolean;
 	export let following: Promise<{ following: Tables<'profiles'>[]; count: number }> = {
 		following: [],
 		count: 0
@@ -20,16 +27,31 @@
 		count: 0
 	};
 
-	let nickname = profile.nickname ?? '';
-	let nicknameJP = profile.nickname_jp ?? '';
-	$: avatarURL = profile.avatar_url ?? '';
-	let location = profile.location ?? '';
-	let bio = profile.bio ?? '';
-	let favStream = profile.fav_stream ?? '';
+	if (!pass) pass = profile;
+
+	let nickname = pass.nickname ?? '';
+	let nicknameJP = pass.nickname_jp ?? '';
+	$: avatarURL = pass.avatar_url ?? '';
+	let location = pass.location ?? '';
+	let bio = pass.bio ?? '';
+	let favStream = pass.fav_stream ?? '';
+
+	async function handleFollow(profile: Tables<'profiles'>, pass: Tables<'profiles'>) {
+		const resp = await fetch(`/pass/${pass?.id}/follow`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ profile })
+		});
+		if (resp.ok) {
+			invalidateAll();
+		} else {
+			console.error('Failed to follow user with status:', resp.status);
+		}
+	}
 </script>
 
 <div
-	class={profiles.isDaniru(profile.id)
+	class={profiles.isDaniru(pass.id)
 		? 'card bg-gradient-to-br from-primary/50 to-secondary/50 p-4 shadow-2xl shadow-primary/60'
 		: 'card bg-slate-50 p-4 shadow-lg'}
 	id="pass-card"
@@ -38,6 +60,25 @@
 		<section class="w-3/5 flex-1" id="profile-pic">
 			<Avatar {avatarURL} />
 			<p class="mb-4 text-center align-middle text-slate-600">holopass</p>
+			{#if !myPass}
+				<div class="flex justify-center">
+					{#if profile && pass}
+						<FollowButton
+								{isFollowed}
+								clickCallback={() => profile && pass && handleFollow(profile, pass)}
+						/>
+					{:else}
+						<div class="flex flex-col gap-4">
+							<p class="text-center text-2xl font-semibold tracking-tight text-secondary">
+								Login or Signup to follow
+							</p>
+							<LoginButton
+									loginRoute={`/login?redirectAfterLoginURL=${profileRedirectURL(pass?.id || '')}`}
+							/>
+						</div>
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<section class="flex-2 w-2/3 space-y-4 p-4">
@@ -78,11 +119,11 @@
 
 	<section class="flex flex-row place-content-evenly p-4" id="connections">
 		{#await following then { count }}
-			<Counter {count} url={`/pass/${profile.id}/connections?type=following`} text="Following" />
+			<Counter {count} url={`/pass/${pass.id}/connections?type=following`} text="Following" />
 		{/await}
 
 		{#await followers then { count }}
-			<Counter {count} url={`/pass/${profile.id}/connections?type=followers`} text="Followers" />
+			<Counter {count} url={`/pass/${pass.id}/connections?type=followers`} text="Followers" />
 		{/await}
 	</section>
 
