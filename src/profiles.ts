@@ -17,5 +17,5 @@ export function discordAvatarURLtoStoragePath(url: string): string {
 
 export function profileURLFromNickname(nickname: string): string {
 	const encodedNickname = encodeURIComponent(nickname);
-	return `${PUBLIC_SITE_URL}/pass/${encodedNickname}`;
+	return `${PROD_DOMAIN}/pass/${encodedNickname}`;
 }
