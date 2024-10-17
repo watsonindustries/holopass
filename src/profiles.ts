@@ -1,4 +1,5 @@
-import { PUBLIC_SITE_URL } from '$env/static/public';
+import { dev } from '$app/environment';
+import { PROD_DOMAIN } from './const';
 
 export function isDaniru(profileId: string): boolean {
 	return false;
@@ -6,7 +7,8 @@ export function isDaniru(profileId: string): boolean {
 }
 
 export function profileRedirectURL(profileId: string): string {
-	const redirectURL = `${PUBLIC_SITE_URL}/pass/${profileId}`;
+	const baseURL = dev ? 'http://localhost:5173' : PROD_DOMAIN;
+	const redirectURL = `${baseURL}/pass/${profileId}`;
 	return redirectURL;
 }
 
