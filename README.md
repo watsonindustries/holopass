@@ -42,8 +42,15 @@ http://127.0.0.1:54321/auth/v1/callback
 
 (Supabase is finicky with localhost, so we add both to be safe.)
 
-5. Add `SUPABASE_AUTH_REDIRECT_URI="http://127.0.0.1:54321/auth/v1/callback"` to the `.env` file.
-6. Launch your local Supabase instance.
+Your `.env` file should look like this:
+
+```
+SUPABASE_AUTH_EXTERNAL_DISCORD_CLIENT_ID=<your client id>
+SUPABASE_AUTH_EXTERNAL_DISCORD_SECRET=<your client secret>
+SUPABASE_AUTH_REDIRECT_URI="http://127.0.0.1:54321/auth/v1/callback"
+```
+
+5. Launch your local Supabase instance.
 
 ```sh
 npx supabase start
