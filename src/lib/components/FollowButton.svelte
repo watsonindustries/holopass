@@ -10,7 +10,7 @@
 
 {#if isFollowed}
 	<button
-		class="btn btn-secondary min-w-fit rounded-full px-4 text-lg text-white shadow-lg"
+		class="btn btn-secondary min-w-fit rounded-full px-4 text-sm text-white shadow-lg"
 		in:fade
 	>
 		<Icon data={check} />
@@ -18,7 +18,7 @@
 	</button>
 {:else}
 	<button
-		class="btn btn-primary min-w-fit rounded-full px-4 text-lg text-white shadow-lg"
+		class="btn btn-primary min-w-fit rounded-full px-4 text-sm text-white shadow-lg"
 		on:click={clickCallback}
 		in:fade
 	>
