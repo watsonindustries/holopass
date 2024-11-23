@@ -13,8 +13,6 @@ This repository contains the frontend code for `holopass`. The stack:
 2. Install `pnpm` and install dependencies with `pnpm install`
 3. Start the dev server with `pnpm dev` and log in using Discord
 
-At the moment, the app always uses the production Supabase instance, and the prod Discord app for Oauth.
-
 ### Setting up Discord OAuth
 
 To configure local Supabase to handle Discord logins:
