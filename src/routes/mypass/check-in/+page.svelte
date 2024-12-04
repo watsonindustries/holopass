@@ -102,6 +102,7 @@
 			if ($supported) {
 				await tryStartCheckIn();
 				geolocFetched = true;
+				console.log($coords);
 			}
 		}, 100);
 	});
@@ -109,6 +110,9 @@
 	onDestroy(() => {
 		pause();
 	});
+
+	const bgInfo = 'bg-[#389BF2]';
+	const bgError = 'bg-[#ff0000]';
 </script>
 
 <section class="bg-neutral-50 p-4">
@@ -129,7 +133,13 @@
 					<div class="align-center">
 						{#if nearbyEventData}
 							{#if nearbyEventData.error}
-								<PopupStatusCard icon={infoIcon} color="red" text_color="white">
+								<PopupStatusCard
+									icon={infoIcon}
+									color={
+										nearbyEventData.error?.startsWith('No events found') ? bgInfo : bgError
+									}
+									text_color="white"
+								>
 									{nearbyEventData.error?.endsWith('.') || nearbyEventData.error?.endsWith('!')
 										? nearbyEventData.error
 										: `${nearbyEventData.error}.`}
@@ -140,7 +150,7 @@
 								{:then badgeData}
 									{#if badgeData}
 										{#if badgeData.error}
-											<PopupStatusCard icon={errorIcon} color="red" text_color="white">
+											<PopupStatusCard icon={errorIcon} color={bgError} text_color="white">
 												Failed to fetch events: {badgeData.error?.endsWith('.') ||
 												badgeData.error?.endsWith('!')
 													? badgeData.error
@@ -157,25 +167,25 @@
 												<CheckInBadgeButton data={loc} />
 											{/each}
 										{:else}
-											<PopupStatusCard icon={infoIcon} color="blue" text_color="white">
+											<PopupStatusCard icon={infoIcon} color={bgInfo} text_color="white">
 												<p>No events found.</p>
 											</PopupStatusCard>
 										{/if}
 									{/if}
 								{/await}
 							{:else}
-								<PopupStatusCard icon={infoIcon} color="blue" text_color="white">
+								<PopupStatusCard icon={infoIcon} color={bgInfo} text_color="white">
 									<p>No nearby locations found.</p>
 								</PopupStatusCard>
 							{/if}
 						{:else}
-							<PopupStatusCard icon={infoIcon} color="blue" text_color="white">
+							<PopupStatusCard icon={infoIcon} color={bgInfo} text_color="white">
 								<p>No nearby locations found.</p>
 							</PopupStatusCard>
 						{/if}
 					</div>
 				{:else}
-					<PopupStatusCard  icon={errorIcon} color="red" text_color="white">
+					<PopupStatusCard  icon={errorIcon} color={bgError} text_color="white">
 						This browser does not support geolocation. Please use another browser!
 					</PopupStatusCard>
 				{/if}
