@@ -32,7 +32,9 @@
 		>
 			<section id="pass-info" class="flex">
 				<section class="w-3/5 flex-1" id="profile-pic">
-					<Avatar {avatarURL} />
+					<div class="flex justify-center">
+						<Avatar {avatarURL} />
+					</div>
 					<p class="mb-4 text-center align-middle text-slate-600">holopass</p>
 				</section>
 
