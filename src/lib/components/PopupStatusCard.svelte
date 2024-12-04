@@ -8,7 +8,7 @@
 </script>
 
 <div
-	class={`card flex-row bg-${color}-600 p-2 text-${text_color} place-content-center text-center`}
+	class={`card flex-row ${color} p-2 text-${text_color} place-content-center text-center`}
 >
 	<div class="align-center">
 		<Icon data={icon} scale={1.2}></Icon>

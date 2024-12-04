@@ -98,6 +98,11 @@
 			}
 		}, 100);
 	});
+
+	
+	const bgInfo = 'bg-[#389BF2]';
+	const bgError = 'bg-[#ff0000]';
+	const bgSuccess = 'bg-[#16a34a]';
 </script>
 
 <section class="bg-neutral-50 p-4">
@@ -116,16 +121,16 @@
 			{#if data}
 				{#if data.error}
 					{#if status === 409}
-						<PopupStatusCard icon={infoIcon} color="blue" text_color="white">
+						<PopupStatusCard icon={infoIcon} color={bgInfo} text_color="white">
 							<p>{data.error.endsWith('.') ? data.error : `${data.error}.`}</p>
 						</PopupStatusCard>
 					{:else}
-						<PopupStatusCard icon={errorIcon} color="red" text_color="white">
+						<PopupStatusCard icon={errorIcon} color={bgError} text_color="white">
 							<p>{data.error.endsWith('.') ? data.error : `${data.error}.`}</p>
 						</PopupStatusCard>
 					{/if}
 				{:else}
-					<PopupStatusCard icon={successIcon} color="green" text_color="white">
+					<PopupStatusCard icon={successIcon} color={bgSuccess} text_color="white">
 						<p>Successfully checked in!</p>
 					</PopupStatusCard>
 				{/if}
