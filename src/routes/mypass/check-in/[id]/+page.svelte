@@ -16,19 +16,13 @@
 	import { page } from '$app/stores';
 	import PopupStatusCard from '$lib/components/PopupStatusCard.svelte';
 
-	const { supported, coords, locatedAt, error, resume, pause } = geolocation();
+	const { supported, coords, locatedAt, error } = geolocation();
 
 	let data: CheckInPostResponseBody | null = null;
 	let status: number | null = null;
 
-	async function wait(ms: number) {
-		return new Promise((resolve) => setTimeout(resolve, ms));
-	}
 	async function tryCheckin() {
-		resume();
-		await wait(100);
 		if (!$supported) {
-			pause();
 			errMsg = 'This browser does not support geolocation. Please use another browser!';
 			data = { error: errMsg };
 			status = 400;
@@ -56,7 +50,6 @@
 					break;
 			}
 			data = { error: errMsg };
-			pause();
 			return;
 		}
 
@@ -87,7 +80,6 @@
 				}
 				break;
 		}
-		pause();
 	}
 
 	onMount(() => {
