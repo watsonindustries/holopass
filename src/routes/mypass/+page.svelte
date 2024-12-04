@@ -35,12 +35,14 @@
 
 <div
 	id="my-pass-container"
-	class="mx-4 min-h-[calc(100vh-64px)] space-y-6 pt-4"
+	class="mx-4 space-y-6 pt-4
+		min-h-max
+		h-[calc(100vh-64px)]"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<PassCard {profile} {oshi} {badges} {following} {followers} />
 
-	<section class="mx-auto flex h-[128px] w-full flex-col justify-center gap-4 sm:flex-row">
+	<section class="mx-auto flex w-full flex-col justify-center gap-4 sm:flex-row">
 		<a
 			href="/mypass/edit"
 			class="btn btn-primary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
@@ -60,4 +62,6 @@
 			<Icon data={calendarCheckO} scale={1.2}></Icon> Check In
 		</a>
 	</section>
+
+	<div class="h-[64px]"></div>
 </div>
