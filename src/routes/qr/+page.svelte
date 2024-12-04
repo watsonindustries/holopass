@@ -33,11 +33,15 @@
 
 <section
 	id="qr-code-card-container"
-	class="mx-4 h-screen space-y-8 pt-4"
+	class="mx-4 min-h-max h-[calc(100vh-64px)] space-y-8 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<div
-		class="card flex min-h-[80svh] justify-center rounded-3xl bg-white p-6 shadow-lg"
+		class="card flex
+			min-h-[80svh]
+			justify-center
+			rounded-3xl
+			bg-white p-6 shadow-lg"
 		id="qr-card"
 	>
 		<p class="text-center text-4xl font-semibold tracking-tight text-accent">{profile.nickname}</p>
