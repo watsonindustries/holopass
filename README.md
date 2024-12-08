@@ -76,3 +76,16 @@ npx supabase gen types typescript --local > database.types.ts
 # then run:
 npx prettier --write .\src\lib\database.types.ts
 ```
+
+## Inserting badges with geo data
+
+The best way to insert badges with geo data is to use SQL.
+
+```sql
+insert into public.badges
+  (name, type, location, event_start, event_end)
+values
+  ('Breaking Dimensions', 'concert', st_point(-73.946823, 40.807416), '2024-01-01', '2024-01-02'),
+  ('HoloLis', 'meetup', st_point(-73.94581, 40.807475), '2024-01-01', '2024-01-02'),
+  ('hololive meet taipei', 'official_event', st_point(-73.945826, 40.80629), '2024-01-01', '2024-01-02');
+```
