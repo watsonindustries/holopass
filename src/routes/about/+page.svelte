@@ -32,6 +32,13 @@
 	<section id="credits">
 		<h2 class="text-2xl font-bold tracking-tight">Credits</h2>
 		<p>Project lead: <a href="https://danirukun.com" class="link link-accent">@danirukun</a></p>
+		<p>
+			Developers:
+			<a href="https://x.com/ithixgameplay/" class="link link-accent">IthiX</a>,
+			<a href="https://x.com/moondog_94" class="link link-accent">Moondog</a>,
+			<a href="https://linktr.ee/kanomeister" class="link link-accent">kanomeister</a>
+
+		</p>
 		<p>Alpha testers: Kaigainiki server members</p>
 		<p>
 			Artist: <a href="https://twitter.com/CaptainMeowHere" class="link link-accent">@captainmeow</a
