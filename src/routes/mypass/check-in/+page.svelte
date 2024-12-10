@@ -15,6 +15,7 @@
 	import BackButton from '$lib/components/BackButton.svelte';
 	import CheckInBadgeButton from '$lib/components/CheckInBadgeButton.svelte';
 	import PopupStatusCard from '$lib/components/PopupStatusCard.svelte';
+	import { dev } from '$app/environment';
 
 	// note: Stores must be declared at the top level of the component (this may change in a future version of Svelte)
 	const { supported, coords, locatedAt, error, resume, pause } = geolocation();
@@ -72,7 +73,7 @@
 		switch (res.status) {
 			case 200:
 				// alert("Check-in locations fetched successfully!");
-				console.log(nearbyEventData);
+				// console.log(nearbyEventData);
 				break;
 			default:
 				errMsg = 'An error occurred while fetching check-in locations. Please try again later!';
@@ -85,7 +86,6 @@
 	}
 
 	async function fetchBadges(badgeIds: number[]): Promise<BadgesGetResponseBody> {
-		console.log('fetching badges:', badgeIds);
 		const idParams = badgeIds.map((id) => `id=${id}`).join('&');
 		const res = await fetch(`/api/badges?${idParams}`, {
 			method: 'GET',
@@ -102,7 +102,7 @@
 			if ($supported) {
 				await tryStartCheckIn();
 				geolocFetched = true;
-				console.log($coords);
+				if (dev) { console.log($coords); }
 			}
 		}, 100);
 	});

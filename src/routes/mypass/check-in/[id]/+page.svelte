@@ -71,7 +71,7 @@
 		switch (res.status) {
 			case 200:
 				// alert("Check-in locations fetched successfully!");
-				console.log(data);
+				// console.log(data);
 				break;
 			default:
 				errMsg = 'An error occurred while fetching check-in locations. Please try again later!';
