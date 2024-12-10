@@ -37,6 +37,9 @@
 				return;
 			}
 			let l = arr[0];
+			if (!l.lat || !l.long) {
+				return;
+			}
 			loc = [l.lat, l.long];
 		});
 	}

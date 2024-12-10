@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.watsonindustries.holopass",
+      "sha256_cert_fingerprints":
+        ["D8:88:77:CD:6A:9C:47:37:8E:55:84:A1:0E:B8:60:ED:95:14:1C:97:5E:32:E9:0A:1F:C7:1B:78:32:85:91:CB"]
+    }
+  }
+]

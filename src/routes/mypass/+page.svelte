@@ -9,8 +9,8 @@
 	import calendarCheckO from 'svelte-awesome/icons/calendarCheckO';
 
 	import PassCard from '$lib/components/PassCard.svelte';
+	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
-	import { profileURLFromNickname } from '../../profiles';
 
 	export let data: PageData;
 
@@ -19,7 +19,7 @@
 	$: ({ session, supabase, profile, badges, oshi, following, followers } = data);
 
 	function handleCopyLink() {
-		const link = profileURLFromNickname(profile?.nickname || '');
+		const link = `${PUBLIC_SITE_URL}/pass/${profile?.nickname}`;
 		navigator.clipboard.writeText(link);
 		alert('Pass link copied to clipboard!');
 	}
@@ -52,8 +52,10 @@
 
 		<button
 			class="btn btn-secondary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
-			on:click={handleCopyLink}><Icon data={link} scale={1.2}></Icon> Copy Link</button
+			on:click={handleCopyLink}><Icon data={link} scale={1.2}
 		>
+			</Icon> Copy Link
+		</button>
 
 		<a
 			href="/mypass/check-in"
