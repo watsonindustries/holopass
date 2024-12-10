@@ -35,9 +35,9 @@
 
 <div
 	id="my-pass-container"
-	class="mx-4 space-y-6 pt-4
-		min-h-max
-		h-[calc(100vh-64px)]"
+	class="mx-4 h-[calc(100vh-64px)] min-h-max
+		space-y-6
+		pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<PassCard {profile} {oshi} {badges} {following} {followers} />
@@ -52,9 +52,8 @@
 
 		<button
 			class="btn btn-secondary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
-			on:click={handleCopyLink}><Icon data={link} scale={1.2}
-		>
-			</Icon> Copy Link
+			on:click={handleCopyLink}
+			><Icon data={link} scale={1.2}></Icon> Copy Link
 		</button>
 
 		<a

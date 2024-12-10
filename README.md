@@ -53,6 +53,7 @@ SUPABASE_AUTH_REDIRECT_URI="http://127.0.0.1:54321/auth/v1/callback"
 ```sh
 npx supabase start
 ```
+
 ### Setting up Discord OAuth
 
 To configure local Supabase to handle Discord logins:
@@ -124,6 +125,7 @@ Users can check into events if they are within 1 mile / 1.6 km of its location, 
 ### Querying badge data
 
 A helpful query to view event location data in more helpful terms:
+
 ```sql
 select
   id,
@@ -140,10 +142,12 @@ from badges;
 ### Inserting new badges into Supabase
 
 The current best way to insert badges with geolocation data is to use SQL.
+
 - Go and get the precise lat/long coordinates of the event location. With PostGIS, you will specify like so: `ST_POINT(longitude latitude)`
 - You can specify the precise date-time for both `event_start` and `event_end` using ISO format: `YYYY-MM-DD HH:mm:ss(+|-)00:00` (for the timezone after the `ss` seconds, two examples: Eastern Standard Time (EST) is GMT `-05:00`, Japan Standard Time (JST) is GMT `+09:00`)
 
 Example (batch insert):
+
 ```sql
 insert into public.badges
   (name, type, location, external_url, event_start, event_end)

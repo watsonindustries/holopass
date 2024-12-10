@@ -102,7 +102,9 @@
 			if ($supported) {
 				await tryStartCheckIn();
 				geolocFetched = true;
-				if (dev) { console.log($coords); }
+				if (dev) {
+					console.log($coords);
+				}
 			}
 		}, 100);
 	});
@@ -135,9 +137,7 @@
 							{#if nearbyEventData.error}
 								<PopupStatusCard
 									icon={infoIcon}
-									color={
-										nearbyEventData.error?.startsWith('No events found') ? bgInfo : bgError
-									}
+									color={nearbyEventData.error?.startsWith('No events found') ? bgInfo : bgError}
 									text_color="white"
 								>
 									{nearbyEventData.error?.endsWith('.') || nearbyEventData.error?.endsWith('!')
@@ -185,7 +185,7 @@
 						{/if}
 					</div>
 				{:else}
-					<PopupStatusCard  icon={errorIcon} color={bgError} text_color="white">
+					<PopupStatusCard icon={errorIcon} color={bgError} text_color="white">
 						This browser does not support geolocation. Please use another browser!
 					</PopupStatusCard>
 				{/if}

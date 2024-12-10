@@ -37,7 +37,6 @@
 			<a href="https://x.com/ithixgameplay/" class="link link-accent">IthiX</a>,
 			<a href="https://x.com/moondog_94" class="link link-accent">Moondog</a>,
 			<a href="https://linktr.ee/kanomeister" class="link link-accent">kanomeister</a>
-
 		</p>
 		<p>Alpha testers: Kaigainiki server members</p>
 		<p>

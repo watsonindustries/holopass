@@ -33,7 +33,7 @@
 
 <section
 	id="qr-code-card-container"
-	class="mx-4 min-h-max h-[calc(100vh-64px)] space-y-8 pt-4"
+	class="mx-4 h-[calc(100vh-64px)] min-h-max space-y-8 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
 	<div

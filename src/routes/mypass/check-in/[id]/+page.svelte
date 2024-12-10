@@ -64,7 +64,7 @@
 				loc: [$coords.latitude, $coords.longitude]
 			} as CheckInPostRequestBody)
 		});
-		
+
 		status = res.status;
 		data = await res.json();
 
@@ -91,7 +91,6 @@
 		}, 100);
 	});
 
-	
 	const bgInfo = 'bg-[#389BF2]';
 	const bgError = 'bg-[#ff0000]';
 	const bgSuccess = 'bg-[#16a34a]';
