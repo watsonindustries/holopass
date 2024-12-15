@@ -5,7 +5,7 @@
 		avatarURL?: string;
 	}
 
-	let { avatarURL = $bindable('') }: Props = $props();
+	let { avatarURL = '' }: Props = $props();
 </script>
 
 <div class="avatar m-4">
