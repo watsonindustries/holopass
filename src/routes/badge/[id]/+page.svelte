@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { browser } from '$app/environment';
 
 	import dayjs from 'dayjs';
@@ -31,27 +29,23 @@
 
 	let { profile, badge, badgeLocation, profilesForBadge } = $derived(data);
 
-	let image: string = $state();
-	let loc: [number, number] | null = $state(null);
+	let image = $state<string | undefined>(undefined);
+	let loc = $state<[number, number] | undefined>(undefined);
+	let map = $state<any>(undefined);
 
-	run(() => {
+	$effect(() => {
 		badge?.then((b) => {
 			image = b.image ?? BADGE_PLACEHOLDER_URL;
 		});
+		
 		badgeLocation?.then((arr) => {
-			if (!arr || arr.length === 0) {
-				return;
-			}
+			if (!arr || arr.length === 0) return;
 			let l = arr[0];
-			if (!l.lat || !l.long) {
-				return;
-			}
+			if (!l.lat || !l.long) return;
 			loc = [l.lat, l.long];
 		});
 	});
 	let self_id = $derived(profile?.id);
-
-	let map: any = $state();
 </script>
 
 <section class="bg-neutral-50 p-4">

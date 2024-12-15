@@ -15,25 +15,44 @@
 
 	let { profile, badges, talents } = $derived(data);
 
-	// group talents by generation
-	const generations = (talents as Talent[]).reduce((acc: any, talent: Talent) => {
-		if (!acc[talent.gen]) {
-			acc[talent.gen] = [];
-		}
-		acc[talent.gen].push(talent);
-		return acc;
-	}, {}) as { [key: string]: Talent[] };
+	let generations = $state<Record<string, Talent[]>>({});
+	let profileForm = $state<HTMLFormElement | null>(null);
+	let loading = $state(false);
+	let nickname = $state('');
+	let nicknameJP = $state('');
+	let avatarURL = $state('');
+	let location = $state('');
+	let bio = $state('');
+	let favStream = $state('');
+	let badgeIds = $state<number[]>([]);
+	let oshiIds = $state<number[]>([]);
 
-	let profileForm: HTMLFormElement | null = null;
-	let loading = false;
-	let nickname: string = profile?.nickname ?? '';
-	let nicknameJP: string = profile?.nickname_jp ?? '';
-	let avatarURL: string = profile?.avatar_url ?? '';
-	let location: string = profile?.location ?? '';
-	let bio: string = profile?.bio ?? '';
-	let favStream: string = profile?.fav_stream ?? '';
-	let badgeIds: number[] = profile?.badge_ids ?? [];
-	let oshiIds: number[] = profile?.talent_ids ?? [];
+	// Update generations when talents change
+	$effect(() => {
+		if (talents) {
+			generations = talents.reduce((acc: Record<string, Talent[]>, talent: Talent) => {
+				if (!acc[talent.gen]) {
+					acc[talent.gen] = [];
+				}
+				acc[talent.gen].push(talent);
+				return acc;
+			}, {} as Record<string, Talent[]>);
+		}
+	});
+
+	// Update form fields when profile changes
+	$effect(() => {
+		if (profile) {
+			nickname = profile.nickname ?? '';
+			nicknameJP = profile.nickname_jp ?? '';
+			avatarURL = profile.avatar_url ?? '';
+			location = profile.location ?? '';
+			bio = profile.bio ?? '';
+			favStream = profile.fav_stream ?? '';
+			badgeIds = profile.badge_ids ?? [];
+			oshiIds = profile.talent_ids ?? [];
+		}
+	});
 </script>
 
 <section id="basic-info" class="space-y-4 p-6 pb-36" transition:fade={{ delay: 0, duration: 200 }}>
