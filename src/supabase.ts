@@ -1,5 +1,5 @@
 import type { SupabaseClient, User } from '@supabase/supabase-js';
-import type { Tables } from './lib/database.types';
+import type { Database, Tables } from './lib/database.types';
 import { discordAvatarURLtoStoragePath } from './profiles';
 
 /**
@@ -115,23 +115,33 @@ export function loadPass(
 /**
  * Loads badges from the Supabase database based on their IDs.
  * @param supabase - The Supabase client instance.
- * @returns A function that accepts an array of badge IDs and returns the badges data.
+ * @returns A function that accepts an array of badge IDs and returns a promise that
+ * resolves to an array of badge data. A value of `null` will return all badge data.
  */
 export function loadBadges(supabase: SupabaseClient) {
-	return async (badgeIds: number[]) => {
-		const { data: badges } = await supabase
+	return async (badgeIds: number[] | null) => {
+		let query = supabase
 			.from('badges')
-			.select('id, name, image, type, external_url')
-			.in('id', badgeIds);
+			.select('id, name, image, type, external_url, event_start, event_end');
+		if (badgeIds) {
+			query = query.in('id', badgeIds);
+		}
+		const { data: badges } = await query;
 
 		return badges as Tables<'badges'>[];
 	};
 }
 
+/**
+ * Loads a badge from the Supabase database based on its ID.
+ * @param supabase - The Supabase client instance.
+ * @param badgeId - The ID of the badge to load.
+ * @returns A promise that resolves to the badge data.
+ */
 export async function loadBadge(supabase: SupabaseClient, badgeId: number) {
 	const { data: badge } = await supabase
 		.from('badges')
-		.select('id, name, image, type, external_url')
+		.select('id, name, image, type, external_url, event_start, event_end')
 		.eq('id', badgeId)
 		.single();
 
@@ -139,9 +149,75 @@ export async function loadBadge(supabase: SupabaseClient, badgeId: number) {
 }
 
 /**
+ * Loads the badges nearest to the given lat/long coordinates from the Supabase database.
+ * @param supabase - The Supabase client instance.
+ * @param lat - The latitude of the location to search from.
+ * @param long - The longitude of the location to search from.
+ * @param max_dist - The maximum distance from the location to search for badges.
+ * @returns A promise that resolves to an array of badge data.
+ */
+export async function loadNearestBadges(
+	supabase: SupabaseClient<Database>,
+	lat: number,
+	long: number,
+	max_dist: number
+) {
+	const { data: badges } = await supabase.rpc('get_nearest_badges', { lat, long, max_dist });
+
+	return badges;
+}
+
+/**
+ * Identical to {@link loadNearestBadges}, but additionally filters only for badges that are
+ * currently running according to `badges.event_start` and `badges.event_end`.
+ *
+ * This is used to allow users to check in at a location and receive a badge if they are within
+ * the event's location and time frame.
+ * @returns A promise that resolves to an array of badge data.
+ */
+export async function loadNearestBadgesTemporal(
+	supabase: SupabaseClient<Database>,
+	lat: number,
+	long: number,
+	max_dist: number
+) {
+	const { data: badges } = await supabase.rpc('get_nearest_badges_temporal', {
+		lat,
+		long,
+		max_dist
+	});
+
+	return badges;
+}
+
+/**
+ * Loads badge locations from the Supabase database, e.g. for rendering on a map.
+ * @param supabase - The Supabase client instance.
+ * @returns A promise that resolves to an array of badge location data.
+ */
+export async function loadBadgeLocations(supabase: SupabaseClient<Database>) {
+	const { data: locations } = await supabase.rpc('get_badge_locations');
+
+	return locations;
+}
+
+/**
+ * Loads a badge location from the Supabase database based on badge ID.
+ * @param supabase - The Supabase client instance.
+ * @param id - The badge ID for which location to load.
+ * @returns A promise that resolves to badge location data.
+ */
+export async function loadBadgeLocation(supabase: SupabaseClient<Database>, id: number) {
+	const { data: location } = await supabase.rpc('get_badge_location', { id });
+
+	return location;
+}
+
+/**
  * Loads oshi (talents) from the Supabase database based on their IDs.
  * @param supabase - The Supabase client instance.
- * @returns A function that accepts an array of talent IDs and returns the oshi data.
+ * @returns A function that accepts an array of talent IDs and returns a promise that resolves
+ * to an array of talent data.
  */
 export function loadOshi(supabase: SupabaseClient) {
 	return async (talentIds: number[]) => {

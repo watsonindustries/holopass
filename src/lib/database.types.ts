@@ -31,25 +31,34 @@ export type Database = {
 			badges: {
 				Row: {
 					created_at: string;
+					event_end: string | null;
+					event_start: string | null;
 					external_url: string | null;
 					id: number;
 					image: string | null;
+					location: unknown | null;
 					name: string | null;
 					type: Database['public']['Enums']['Badge type'] | null;
 				};
 				Insert: {
 					created_at?: string;
+					event_end?: string | null;
+					event_start?: string | null;
 					external_url?: string | null;
 					id?: number;
 					image?: string | null;
+					location?: unknown | null;
 					name?: string | null;
 					type?: Database['public']['Enums']['Badge type'] | null;
 				};
 				Update: {
 					created_at?: string;
+					event_end?: string | null;
+					event_start?: string | null;
 					external_url?: string | null;
 					id?: number;
 					image?: string | null;
+					location?: unknown | null;
 					name?: string | null;
 					type?: Database['public']['Enums']['Badge type'] | null;
 				};
@@ -125,15 +134,7 @@ export type Database = {
 					talent_ids?: number[] | null;
 					updated_at?: string | null;
 				};
-				Relationships: [
-					{
-						foreignKeyName: 'profiles_id_fkey';
-						columns: ['id'];
-						isOneToOne: true;
-						referencedRelation: 'users';
-						referencedColumns: ['id'];
-					}
-				];
+				Relationships: [];
 			};
 			talents: {
 				Row: {
@@ -167,6 +168,50 @@ export type Database = {
 			[_ in never]: never;
 		};
 		Functions: {
+			get_badge_location: {
+				Args: {
+					id: number;
+				};
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+				}[];
+			};
+			get_badge_locations: {
+				Args: Record<PropertyKey, never>;
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+				}[];
+			};
+			get_nearest_badges: {
+				Args: {
+					lat: number;
+					long: number;
+					max_dist: number;
+				};
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+					dist_m: number;
+				}[];
+			};
+			get_nearest_badges_temporal: {
+				Args: {
+					lat: number;
+					long: number;
+					max_dist: number;
+				};
+				Returns: {
+					id: number;
+					lat: number;
+					long: number;
+					dist_m: number;
+				}[];
+			};
 			increment: {
 				Args: {
 					row_id: number;
@@ -271,6 +316,7 @@ export type Database = {
 					owner_id: string | null;
 					path_tokens: string[] | null;
 					updated_at: string | null;
+					user_metadata: Json | null;
 					version: string | null;
 				};
 				Insert: {
@@ -284,6 +330,7 @@ export type Database = {
 					owner_id?: string | null;
 					path_tokens?: string[] | null;
 					updated_at?: string | null;
+					user_metadata?: Json | null;
 					version?: string | null;
 				};
 				Update: {
@@ -297,6 +344,7 @@ export type Database = {
 					owner_id?: string | null;
 					path_tokens?: string[] | null;
 					updated_at?: string | null;
+					user_metadata?: Json | null;
 					version?: string | null;
 				};
 				Relationships: [
@@ -318,6 +366,7 @@ export type Database = {
 					key: string;
 					owner_id: string | null;
 					upload_signature: string;
+					user_metadata: Json | null;
 					version: string;
 				};
 				Insert: {
@@ -328,6 +377,7 @@ export type Database = {
 					key: string;
 					owner_id?: string | null;
 					upload_signature: string;
+					user_metadata?: Json | null;
 					version: string;
 				};
 				Update: {
@@ -338,6 +388,7 @@ export type Database = {
 					key?: string;
 					owner_id?: string | null;
 					upload_signature?: string;
+					user_metadata?: Json | null;
 					version?: string;
 				};
 				Relationships: [
@@ -474,6 +525,10 @@ export type Database = {
 					updated_at: string;
 				}[];
 			};
+			operation: {
+				Args: Record<PropertyKey, never>;
+				Returns: string;
+			};
 			search: {
 				Args: {
 					prefix: string;
@@ -576,4 +631,19 @@ export type Enums<
 	? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
 	: PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
 		? PublicSchema['Enums'][PublicEnumNameOrOptions]
+		: never;
+
+export type CompositeTypes<
+	PublicCompositeTypeNameOrOptions extends
+		| keyof PublicSchema['CompositeTypes']
+		| { schema: keyof Database },
+	CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+		schema: keyof Database;
+	}
+		? keyof Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+		: never = never
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+	? Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+	: PublicCompositeTypeNameOrOptions extends keyof PublicSchema['CompositeTypes']
+		? PublicSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
 		: never;

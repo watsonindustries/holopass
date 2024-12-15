@@ -25,8 +25,10 @@
 		</div>
 	</div>
 	<div class="flex max-w-lg flex-row space-x-4 p-4 text-center md:self-end" id="socials">
-		<a id="x-link" class="flex items-center justify-center text-3xl" href="https://x.com/holopassapp"
-			>𝕏</a
+		<a
+			id="x-link"
+			class="flex items-center justify-center text-3xl"
+			href="https://x.com/holopassapp">𝕏</a
 		>
 		<a
 			id="github-link"
