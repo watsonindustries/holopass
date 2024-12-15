@@ -1,15 +1,23 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import type { PageData } from './$types';
 	import { fade } from 'svelte/transition';
 	import Icon from 'svelte-awesome';
 
 	import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord';
 
-	export let data: PageData;
-
-	$: if (data.redirectAfterLoginURL) {
-		sessionStorage.setItem('redirectAfterLoginURL', data.redirectAfterLoginURL);
+	interface Props {
+		data: PageData;
 	}
+
+	let { data }: Props = $props();
+
+	run(() => {
+		if (data.redirectAfterLoginURL) {
+			sessionStorage.setItem('redirectAfterLoginURL', data.redirectAfterLoginURL);
+		}
+	});
 </script>
 
 <section id="home-container" class="mx-4 flex h-screen items-center justify-center space-y-6">

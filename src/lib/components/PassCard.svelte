@@ -8,15 +8,25 @@
 	import * as profiles from '../../profiles';
 	import Oshi from './Oshi.svelte';
 
-	export let profile: Tables<'profiles'> | null;
-	export let oshi: Promise<Tables<'talents'>[]>;
-	export let badges: Promise<Tables<'badges'>[]>;
-	export let following: Promise<{ follows: { profiles: Tables<'profiles'> }[]; count: number }>;
-	export let followers: Promise<{ followers: { profiles: Tables<'profiles'> }[]; count: number }>;
+	interface Props {
+		profile: Tables<'profiles'> | null;
+		oshi: Promise<Tables<'talents'>[]>;
+		badges: Promise<Tables<'badges'>[]>;
+		following: Promise<{ follows: { profiles: Tables<'profiles'> }[]; count: number }>;
+		followers: Promise<{ followers: { profiles: Tables<'profiles'> }[]; count: number }>;
+	}
+
+	let {
+		profile,
+		oshi,
+		badges,
+		following,
+		followers
+	}: Props = $props();
 
 	let nickname = profile?.nickname ?? '';
 	let nicknameJP = profile?.nickname_jp ?? '';
-	$: avatarURL = profile?.avatar_url ?? '';
+	let avatarURL = $derived(profile?.avatar_url ?? '');
 	let location = profile?.location ?? '';
 	let bio = profile?.bio ?? '';
 	let favStream = profile?.fav_stream ?? '';

@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { BADGE_PLACEHOLDER_URL } from '../../const';
 
-	export let name: string;
-	export let image = BADGE_PLACEHOLDER_URL;
-	export let id = 1;
+	interface Props {
+		name: string;
+		image?: any;
+		id?: number;
+	}
+
+	let { name, image = BADGE_PLACEHOLDER_URL, id = 1 }: Props = $props();
 </script>
 
 <a href={`/badge/${id}`}>

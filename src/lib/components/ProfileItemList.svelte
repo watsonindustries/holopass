@@ -2,8 +2,12 @@
 	import ProfileItem from '$lib/components/ProfileItem.svelte';
 	import type { Tables } from '$lib/database.types';
 
-	export let self_id: string | number | undefined = undefined;
-	export let profiles: Tables<'profiles'>[] | any;
+	interface Props {
+		self_id?: string | number | undefined;
+		profiles: Tables<'profiles'>[] | any;
+	}
+
+	let { self_id = undefined, profiles }: Props = $props();
 </script>
 
 <table class="table">

@@ -12,7 +12,11 @@
 	import { BADGE_PLACEHOLDER_URL } from '../../const';
 	import type { Tables } from '$lib/database.types';
 
-	export let data: Tables<'badges'>;
+	interface Props {
+		data: Tables<'badges'>;
+	}
+
+	let { data }: Props = $props();
 
 	/** Builds a string representing the duration between two dates, in days/hours/minutes. */
 	function buildDurationString(start: dayjs.Dayjs, end: dayjs.Dayjs): string {
@@ -57,7 +61,7 @@
 			</div>
 		</div>
 		<!-- /image -->
-		<div class="px-2" />
+		<div class="px-2"></div>
 		<div class="flex-col">
 			<p class="text-lg leading-tight md:text-xl md:leading-snug"><b>{data.name}</b></p>
 			<p class="hyphens-none text-sm">

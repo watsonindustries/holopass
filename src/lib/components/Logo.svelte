@@ -1,5 +1,13 @@
+<script lang="ts">
+	interface Props {
+		[key: string]: any
+	}
+
+	let { ...props }: Props = $props();
+</script>
+
 <svg
-	class={$$props.class}
+	class={props.class}
 	width="100%"
 	height="100%"
 	viewBox="0 260 850 340"

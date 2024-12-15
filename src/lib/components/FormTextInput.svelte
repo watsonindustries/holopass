@@ -1,10 +1,20 @@
 <script lang="ts">
-	export let form: any;
-	export let optional: boolean = false;
 
-	export let fieldName: string = '';
-	export let label: string;
-	export let fallbackValue: string = '';
+	interface Props {
+		form: any;
+		optional?: boolean;
+		fieldName?: string;
+		label: string;
+		fallbackValue?: string;
+	}
+
+	let {
+		form,
+		optional = false,
+		fieldName = '',
+		label,
+		fallbackValue = ''
+	}: Props = $props();
 </script>
 
 <label class="form-control w-full max-w-xs">

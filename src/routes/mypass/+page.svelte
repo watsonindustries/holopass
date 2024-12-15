@@ -12,11 +12,14 @@
 	import { PUBLIC_SITE_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	let { profile, badges, oshi, following, followers } = data;
+	let { data }: Props = $props();
 
-	$: ({ session, supabase, profile, badges, oshi, following, followers } = data);
+	let { profile, badges, oshi, following, followers,  } = $state(data);
+
 
 	function handleCopyLink() {
 		const link = `${PUBLIC_SITE_URL}/pass/${profile?.nickname}`;
@@ -52,7 +55,7 @@
 
 		<button
 			class="btn btn-secondary w-full grow basis-0 rounded-full text-lg font-medium shadow-lg"
-			on:click={handleCopyLink}
+			onclick={handleCopyLink}
 			><Icon data={link} scale={1.2}></Icon> Copy Link
 		</button>
 

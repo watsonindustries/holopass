@@ -1,7 +1,11 @@
 <script lang="ts">
 	const fallbackImg = 'https://cdn.discordapp.com/embed/avatars/1.png';
 
-	export let avatarURL = '';
+	interface Props {
+		avatarURL?: string;
+	}
+
+	let { avatarURL = '' }: Props = $props();
 </script>
 
 <div class="avatar m-4">
@@ -12,7 +16,7 @@
 			width="128"
 			height="128"
 			loading="eager"
-			on:error={() => (avatarURL = fallbackImg)}
+			onerror={() => (avatarURL = fallbackImg)}
 		/>
 	</div>
 </div>

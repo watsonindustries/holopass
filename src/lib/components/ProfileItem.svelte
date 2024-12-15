@@ -1,11 +1,21 @@
 <script lang="ts">
-	export let self_id: string | number | undefined;
-	export let id: string | number;
-	export let avatar_url: string;
-	export let nickname: string;
-	export let location: string;
+	interface Props {
+		self_id: string | number | undefined;
+		id: string | number;
+		avatar_url: string;
+		nickname: string;
+		location: string;
+	}
 
-	$: profile_link = self_id && self_id === id ? '/mypass' : `/pass/${id}`;
+	let {
+		self_id,
+		id,
+		avatar_url,
+		nickname,
+		location
+	}: Props = $props();
+
+	let profile_link = $derived(self_id && self_id === id ? '/mypass' : `/pass/${id}`);
 </script>
 
 <a class="flex items-center gap-3" href={profile_link} data-sveltekit-reload>

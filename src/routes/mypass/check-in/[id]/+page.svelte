@@ -18,8 +18,8 @@
 
 	const { supported, coords, locatedAt, error } = geolocation();
 
-	let data: CheckInPostResponseBody | null = null;
-	let status: number | null = null;
+	let data: CheckInPostResponseBody | null = $state(null);
+	let status: number | null = $state(null);
 
 	async function tryCheckin() {
 		if (!$supported) {
@@ -108,7 +108,7 @@
 	<div id="check-in-card" class="card bg-slate-50 p-4 shadow-lg">
 		<section class="flex flex-col p-4">
 			<h1 class="text-2xl"><b>Check In</b></h1>
-			<div class="py-2" />
+			<div class="py-2"></div>
 			{#if data}
 				{#if data.error}
 					{#if status === 409}
