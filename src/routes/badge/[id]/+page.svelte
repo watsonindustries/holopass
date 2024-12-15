@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { browser } from '$app/environment';
 
 	import dayjs from 'dayjs';
@@ -21,14 +23,18 @@
 	import type { PageData } from './$types';
 	import { BADGE_PLACEHOLDER_URL } from '../../../const';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	$: ({ profile, badge, badgeLocation, profilesForBadge } = data);
+	let { data }: Props = $props();
 
-	let image: string;
-	let loc: [number, number] | null = null;
+	let { profile, badge, badgeLocation, profilesForBadge } = $derived(data);
 
-	$: {
+	let image: string = $state();
+	let loc: [number, number] | null = $state(null);
+
+	run(() => {
 		badge?.then((b) => {
 			image = b.image ?? BADGE_PLACEHOLDER_URL;
 		});
@@ -42,10 +48,10 @@
 			}
 			loc = [l.lat, l.long];
 		});
-	}
-	$: self_id = profile?.id;
+	});
+	let self_id = $derived(profile?.id);
 
-	let map: any;
+	let map: any = $state();
 </script>
 
 <section class="bg-neutral-50 p-4">
@@ -97,7 +103,7 @@
 								<!--recenter map button-->
 								<button
 									class="btn btn-sm w-[34px] rounded-[4px] border-2 border-[#00000044] bg-white px-1 text-lg font-bold text-black shadow-md hover:bg-gray-200 active:bg-sky-300"
-									on:click={() => {
+									onclick={() => {
 										map.flyTo(loc, 10);
 									}}
 								>

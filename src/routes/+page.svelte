@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
 
@@ -14,10 +16,16 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	let { supabase, socialThumbImgURL } = data;
-	$: ({ supabase } = data);
+	let { data }: Props = $props();
+
+	let { supabase, socialThumbImgURL } = $state(data);
+	run(() => {
+		({ supabase } = data);
+	});
 
 	onMount(() => {
 		invalidateAll();

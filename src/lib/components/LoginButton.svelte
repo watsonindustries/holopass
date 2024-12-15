@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let loginRoute = '/login';
+	interface Props {
+		loginRoute?: string;
+	}
+
+	let { loginRoute = '/login' }: Props = $props();
 </script>
 
 <a

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import '../app.css';
@@ -8,10 +10,17 @@
 	import { store as iapStore } from '$lib/stores/inapp_notifications';
 	import Toast from '$lib/components/Toast.svelte';
 
-	export let data: LayoutData;
+	interface Props {
+		data: LayoutData;
+		children?: import('svelte').Snippet;
+	}
 
-	let { supabase, session, pathname } = data;
-	$: ({ supabase, session, pathname } = data);
+	let { data, children }: Props = $props();
+
+	let { supabase, session, pathname } = $state(data);
+	run(() => {
+		({ supabase, session, pathname } = data);
+	});
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
@@ -66,7 +75,7 @@
 		return () => data.subscription.unsubscribe();
 	});
 
-	$: isHomePage = pathname === '/';
+	let isHomePage = $derived(pathname === '/');
 </script>
 
 <svelte:head>
@@ -77,7 +86,7 @@
 	class="bg-gradient-to-r from-secondary/25 to-accent/25 xl:mx-auto"
 	class:xl:max-w-xl={!isHomePage}
 >
-	<slot />
+	{@render children?.()}
 	<div class="stack mx-auto">
 		{#if $iapStore && $iapStore.length > 0}
 			{#each $iapStore as notification}

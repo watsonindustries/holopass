@@ -10,12 +10,16 @@
 	import SuperWhite from '$lib/components/SuperWhite.svelte';
 	import { profileURLFromNickname } from '../../profiles';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	$: ({ profile } = data);
+	let { data }: Props = $props();
 
-	$: encodedNickname = encodeURIComponent(profile.nickname);
-	$: qrCodeUrl = `${PUBLIC_SITE_URL}/pass/${encodedNickname}`;
+	let { profile } = $derived(data);
+
+	let encodedNickname = $derived(encodeURIComponent(profile.nickname));
+	let qrCodeUrl = $derived(`${PUBLIC_SITE_URL}/pass/${encodedNickname}`);
 
 	async function copyCode() {
 		await navigator.clipboard.writeText(qrCodeUrl);
@@ -59,14 +63,14 @@
 		<section class="mx-auto mt-auto flex w-44 flex-col items-center gap-4">
 			<button
 				class="btn btn-primary w-full rounded-full text-lg font-medium shadow-lg"
-				on:click={copyCode}
+				onclick={copyCode}
 			>
 				<Icon data={link} scale={1.2}></Icon> Copy Link
 			</button>
 
 			<button
 				class="btn btn-secondary w-full rounded-full text-lg font-medium shadow-lg"
-				on:click={shareLink}
+				onclick={shareLink}
 			>
 				<Icon data={share} scale={1.2}></Icon> Share Link
 			</button>

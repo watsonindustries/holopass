@@ -12,11 +12,15 @@
 	import LoginButton from '$lib/components/LoginButton.svelte';
 	import { profileRedirectURL } from '../../../profiles';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	// in this context pass is another user's "profile"
 	// and profile is the current user's profile
-	$: ({ pass, oshi, badges, profile, following, followers, isFollowed } = data);
+	let { pass, oshi, badges, profile, following, followers, isFollowed } = $derived(data);
 
 	async function handleFollow(profile: Tables<'profiles'>, pass: Tables<'profiles'>) {
 		const resp = await fetch(`/pass/${pass?.id}/follow`, {

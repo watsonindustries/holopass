@@ -4,10 +4,14 @@
 	import ProfileItemListSkeleton from '$lib/components/ProfileItemListSkeleton.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	$: ({ followers, following, type, pass, profile } = data);
-	$: self_id = profile?.id;
+	let { data }: Props = $props();
+
+	let { followers, following, type, pass, profile } = $derived(data);
+	let self_id = $derived(profile?.id);
 </script>
 
 <section class="bg-base-100 p-4">

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { fade } from 'svelte/transition';
 
 	import Avatar from '$lib/components/Avatar.svelte';
@@ -6,11 +8,17 @@
 	import type { Talent } from '../../../custom';
 	import FormTextInput from '$lib/components/FormTextInput.svelte';
 
-	export let form;
-	export let data: PageData;
+	interface Props {
+		form: any;
+		data: PageData;
+	}
 
-	let { session, supabase, profile, badges, talents } = data;
-	$: ({ session, supabase, profile, badges, talents } = data);
+	let { form, data }: Props = $props();
+
+	let { session, supabase, profile, badges, talents } = $state(data);
+	run(() => {
+		({ session, supabase, profile, badges, talents } = data);
+	});
 
 	// group talents by generation
 	const generations = (talents as Talent[]).reduce((acc: any, talent: Talent) => {
@@ -21,7 +29,7 @@
 		return acc;
 	}, {}) as { [key: string]: Talent[] };
 
-	let profileForm: HTMLFormElement;
+	let profileForm: HTMLFormElement = $state();
 	let loading = false;
 	let nickname: string = profile?.nickname ?? '';
 	let nicknameJP: string = profile?.nickname_jp ?? '';

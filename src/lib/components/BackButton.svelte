@@ -2,7 +2,11 @@
 	import { Icon } from 'svelte-awesome';
 	import arrowLeft from 'svelte-awesome/icons/arrowLeft';
 
-	export let url = '/';
+	interface Props {
+		url?: string;
+	}
+
+	let { url = '/' }: Props = $props();
 </script>
 
 <a
