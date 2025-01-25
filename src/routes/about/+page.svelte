@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { version } from '$app/environment';
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
@@ -13,10 +11,7 @@
 
 	let { data }: Props = $props();
 
-	let { supabase } = $state(data);
-	run(() => {
-		({ supabase } = data);
-	});
+	let { supabase } = $derived(data);
 
 	async function handleLogout() {
 		const { error } = await supabase.auth.signOut();

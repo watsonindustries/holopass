@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import '../app.css';
@@ -17,10 +15,7 @@
 
 	let { data, children }: Props = $props();
 
-	let { supabase, session, pathname } = $state(data);
-	run(() => {
-		({ supabase, session, pathname } = data);
-	});
+	let { supabase, session, pathname } = $derived(data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {

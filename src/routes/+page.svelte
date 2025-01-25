@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { fade } from 'svelte/transition';
 	import type { PageData } from './$types';
 
@@ -22,10 +20,7 @@
 
 	let { data }: Props = $props();
 
-	let { supabase, socialThumbImgURL } = $state(data);
-	run(() => {
-		({ supabase } = data);
-	});
+	let { socialThumbImgURL } = $derived(data);
 
 	onMount(() => {
 		invalidateAll();
@@ -50,7 +45,7 @@
 		]
 	}}
 	twitter={{
-		handle: '@danirukun',
+		creator: '@danirukun',
 		site: '@danirukun',
 		title: 'holopass',
 		description: 'holopass - connect with fans at events!',

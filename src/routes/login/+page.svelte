@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import type { PageData } from './$types';
 	import { fade } from 'svelte/transition';
 	import Icon from 'svelte-awesome';
@@ -13,7 +11,7 @@
 
 	let { data }: Props = $props();
 
-	run(() => {
+	$effect(() => {
 		if (data.redirectAfterLoginURL) {
 			sessionStorage.setItem('redirectAfterLoginURL', data.redirectAfterLoginURL);
 		}
