@@ -6,31 +6,53 @@
 	import type { Talent } from '../../../custom';
 	import FormTextInput from '$lib/components/FormTextInput.svelte';
 
-	export let form;
-	export let data: PageData;
+	interface Props {
+		form: any;
+		data: PageData;
+	}
 
-	let { session, supabase, profile, badges, talents } = data;
-	$: ({ session, supabase, profile, badges, talents } = data);
+	let { form, data }: Props = $props();
 
-	// group talents by generation
-	const generations = (talents as Talent[]).reduce((acc: any, talent: Talent) => {
-		if (!acc[talent.gen]) {
-			acc[talent.gen] = [];
+	let { profile, badges, talents } = $derived(data);
+
+	let generations = $state<Record<string, Talent[]>>({});
+	let profileForm = $state<HTMLFormElement | null>(null);
+	let loading = $state(false);
+	let nickname = $state('');
+	let nicknameJP = $state('');
+	let avatarURL = $state('');
+	let location = $state('');
+	let bio = $state('');
+	let favStream = $state('');
+	let badgeIds = $state<number[]>([]);
+	let oshiIds = $state<number[]>([]);
+
+	// Update generations when talents change
+	$effect(() => {
+		if (talents) {
+			generations = talents.reduce((acc: Record<string, Talent[]>, talent: Talent) => {
+				if (!acc[talent.gen]) {
+					acc[talent.gen] = [];
+				}
+				acc[talent.gen].push(talent);
+				return acc;
+			}, {} as Record<string, Talent[]>);
 		}
-		acc[talent.gen].push(talent);
-		return acc;
-	}, {}) as { [key: string]: Talent[] };
+	});
 
-	let profileForm: HTMLFormElement;
-	let loading = false;
-	let nickname: string = profile?.nickname ?? '';
-	let nicknameJP: string = profile?.nickname_jp ?? '';
-	let avatarURL: string = profile?.avatar_url ?? '';
-	let location: string = profile?.location ?? '';
-	let bio: string = profile?.bio ?? '';
-	let favStream: string = profile?.fav_stream ?? '';
-	let badgeIds: number[] = profile?.badge_ids ?? [];
-	let oshiIds: number[] = profile?.talent_ids ?? [];
+	// Update form fields when profile changes
+	$effect(() => {
+		if (profile) {
+			nickname = profile.nickname ?? '';
+			nicknameJP = profile.nickname_jp ?? '';
+			avatarURL = profile.avatar_url ?? '';
+			location = profile.location ?? '';
+			bio = profile.bio ?? '';
+			favStream = profile.fav_stream ?? '';
+			badgeIds = profile.badge_ids ?? [];
+			oshiIds = profile.talent_ids ?? [];
+		}
+	});
 </script>
 
 <section id="basic-info" class="space-y-4 p-6 pb-36" transition:fade={{ delay: 0, duration: 200 }}>

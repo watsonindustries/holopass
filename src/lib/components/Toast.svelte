@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
-	export let message: string;
+	interface Props {
+		message: string;
+	}
+
+	let { message }: Props = $props();
 </script>
 
 <div class="toast toast-start toast-top">

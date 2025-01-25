@@ -5,10 +5,13 @@
 	import { goto } from '$app/navigation';
 	import { DISCORD_SERVER_INVITE_URL } from '../../const';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	let { supabase } = data;
-	$: ({ supabase } = data);
+	let { data }: Props = $props();
+
+	let { supabase } = $derived(data);
 
 	async function handleLogout() {
 		const { error } = await supabase.auth.signOut();
@@ -70,5 +73,5 @@
 	</section>
 
 	<br />
-	<button class="btn btn-secondary rounded-full" on:click={handleLogout}>Logout</button>
+	<button class="btn btn-secondary rounded-full" onclick={handleLogout}>Logout</button>
 </section>

@@ -14,10 +14,13 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
 
-	let { supabase, socialThumbImgURL } = data;
-	$: ({ supabase } = data);
+	let { data }: Props = $props();
+
+	let { socialThumbImgURL } = $derived(data);
 
 	onMount(() => {
 		invalidateAll();
@@ -42,7 +45,7 @@
 		]
 	}}
 	twitter={{
-		handle: '@danirukun',
+		creator: '@danirukun',
 		site: '@danirukun',
 		title: 'holopass',
 		description: 'holopass - connect with fans at events!',

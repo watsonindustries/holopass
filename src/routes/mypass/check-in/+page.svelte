@@ -20,8 +20,8 @@
 	// note: Stores must be declared at the top level of the component (this may change in a future version of Svelte)
 	const { supported, coords, locatedAt, error, resume, pause } = geolocation();
 
-	let geolocFetched = false;
-	let nearbyEventData: CheckInStartPostResponseBody | null = null;
+	let geolocFetched = $state(false);
+	let nearbyEventData: CheckInStartPostResponseBody | null = $state(null);
 
 	async function wait(ms: number) {
 		return new Promise((resolve) => setTimeout(resolve, ms));
@@ -129,7 +129,7 @@
 	<div id="check-in-card" class="card bg-slate-50 p-4 shadow-lg">
 		<section class="flex flex-col p-4">
 			<h1 class="text-2xl"><b>Check In</b></h1>
-			<div class="py-2" />
+			<div class="py-2"></div>
 			{#if geolocFetched}
 				{#if $supported}
 					<div class="align-center">
@@ -161,7 +161,7 @@
 												Looking to check in for an event badge? We found the following events near
 												you happening now!
 											</div>
-											<div class="p-2" />
+											<div class="p-2"></div>
 											<div class="text-lg"><b>Select an event below:</b></div>
 											{#each badgeData.badges as loc}
 												<CheckInBadgeButton data={loc} />

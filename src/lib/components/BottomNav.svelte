@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let pathname = '/';
+	interface Props {
+		pathname?: string;
+	}
+
+	let { pathname = '/' }: Props = $props();
 </script>
 
 <div class="btm-nav mx-auto bg-slate-200 text-info xl:max-w-xl">
