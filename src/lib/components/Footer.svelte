@@ -22,6 +22,7 @@
 			</p>
 			<a href="/privacy" class="px-4 text-primary">Privacy Policy</a>
 			<!-- <a href="/privacy" class="text-primary px-4">Credits</a> -->
+			<a href="/delete-account" class="text-primary px-4">Manage Account</a>
 		</div>
 	</div>
 	<div class="flex max-w-lg flex-row space-x-4 p-4 text-center md:self-end" id="socials">
