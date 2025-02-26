@@ -177,3 +177,5 @@ values
     '2024-12-08 19:00:00+00:00'::timestamp,
     '2024-12-10 19:00:00+00:00'::timestamp)
 ```
+
+You can use a tool like https://www.gps-coordinates.net/ to get the lat/long of an event location.
