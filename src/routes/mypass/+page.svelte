@@ -43,8 +43,6 @@
 		pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
-	<PassCard {profile} {oshi} {badges} {following} {followers} />
-
 	<section class="mx-auto flex w-full flex-col justify-center gap-4 sm:flex-row">
 		<a
 			href="/mypass/edit"
@@ -66,6 +64,8 @@
 			<Icon data={calendarCheckO} scale={1.2}></Icon> Check In
 		</a>
 	</section>
+
+	<PassCard {profile} {oshi} {badges} {following} {followers} />
 
 	<div class="h-[64px]"></div>
 </div>
