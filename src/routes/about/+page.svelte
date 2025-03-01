@@ -60,6 +60,7 @@
 	<section id="privacy">
 		<h2 class="text-2xl font-bold tracking-tight">Privacy</h2>
 		<a href="/privacy" class="link link-accent">Privacy Policy</a>
+		<a href="/content-policy" class="link link-accent ml-4">Content Policy</a>
 	</section>
 
 	<section id="disclaimer">

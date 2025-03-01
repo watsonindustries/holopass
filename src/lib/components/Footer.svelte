@@ -21,6 +21,7 @@
 				&copy; 2024 <span class="text-primary">holopass developers</span>
 			</p>
 			<a href="/privacy" class="px-4 text-primary">Privacy Policy</a>
+			<a href="/content-policy" class="px-4 text-primary">Content Policy</a>
 			<!-- <a href="/privacy" class="text-primary px-4">Credits</a> -->
 			<a href="/delete-account" class="text-primary px-4">Manage Account</a>
 		</div>
