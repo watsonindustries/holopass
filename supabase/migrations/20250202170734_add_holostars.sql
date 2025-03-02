@@ -1,11 +1,11 @@
 -- First transaction: Add new enum values
-ALTER TYPE "Generation" ADD VALUE 'STARS Gen 1';
-ALTER TYPE "Generation" ADD VALUE 'STARS Gen 2';
-ALTER TYPE "Generation" ADD VALUE 'STARS Gen 3';
-ALTER TYPE "Generation" ADD VALUE 'UPROAR!!';
-ALTER TYPE "Generation" ADD VALUE 'TEMPUS HQ';
-ALTER TYPE "Generation" ADD VALUE 'TEMPUS VG';
-ALTER TYPE "Generation" ADD VALUE 'ARMIS';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'STARS Gen 1';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'STARS Gen 2';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'STARS Gen 3';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'UPROAR!!';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'TEMPUS HQ';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'TEMPUS VG';
+ALTER TYPE "Generation" ADD VALUE IF NOT EXISTS 'ARMIS';
 
 -- Commit the first transaction
 COMMIT;
@@ -41,4 +41,6 @@ INSERT INTO talents (
   ('Jurard T Rexford', 'ジュラルド・ティー・レクスフォード', 'ARMIS', '🦖'),
   ('Goldbullet', 'ゴールドブレット', 'ARMIS', '🦅'),
   ('Octavio', 'オクタビオ', 'ARMIS', 'ထ'),
-  ('Crimzon Ruze', 'クリムゾン・ルーズ', 'ARMIS', '💢');
+  ('Crimzon Ruze', 'クリムゾン・ルーズ', 'ARMIS', '💢')
+ON CONFLICT (name_en) DO NOTHING
+;
