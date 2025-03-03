@@ -224,7 +224,8 @@ export function loadOshi(supabase: SupabaseClient) {
 		const { data: oshi } = await supabase
 			.from('talents')
 			.select('id, name_en, fanmark')
-			.in('id', talentIds);
+			.in('id', talentIds)
+			.order('sort_order', { ascending: true });
 
 		return oshi as Tables<'talents'>[];
 	};
