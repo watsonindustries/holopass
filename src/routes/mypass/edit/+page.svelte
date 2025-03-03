@@ -2,12 +2,12 @@
 	import { fade } from 'svelte/transition';
 
 	import Avatar from '$lib/components/Avatar.svelte';
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import type { Talent } from '../../../custom';
 	import FormTextInput from '$lib/components/FormTextInput.svelte';
 
 	interface Props {
-		form: any;
+		form: ActionData;
 		data: PageData;
 	}
 
@@ -157,6 +157,14 @@
 					{/each}
 				</div>
 			</section>
+
+			{#if !form?.success && form?.errors !== undefined}
+				<ul class="text-error">
+					{#each Object.entries(form.errors) as [field, message]}
+						<li>{field}: {message}</li>
+					{/each}
+				</ul>
+			{/if}
 
 			<div class="flex items-center">
 				<button

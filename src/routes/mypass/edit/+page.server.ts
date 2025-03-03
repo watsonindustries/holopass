@@ -14,9 +14,9 @@ const profileSchema = z.object({
 		.max(250, { message: 'Bio must be less than 250 characters' })
 		.trim()
 		.optional(),
-	fav_stream: z.string().max(100).optional(),
-	badge_ids: z.array(z.number().max(100)).max(100).optional(),
-	talent_ids: z.array(z.number().max(100)).max(100).optional()
+	fav_stream: z.string().max(256).optional(),
+	badge_ids: z.array(z.number()).optional(),
+	talent_ids: z.array(z.number()).optional()
 });
 
 export const load = (async ({ locals }) => {
@@ -40,7 +40,11 @@ export const load = (async ({ locals }) => {
 		return {};
 	}
 
-	const { data: talents, error: error2 } = await supabase.from('talents').select('*');
+	const { data: talents, error: error2 } = (
+		await supabase.from('talents')
+		.select('*')
+		.order('sort_order', { ascending: true })
+	);
 
 	if (error2) {
 		console.error('error2', error);
