@@ -40,7 +40,11 @@ export const load = (async ({ locals }) => {
 		return {};
 	}
 
-	const { data: talents, error: error2 } = await supabase.from('talents').select('*');
+	const { data: talents, error: error2 } = (
+		await supabase.from('talents')
+		.select('*')
+		.order('sort_order', { ascending: true })
+	);
 
 	if (error2) {
 		console.error('error2', error);
