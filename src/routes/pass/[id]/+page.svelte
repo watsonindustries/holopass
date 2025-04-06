@@ -49,26 +49,27 @@
 
 <div
 	id="my-pass-container"
-	class="mx-4 min-h-[calc(100vh-64px)] space-y-6 pb-2 pt-4"
+	class="mx-4 min-h-[calc(100vh-128px)] space-y-6 pb-12 pt-4"
 	transition:fade={{ delay: 0, duration: 200 }}
 >
-	<PassCard profile={pass} {oshi} {badges} {followers} {following} />
 
-	<div class="flex h-[96px] justify-center">
-		{#if profile && pass}
-			<FollowButton
-				{isFollowed}
-				clickCallback={() => profile && pass && handleFollow(profile, pass)}
-			/>
-		{:else}
-			<div class="flex flex-col gap-4">
-				<p class="text-center text-2xl font-semibold tracking-tight text-secondary">
-					Login or Signup to follow
-				</p>
-				<LoginButton
-					loginRoute={`/login?redirectAfterLoginURL=${profileRedirectURL(pass?.id || '')}`}
-				/>
-			</div>
-		{/if}
+<div class="flex h-full justify-center">
+	{#if profile && pass}
+	<FollowButton
+	{isFollowed}
+	clickCallback={() => profile && pass && handleFollow(profile, pass)}
+	/>
+	{:else}
+	<div class="flex flex-col gap-4">
+		<p class="text-center text-2xl font-semibold tracking-tight text-secondary">
+			Login or Signup to follow
+		</p>
+		<LoginButton
+		loginRoute={`/login?redirectAfterLoginURL=${profileRedirectURL(pass?.id || '')}`}
+		/>
 	</div>
+	{/if}
+</div>
+
+<PassCard profile={pass} {oshi} {badges} {followers} {following} />
 </div>
