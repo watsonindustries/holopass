@@ -224,7 +224,13 @@ export function loadOshi(supabase: SupabaseClient) {
 		const { data: oshi } = await supabase
 			.from('talents')
 			.select('id, name_en, fanmark')
-			.in('id', talentIds);
+			.in('id', talentIds)
+			.order('sort_order', { ascending: true });
+
+		if (oshi === null) {
+			console.error("Oshi data fetch returned null, returning empty list");
+			return [] as Tables<'talents'>[];
+		}
 
 		return oshi as Tables<'talents'>[];
 	};
