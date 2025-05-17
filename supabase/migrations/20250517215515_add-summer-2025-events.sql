@@ -1,0 +1,50 @@
+-- Change external_url column type from varchar to varchar(200)
+ALTER TABLE public.badges 
+ALTER COLUMN external_url TYPE varchar(200);
+
+insert into public.badges
+  (name, type, location, external_url, event_start, event_end)
+values
+  ('Nekomata Okayu 2nd Live.',
+    'concert',
+    st_point(139.6277, 35.4637),
+    'https://personyarespect.hololivepro.com/',
+    '2025-05-28 09:30:00+00:00'::timestamp,
+    '2025-05-29 09:30:00+00:00'::timestamp),
+  ('hololive GAMERS fes. CHOCHOCHOCHOGAMERS 2',
+    'concert',
+    st_point(139.6312, 35.8950),
+    'https://contents-abema.com/hololivegamersfes-2025/',
+    '2025-07-05 08:00:00+00:00'::timestamp,
+    '2025-07-06 09:00:00+00:00'::timestamp),
+  ('hololive STAGE World Tour ''25 -Synchronize!- Sydney',
+    'concert',
+    st_point(151.2018, -33.8746),
+    'https://smash.org.au/holo2025',
+    '2025-07-12 08:00:00+00:00'::timestamp,
+    '2025-07-12 23:59:00+00:00'::timestamp),
+  ('hololive STAGE World Tour ''25 -Synchronize!- Hong Kong',
+    'concert',
+    st_point(114.1697, 22.2761),
+    'https://www.infinite1.jp/events/hololive25',
+    '2025-07-27 10:00:00+00:00'::timestamp,
+    '2025-07-27 23:59:00+00:00'::timestamp),
+  ('hololive STAGE World Tour ''25 -Synchronize!- Vancouver',
+    'concert',
+    st_point(-123.1146, 49.2890),
+    'https://summer.animerevolution.ca',
+    '2025-08-03 17:00:00+00:00'::timestamp, 
+    '2025-08-03 23:59:00+00:00'::timestamp),
+  ('hololive STAGE World Tour ''25 -Synchronize!- New York',
+    'concert',
+    st_point(-74.0024, 40.7580),
+    'https://animenyc.com',
+    '2025-08-22 22:00:00+00:00'::timestamp,
+    '2025-08-22 23:59:00+00:00'::timestamp),
+  ('hololive STAGE World Tour ''25 -Synchronize!- Kuala Lumpur',
+    'concert',
+    st_point(101.6869, 3.1390),
+    'https://hololive.hololivepro.com/en/events/hololivestage25/',
+    '2025-12-20 12:00:00+00:00'::timestamp,
+    '2025-12-20 23:59:00+00:00'::timestamp)
+ON CONFLICT (id) DO NOTHING;

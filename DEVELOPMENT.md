@@ -169,5 +169,5 @@ npx supabase up
 To migrate the remote database:
 
 ```bash
-npx supabase migrate up --linked
+pnpx supabase migration up --linked
 ```
